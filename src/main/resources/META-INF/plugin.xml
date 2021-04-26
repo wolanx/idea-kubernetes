@@ -18,16 +18,14 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <toolWindow id="Sample Calendar" secondary="true" icon="AllIcons.General.Modified" anchor="right"
+                    factoryClass="com.zx5435.k8show.MyToolWindowFactory"/>
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
-        <action id="TextBoxes" class="TextBoxes" text="TextBoxesnammm"/>
-        <group id="MyPlugin.SampleMenu" text="_Sample Menu" description="Sample menu">
+        <group text="_K8S">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="Myplugin.Textboxes" class="TextBoxes" text="Text _Boxes"
-                    description="A test menu item"/>
+            <action text="Text Boxes" class="com.zx5435.k8show.TextBoxes"/>
         </group>
     </actions>
 

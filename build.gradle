@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.7.3'
+}
+
+sourceCompatibility = 1.8
+//systemProp.com.ibm.jsse2.overrideDefaultTLS=true
+
+repositories {
+    mavenLocal()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.kubernetes:client-java:10.0.0'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+//intellij {
+//    version = '2020.2.4'
+//}
+
+buildSearchableOptions {
+    enabled = false
+}
+//publishPlugin {
+//    host = 'https://xxxx.com'  //仓库地址
+//    username 'onepublish' //仓库指定用户名
+//    password 'onepublish' //仓库密码
+//    token 'onepublish'  //仓库验证token
+//}
+
