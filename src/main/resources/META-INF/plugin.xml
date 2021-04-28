@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.your.company.unique.plugin.id</id>
-    <name>k8show</name>
+    <name>K8show</name>
     <version>1.0</version>
     <vendor email="825407762@qq.com" url="https://zx5435.com">Yujie.Zhao</vendor>
 
@@ -19,13 +19,13 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Sample Calendar" secondary="true" icon="AllIcons.General.Modified" anchor="right"
-                    factoryClass="com.zx5435.k8show.MyToolWindowFactory"/>
+                    factoryClass="zx5435.k8show.MyToolWindowFactory"/>
     </extensions>
 
     <actions>
         <group text="_K8S">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action text="Text Boxes" class="com.zx5435.k8show.TextBoxes"/>
+            <action text="Text Boxes" class="zx5435.k8show.TextBoxes"/>
         </group>
     </actions>
 

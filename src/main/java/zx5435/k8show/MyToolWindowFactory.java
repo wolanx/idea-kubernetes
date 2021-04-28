@@ -1,4 +1,4 @@
-package com.zx5435.k8show;
+package zx5435.k8show;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
@@ -15,6 +15,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
      * @param project    current project
      * @param toolWindow current tool window
      */
+    @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         MyToolWindow myToolWindow = new MyToolWindow(toolWindow);
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();

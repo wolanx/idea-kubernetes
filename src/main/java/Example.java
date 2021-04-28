@@ -12,7 +12,10 @@ public class Example {
 
     // -Djdk.tls.client.protocols=TLSv1.2
     public static void main(String[] args) throws IOException, ApiException {
-        ApiClient client = Config.fromConfig("Z:\\www\\zx5435\\k8show\\kubeconfig");
+        String fPath = ClassLoader.getSystemClassLoader().getResource("kubeconfig").getFile();
+        System.out.println("fPath = " + fPath);
+
+        ApiClient client = Config.fromConfig(fPath);
         Configuration.setDefaultApiClient(client);
 
         CoreV1Api api = new CoreV1Api();

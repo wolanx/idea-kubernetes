@@ -14,17 +14,20 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.kubernetes:client-java:10.0.0'
+    implementation('io.kubernetes:client-java:10.0.0') {
+        exclude group: 'org.slf4j'
+//        exclude module: 'slf4j-api'
+    }
+
+    // testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    // testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
-//intellij {
-//    version = '2020.2.4'
-//}
-
-buildSearchableOptions {
-    enabled = false
+intellij {
+    version '2020.3.3'
 }
+
 //publishPlugin {
 //    host = 'https://xxxx.com'  //仓库地址
 //    username 'onepublish' //仓库指定用户名

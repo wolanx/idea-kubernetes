@@ -1,4 +1,4 @@
-package com.zx5435.k8show;
+package zx5435.k8show;
 
 import com.intellij.openapi.wm.ToolWindow;
 import io.kubernetes.client.openapi.ApiClient;
@@ -50,8 +50,10 @@ public class MyToolWindow {
         dlm.addElement("hehe");
 
         ApiClient client = null;
+        String kubeconfig = getClass().getClassLoader().getResource("kubeconfig").getFile();
+        System.out.println("kubeconfig = " + kubeconfig);
         try {
-            client = Config.fromConfig("Z:\\www\\zx5435\\k8show\\kubeconfig");
+            client = Config.fromConfig("C:\\Users\\913332\\kubeconfig");
             Configuration.setDefaultApiClient(client);
 
             CoreV1Api api = new CoreV1Api();
