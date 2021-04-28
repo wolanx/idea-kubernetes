@@ -1,4 +1,4 @@
-package zx5435.k8show;
+package com.zx5435.k8show;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
@@ -7,6 +7,9 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author 913332
+ */
 public class MyToolWindowFactory implements ToolWindowFactory {
 
     /**

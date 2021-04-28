@@ -1,4 +1,4 @@
-package zx5435.k8show;
+package com.zx5435.k8show;
 
 import com.intellij.openapi.wm.ToolWindow;
 import io.kubernetes.client.openapi.ApiClient;

@@ -18,14 +18,16 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="Sample Calendar" secondary="true" icon="AllIcons.General.Modified" anchor="right"
-                    factoryClass="zx5435.k8show.MyToolWindowFactory"/>
+        <toolWindow id="Kubernetes+"
+                    anchor="left" secondary="false"
+                    factoryClass="com.zx5435.k8show.MyToolWindowFactory"
+                    icon="/pluginIcon13x13.svg"/>
     </extensions>
 
     <actions>
         <group text="_K8S">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action text="Text Boxes" class="zx5435.k8show.TextBoxes"/>
+            <action text="Text Boxes" class="com.zx5435.k8show.TextBoxes"/>
         </group>
     </actions>
 
