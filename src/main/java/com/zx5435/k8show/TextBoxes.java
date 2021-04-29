@@ -15,9 +15,10 @@ import io.kubernetes.client.util.Config;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
+/**
+ * @author 913332
+ */
 public class TextBoxes extends AnAction {
 
     @Override
@@ -37,7 +38,7 @@ public class TextBoxes extends AnAction {
         }
 
         Project project = event.getData(PlatformDataKeys.PROJECT);
-        String txt = Messages.showInputDialog(project, "What is your name?", "Input your name", Messages.getQuestionIcon());
+        String txt = Messages.showInputDialog(project, "What is your name?", "Input Your Name", Messages.getQuestionIcon());
         Messages.showMessageDialog(project, "Hello, " + txt + "!n I am glad to see you.", "Information", Messages.getInformationIcon());
     }
 

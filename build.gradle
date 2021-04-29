@@ -5,6 +5,7 @@ plugins {
 }
 
 sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
 //systemProp.com.ibm.jsse2.overrideDefaultTLS=true
 
 repositories {

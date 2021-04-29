@@ -20,7 +20,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Kubernetes+"
                     anchor="left" secondary="false"
-                    factoryClass="com.zx5435.k8show.MyToolWindowFactory"
+                    factoryClass="com.zx5435.k8show.K8sToolWindowFactory"
                     icon="/pluginIcon13x13.svg"/>
     </extensions>
 
