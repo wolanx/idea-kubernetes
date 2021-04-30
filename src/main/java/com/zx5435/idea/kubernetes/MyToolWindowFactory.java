@@ -52,7 +52,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
 
                 if (lastPathComponent instanceof DeploymentsNode) {
                     ((DeploymentsNode) lastPathComponent).treeExpanded();
-                    tree.updateUI();
+                    //tree.updateUI();
                 }
             }
 
@@ -62,6 +62,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
             }
         });
 
+        tree.setRootVisible(false);
         tree.setCellRenderer(new NodeRenderer());
 
         return tree;

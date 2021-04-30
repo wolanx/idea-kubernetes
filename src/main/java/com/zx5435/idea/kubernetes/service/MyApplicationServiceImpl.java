@@ -23,7 +23,7 @@ public class MyApplicationServiceImpl implements MyApplicationService {
 
         ApiClient client;
         try {
-            client = Config.fromConfig("C:\\Users\\913332\\kubeconfig");
+            client = Config.fromConfig("C:\\Users\\admin\\.kube\\config");
             Configuration.setDefaultApiClient(client);
 
             CoreV1Api api = new CoreV1Api();

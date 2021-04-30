@@ -13,7 +13,6 @@ public class DeploymentsNode extends DefaultMutableTreeNode {
 
     public DeploymentsNode(String userObject) {
         super(userObject, true);
-        this.setAllowsChildren(true);
     }
 
     public void treeExpanded() {
