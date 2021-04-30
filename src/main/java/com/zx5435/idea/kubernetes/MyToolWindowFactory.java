@@ -1,5 +1,6 @@
-package com.zx5435.k8show;
+package com.zx5435.idea.kubernetes;
 
+import com.intellij.ide.util.treeView.NodeRenderer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -7,17 +8,17 @@ import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.treeStructure.Tree;
+import com.zx5435.idea.kubernetes.node.DeploymentsNode;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * @author 913332
  */
-public class K8sToolWindowFactory implements ToolWindowFactory {
+public class MyToolWindowFactory implements ToolWindowFactory {
 
     /**
      * Create the tool window content.
@@ -46,8 +47,13 @@ public class K8sToolWindowFactory implements ToolWindowFactory {
 
             @Override
             public void treeExpanded(TreeExpansionEvent event) {
-                DefaultMutableTreeNode lastPathComponent = (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
-                System.out.println("treeExpanded" + lastPathComponent.getUserObject());
+                Object lastPathComponent = event.getPath().getLastPathComponent();
+                System.out.println("treeExpanded = " + lastPathComponent);
+
+                if (lastPathComponent instanceof DeploymentsNode) {
+                    ((DeploymentsNode) lastPathComponent).treeExpanded();
+                    tree.updateUI();
+                }
             }
 
             @Override
@@ -55,6 +61,8 @@ public class K8sToolWindowFactory implements ToolWindowFactory {
                 System.out.println("treeCollapsed");
             }
         });
+
+        tree.setCellRenderer(new NodeRenderer());
 
         return tree;
     }

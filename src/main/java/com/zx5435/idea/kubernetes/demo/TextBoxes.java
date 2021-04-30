@@ -1,4 +1,4 @@
-package com.zx5435.k8show;
+package com.zx5435.idea.kubernetes.demo;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;

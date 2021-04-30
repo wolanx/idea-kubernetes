@@ -1,4 +1,4 @@
-package com.zx5435.k8show;
+package com.zx5435.idea.kubernetes.demo;
 
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.treeStructure.Tree;
@@ -87,7 +87,7 @@ public class MyToolWindow {
         return myToolWindowContent;
     }
 
-    static class User {
+    public static class User {
 
         private final String name;
 

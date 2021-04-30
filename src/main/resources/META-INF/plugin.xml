@@ -20,14 +20,16 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Kubernetes+"
                     anchor="left" secondary="false"
-                    factoryClass="com.zx5435.k8show.K8sToolWindowFactory"
+                    factoryClass="com.zx5435.idea.kubernetes.MyToolWindowFactory"
                     icon="/pluginIcon13x13.svg"/>
+        <applicationService serviceInterface="com.zx5435.idea.kubernetes.service.MyApplicationService"
+                            serviceImplementation="com.zx5435.idea.kubernetes.service.MyApplicationServiceImpl" />
     </extensions>
 
     <actions>
         <group text="_K8S">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action text="Text Boxes" class="com.zx5435.k8show.TextBoxes"/>
+            <action text="Text Boxes" class="com.zx5435.idea.kubernetes.demo.TextBoxes"/>
         </group>
     </actions>
 
