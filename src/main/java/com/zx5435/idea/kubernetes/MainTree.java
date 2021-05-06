@@ -1,6 +1,5 @@
 package com.zx5435.idea.kubernetes;
 
-import com.intellij.ui.tree.AsyncTreeModel;
 import com.zx5435.idea.kubernetes.demo.MyToolWindow;
 import com.zx5435.idea.kubernetes.node.DeploymentsNode;
 
@@ -8,19 +7,18 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 
 /**
  * @author 913332
  */
 public class MainTree {
 
-    TreeModel treeModel;
+    DefaultTreeModel treeModel;
 
     public MainTree() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("default");
 
-        DefaultTreeModel treeModel = new DefaultTreeModel(root);
+        treeModel = new DefaultTreeModel(root, false);
 
         DefaultMutableTreeNode ns = new DefaultMutableTreeNode("Namespaces");
         DefaultMutableTreeNode wl = new DefaultMutableTreeNode("Workloads");
@@ -50,12 +48,12 @@ public class MainTree {
 
             @Override
             public void treeNodesInserted(TreeModelEvent e) {
-
+                System.out.println("treeNodesInserted " + e.toString());
             }
 
             @Override
             public void treeNodesRemoved(TreeModelEvent e) {
-
+                System.out.println("treeNodesRemoved " + e.toString());
             }
 
             @Override
@@ -63,8 +61,6 @@ public class MainTree {
                 System.out.println("treeStructureChanged " + e.toString());
             }
         });
-
-        this.treeModel = new AsyncTreeModel(treeModel);
     }
 
 }

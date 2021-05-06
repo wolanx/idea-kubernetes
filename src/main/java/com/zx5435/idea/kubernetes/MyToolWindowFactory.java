@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  * @author 913332
@@ -40,9 +41,9 @@ public class MyToolWindowFactory implements ToolWindowFactory {
     }
 
     private Tree createTree() {
-        MainTree mainTree = new MainTree();
+        DefaultTreeModel treeModel = (new MainTree()).treeModel;
+        Tree tree = new Tree(treeModel);
 
-        Tree tree = new Tree(mainTree.treeModel);
         tree.addTreeExpansionListener(new TreeExpansionListener() {
 
             @Override
@@ -51,8 +52,10 @@ public class MyToolWindowFactory implements ToolWindowFactory {
                 System.out.println("treeExpanded = " + lastPathComponent);
 
                 if (lastPathComponent instanceof DeploymentsNode) {
-                    ((DeploymentsNode) lastPathComponent).treeExpanded();
+                    DeploymentsNode d1 = (DeploymentsNode) lastPathComponent;
+                    d1.treeExpanded();
                     //tree.updateUI();
+                    System.out.println();
                 }
             }
 
@@ -60,6 +63,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
             public void treeCollapsed(TreeExpansionEvent event) {
                 System.out.println("treeCollapsed");
             }
+
         });
 
         tree.setRootVisible(false);

@@ -12,18 +12,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class DeploymentsNode extends DefaultMutableTreeNode {
 
     public DeploymentsNode(String userObject) {
-        super(userObject, true);
+        super(userObject);
     }
 
     public void treeExpanded() {
-        System.out.println("needDo");
-
         MyApplicationService service = ServiceManager.getService(MyApplicationService.class);
         System.out.println("service.getDp() = " + service.getDp());
 
+        this.removeAllChildren();
         for (String s : service.getDp()) {
             this.add(new DefaultMutableTreeNode(new MyToolWindow.User(s)));
         }
+//        getParent().re
     }
+
 
 }
