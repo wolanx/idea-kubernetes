@@ -7,6 +7,10 @@ import java.util.List;
  */
 public interface MyApplicationService {
 
-    List<String> getDp();
+    List<String> getNamespace();
+
+    List<String> getDeploy();
+
+    List<String> getPod();
 
 }

@@ -1,6 +1,5 @@
 package com.zx5435.idea.kubernetes;
 
-import com.intellij.ide.util.treeView.NodeRenderer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -8,12 +7,10 @@ import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.treeStructure.Tree;
-import com.zx5435.idea.kubernetes.node.DeploymentsNode;
+import com.zx5435.idea.kubernetes.dom.MyTree;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.event.TreeExpansionEvent;
-import javax.swing.event.TreeExpansionListener;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
@@ -29,9 +26,6 @@ public class MyToolWindowFactory implements ToolWindowFactory {
      */
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-//        MyToolWindow myToolWindow = new MyToolWindow(toolWindow);
-//        JComponent ctn = myToolWindow.getContent();
-
         Tree tree = createTree();
         JScrollPane ctn = ScrollPaneFactory.createScrollPane(tree);
 
@@ -41,33 +35,10 @@ public class MyToolWindowFactory implements ToolWindowFactory {
     }
 
     private Tree createTree() {
-        DefaultTreeModel treeModel = (new MainTree()).treeModel;
+        DefaultTreeModel treeModel = MyTree.initModel();
+
         Tree tree = new Tree(treeModel);
-
-        tree.addTreeExpansionListener(new TreeExpansionListener() {
-
-            @Override
-            public void treeExpanded(TreeExpansionEvent event) {
-                Object lastPathComponent = event.getPath().getLastPathComponent();
-                System.out.println("treeExpanded = " + lastPathComponent);
-
-                if (lastPathComponent instanceof DeploymentsNode) {
-                    DeploymentsNode d1 = (DeploymentsNode) lastPathComponent;
-                    d1.treeExpanded();
-                    //tree.updateUI();
-                    System.out.println();
-                }
-            }
-
-            @Override
-            public void treeCollapsed(TreeExpansionEvent event) {
-                System.out.println("treeCollapsed");
-            }
-
-        });
-
-        tree.setRootVisible(false);
-        tree.setCellRenderer(new NodeRenderer());
+        tree = MyTree.bindAction(tree, treeModel);
 
         return tree;
     }
