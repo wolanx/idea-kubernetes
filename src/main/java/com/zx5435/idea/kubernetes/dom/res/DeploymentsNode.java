@@ -2,6 +2,7 @@ package com.zx5435.idea.kubernetes.dom.res;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.zx5435.idea.kubernetes.service.MyApplicationService;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -9,6 +10,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * @author 913332
  */
+@Slf4j
 public class DeploymentsNode extends DefaultMutableTreeNode implements FolderNode,ResNode {
 
     public DeploymentsNode(String userObject) {
@@ -32,7 +34,9 @@ public class DeploymentsNode extends DefaultMutableTreeNode implements FolderNod
         JPopupMenu menu = new JPopupMenu();
 
         JMenuItem refreshMenuItem = new JMenuItem("refresh");
-        refreshMenuItem.addActionListener(ev -> System.out.println("refresh!"));
+        refreshMenuItem.addActionListener(ev -> {
+            log.warn("refresh!");
+        });
 
         menu.add(refreshMenuItem);
         return menu;

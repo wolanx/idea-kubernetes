@@ -3,6 +3,7 @@ package com.zx5435.idea.kubernetes.dom;
 import com.intellij.ide.util.treeView.NodeRenderer;
 import com.intellij.ui.treeStructure.Tree;
 import com.zx5435.idea.kubernetes.dom.res.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
@@ -18,6 +19,7 @@ import java.awt.event.MouseEvent;
 /**
  * @author 913332
  */
+@Slf4j
 public class MyTree {
 
     public static DefaultTreeModel initModel() {
@@ -97,12 +99,12 @@ public class MyTree {
         tree.getModel().addTreeModelListener(new TreeModelListener() {
             @Override
             public void treeNodesChanged(TreeModelEvent treeModelEvent) {
-                System.out.println();
+                log.warn("t");
             }
 
             @Override
             public void treeNodesInserted(TreeModelEvent treeModelEvent) {
-                System.out.println();
+                log.warn("t");
             }
 
             @Override
@@ -112,7 +114,7 @@ public class MyTree {
 
             @Override
             public void treeStructureChanged(TreeModelEvent treeModelEvent) {
-                System.out.println();
+                log.warn("t");
             }
         });
 

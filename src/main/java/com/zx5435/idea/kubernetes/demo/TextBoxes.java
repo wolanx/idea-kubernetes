@@ -12,6 +12,7 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.util.Config;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.io.IOException;
 /**
  * @author 913332
  */
+@Slf4j
 public class TextBoxes extends AnAction {
 
     @Override
@@ -31,7 +33,7 @@ public class TextBoxes extends AnAction {
             CoreV1Api api = new CoreV1Api();
             V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null);
             for (V1Pod item : list.getItems()) {
-                System.out.println(item.getMetadata().getName());
+                log.warn(item.getMetadata().getName());
             }
         } catch (IOException | ApiException e) {
             e.printStackTrace();

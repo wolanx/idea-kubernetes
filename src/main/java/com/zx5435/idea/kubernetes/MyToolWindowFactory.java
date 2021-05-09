@@ -26,6 +26,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
      */
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+        // Logger.getRootLogger().setLevel(Level.DEBUG);
         Tree tree = createTree();
         JScrollPane ctn = ScrollPaneFactory.createScrollPane(tree);
 
