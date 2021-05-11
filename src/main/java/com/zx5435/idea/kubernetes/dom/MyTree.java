@@ -1,6 +1,5 @@
 package com.zx5435.idea.kubernetes.dom;
 
-import com.intellij.ide.util.treeView.NodeRenderer;
 import com.intellij.ui.treeStructure.Tree;
 import com.zx5435.idea.kubernetes.dom.res.*;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,10 @@ import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -21,6 +22,8 @@ import java.awt.event.MouseEvent;
  */
 @Slf4j
 public class MyTree {
+
+    public static DefaultTreeModel treeModel = null;
 
     public static DefaultTreeModel initModel() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("default");
@@ -39,13 +42,33 @@ public class MyTree {
         wl.add(dp);
         wl.add(pd);
 
+        MyTree.treeModel = treeModel;
+
         return treeModel;
     }
 
-    public static Tree bindAction(Tree tree, DefaultTreeModel treeModel) {
-        tree.setModel(treeModel);
-        tree.setRootVisible(false);
-        tree.setCellRenderer(new NodeRenderer());
+    public static Tree bindAction(Tree tree) {
+        treeModel.addTreeModelListener(new TreeModelListener() {
+            @Override
+            public void treeNodesChanged(TreeModelEvent treeModelEvent) {
+                log.warn("treeNodesChanged");
+            }
+
+            @Override
+            public void treeNodesInserted(TreeModelEvent treeModelEvent) {
+                log.warn("t");
+            }
+
+            @Override
+            public void treeNodesRemoved(TreeModelEvent treeModelEvent) {
+                log.warn("treeNodesRemoved");
+            }
+
+            @Override
+            public void treeStructureChanged(TreeModelEvent treeModelEvent) {
+                log.warn("treeStructureChanged");
+            }
+        });
 
         tree.addTreeExpansionListener(new TreeExpansionListener() {
             @Override
@@ -61,6 +84,22 @@ public class MyTree {
 
             @Override
             public void treeCollapsed(TreeExpansionEvent event) {
+            }
+        });
+
+        tree.setCellRenderer(new DefaultTreeCellRenderer() {
+            public Component getTreeCellRendererComponent(JTree tree,
+                                                          Object value, boolean sel, boolean expanded, boolean leaf,
+                                                          int row, boolean hasFocus) {
+                super.getTreeCellRendererComponent(tree, value, sel, expanded,
+                        leaf, row, hasFocus);
+                if (value instanceof DefaultMutableTreeNode) {
+                    if (((DefaultMutableTreeNode) value).getUserObject().toString().equals("hidden")) {
+                        this.setVisible(false);
+//                        this.setVisible();
+                    }
+                }
+                return this;
             }
         });
 
@@ -96,27 +135,9 @@ public class MyTree {
             }
         });
 
-        tree.getModel().addTreeModelListener(new TreeModelListener() {
-            @Override
-            public void treeNodesChanged(TreeModelEvent treeModelEvent) {
-                log.warn("t");
-            }
-
-            @Override
-            public void treeNodesInserted(TreeModelEvent treeModelEvent) {
-                log.warn("t");
-            }
-
-            @Override
-            public void treeNodesRemoved(TreeModelEvent treeModelEvent) {
-
-            }
-
-            @Override
-            public void treeStructureChanged(TreeModelEvent treeModelEvent) {
-                log.warn("t");
-            }
-        });
+        tree.setModel(treeModel);
+        tree.setRootVisible(false);
+//        tree.setCellRenderer(new NodeRenderer());
 
         return tree;
     }

@@ -39,7 +39,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
         DefaultTreeModel treeModel = MyTree.initModel();
 
         Tree tree = new Tree(treeModel);
-        tree = MyTree.bindAction(tree, treeModel);
+        tree = MyTree.bindAction(tree);
 
         return tree;
     }

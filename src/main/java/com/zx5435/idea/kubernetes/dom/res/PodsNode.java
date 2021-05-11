@@ -1,6 +1,7 @@
 package com.zx5435.idea.kubernetes.dom.res;
 
 import com.intellij.openapi.components.ServiceManager;
+import com.zx5435.idea.kubernetes.dom.MyTree;
 import com.zx5435.idea.kubernetes.service.MyApplicationService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,13 +26,12 @@ public class PodsNode extends DefaultMutableTreeNode implements FolderNode, ResN
         log.warn("treeExpanded");
         MyApplicationService service = ServiceManager.getService(MyApplicationService.class);
 
-        this.removeAllChildren();
+        removeAllChildren();
+        add(new DefaultMutableTreeNode("hidden"));
         for (String s : service.getPod()) {
             add(new PodNode(s));
         }
-
-        // treeModel.nodeStructureChanged(d1);
-        this.getPath();
+        MyTree.treeModel.nodeStructureChanged(this);
     }
 
     @Override
