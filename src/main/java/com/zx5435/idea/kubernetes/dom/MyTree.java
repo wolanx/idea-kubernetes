@@ -25,7 +25,7 @@ public class MyTree {
 
     public static DefaultTreeModel treeModel = null;
 
-    public static DefaultTreeModel initModel() {
+    private static void initModel() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("default");
 
         DefaultTreeModel treeModel = new DefaultTreeModel(root, false);
@@ -43,11 +43,12 @@ public class MyTree {
         wl.add(pd);
 
         MyTree.treeModel = treeModel;
-
-        return treeModel;
     }
 
-    public static Tree bindAction(Tree tree) {
+    public static Tree bindAction() {
+        initModel();
+        Tree tree = new Tree(treeModel);
+
         treeModel.addTreeModelListener(new TreeModelListener() {
             @Override
             public void treeNodesChanged(TreeModelEvent treeModelEvent) {
@@ -87,21 +88,20 @@ public class MyTree {
             }
         });
 
-        tree.setCellRenderer(new DefaultTreeCellRenderer() {
-            public Component getTreeCellRendererComponent(JTree tree,
-                                                          Object value, boolean sel, boolean expanded, boolean leaf,
-                                                          int row, boolean hasFocus) {
-                super.getTreeCellRendererComponent(tree, value, sel, expanded,
-                        leaf, row, hasFocus);
-                if (value instanceof DefaultMutableTreeNode) {
-                    if (((DefaultMutableTreeNode) value).getUserObject().toString().equals("hidden")) {
-                        this.setVisible(false);
-//                        this.setVisible();
-                    }
-                }
-                return this;
-            }
-        });
+//        tree.setCellRenderer(new DefaultTreeCellRenderer() {
+//            public Component getTreeCellRendererComponent(JTree tree,
+//                                                          Object value, boolean sel, boolean expanded, boolean leaf,
+//                                                          int row, boolean hasFocus) {
+//                super.getTreeCellRendererComponent(tree, value, sel, expanded,
+//                        leaf, row, hasFocus);
+//                if (value instanceof DefaultMutableTreeNode) {
+//                    if (((DefaultMutableTreeNode) value).getUserObject().toString().equals("hidden")) {
+//                        this.setVisible(false);
+//                    }
+//                }
+//                return this;
+//            }
+//        });
 
         tree.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {

@@ -11,7 +11,6 @@ import com.zx5435.idea.kubernetes.dom.MyTree;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultTreeModel;
 
 /**
  * @author 913332
@@ -36,12 +35,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
     }
 
     private Tree createTree() {
-        DefaultTreeModel treeModel = MyTree.initModel();
-
-        Tree tree = new Tree(treeModel);
-        tree = MyTree.bindAction(tree);
-
-        return tree;
+        return MyTree.bindAction();
     }
 
 }
