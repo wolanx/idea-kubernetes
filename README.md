@@ -1,14 +1,30 @@
-# k8show
+# kubernetes via idea plugin
 
+## feature
 
-- ui https://www.yuque.com/xjt2016/xd2ir5/qeo7gg
+- kubeconfig
+    - [ ] create
+- namespace
+    - [ ] refresh
+    - [ ] select
+- deployment
+    - [x] refresh
+    - [ ] table
+    - [ ] info
+    - [x] delete
+- pod
+    - [x] refresh
+    - [ ] table
+    - [ ] info
+    - [x] delete
+    - [ ] log
+    - [ ] port
+- config
+    - [ ] ingress
+    - [ ] service
+    - [ ] secret
 
-# doc
-- k8s https://github.com/kubernetes-client/java
+## doc
 
 - https://plugins.jetbrains.com/docs/intellij/tool-windows.html
-
-- gradle .gradle\caches\modules-2\files-2.1\com.jetbrains.intellij.idea\ideaIC
-
-# demo
-- redhat https://github.com/redhat-developer/intellij-kubernetes
+- https://plugins.jetbrains.com/docs/intellij/persisting-state-of-components.html?from=jetbrains.org#using-persistentstatecomponent
