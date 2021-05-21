@@ -23,7 +23,8 @@
                     factoryClass="com.zx5435.idea.kubernetes.MyToolWindowFactory"
                     icon="/pluginIcon13x13.svg"/>
         <applicationService serviceInterface="com.zx5435.idea.kubernetes.service.MyApplicationService"
-                            serviceImplementation="com.zx5435.idea.kubernetes.service.MyApplicationServiceImpl" />
+                            serviceImplementation="com.zx5435.idea.kubernetes.service.MyApplicationServiceImpl"/>
+        <applicationService serviceImplementation="com.zx5435.idea.kubernetes.service.PersistentDemo"/>
     </extensions>
 
     <actions>
