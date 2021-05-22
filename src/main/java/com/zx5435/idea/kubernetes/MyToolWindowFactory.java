@@ -1,5 +1,7 @@
 package com.zx5435.idea.kubernetes;
 
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -7,10 +9,13 @@ import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.treeStructure.Tree;
+import com.zx5435.idea.kubernetes.demo.AddConfigDialog;
 import com.zx5435.idea.kubernetes.dom.MyTree;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 913332
@@ -32,6 +37,18 @@ public class MyToolWindowFactory implements ToolWindowFactory {
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(ctn, "", false);
         toolWindow.getContentManager().addContent(content);
+
+        AnAction anAction = new AnAction("hehe") {
+            @Override
+            public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
+                AddConfigDialog addNoteDialog = new AddConfigDialog();
+                addNoteDialog.show();
+                System.out.println("hehe-2");
+            }
+        };
+        List<AnAction> arr = new ArrayList<>();
+        arr.add(anAction);
+        toolWindow.setTitleActions(arr);
     }
 
     private Tree createTree() {

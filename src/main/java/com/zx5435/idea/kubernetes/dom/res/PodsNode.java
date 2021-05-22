@@ -3,7 +3,7 @@ package com.zx5435.idea.kubernetes.dom.res;
 import com.intellij.openapi.components.ServiceManager;
 import com.zx5435.idea.kubernetes.dom.MyTree;
 import com.zx5435.idea.kubernetes.service.MyApplicationService;
-import com.zx5435.idea.kubernetes.service.PersistentDemo;
+import com.zx5435.idea.kubernetes.service.K8showStorage;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class PodsNode extends DefaultMutableTreeNode implements FolderNode, ResN
         log.warn("treeExpanded");
         MyApplicationService service = ServiceManager.getService(MyApplicationService.class);
 
-        PersistentDemo storage = ServiceManager.getService(PersistentDemo.class);
+        K8showStorage storage = ServiceManager.getService(K8showStorage.class);
         storage.getState();
 
         removeAllChildren();
