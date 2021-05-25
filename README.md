@@ -3,7 +3,7 @@
 ## feature
 
 - kubeconfig
-    - [ ] create
+    - [x] create
 - namespace
     - [ ] refresh
     - [ ] select

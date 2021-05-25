@@ -9,12 +9,12 @@ import com.zx5435.idea.kubernetes.service.K8showStorage;
 import javax.swing.*;
 import java.awt.*;
 
-public class AddConfigDialog extends DialogWrapper {
+public class AddClusterDialog extends DialogWrapper {
 
     private EditorTextField name;
-    private JTextArea content;
+    private EditorTextField content;
 
-    public AddConfigDialog() {
+    public AddClusterDialog() {
         super(true);
         init();
         setTitle("New kubeconfig");
@@ -24,7 +24,9 @@ public class AddConfigDialog extends DialogWrapper {
     protected JComponent createCenterPanel() {
         JPanel p = new JPanel(new BorderLayout());
         name = new EditorTextField("cluster name");
-        content = new JTextArea("copy yaml into here");
+        content = new EditorTextField("copy .kubeconfig yaml file into here");
+        content.setOneLineMode(false);
+        content.setAutoscrolls(true);
         content.setPreferredSize(new Dimension(200, 100));
         p.add(name, BorderLayout.NORTH);
         p.add(content, BorderLayout.CENTER);

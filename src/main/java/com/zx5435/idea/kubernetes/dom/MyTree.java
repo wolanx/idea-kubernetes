@@ -1,7 +1,9 @@
 package com.zx5435.idea.kubernetes.dom;
 
 import com.intellij.ui.treeStructure.Tree;
-import com.zx5435.idea.kubernetes.dom.res.*;
+import com.zx5435.idea.kubernetes.dom.res.ClusterNode;
+import com.zx5435.idea.kubernetes.dom.res.FolderNode;
+import com.zx5435.idea.kubernetes.dom.res.ResNode;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -10,10 +12,8 @@ import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -26,23 +26,12 @@ public class MyTree {
     public static DefaultTreeModel treeModel = null;
 
     private static void initModel() {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("default");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
 
-        DefaultTreeModel treeModel = new DefaultTreeModel(root, false);
+        root.add(new ClusterNode("aaaa"));
+        root.add(new ClusterNode("bbb"));
 
-        NamesNode ns = new NamesNode("Namespaces");
-        DefaultMutableTreeNode wl = new DefaultMutableTreeNode("Workloads");
-
-        treeModel.insertNodeInto(ns, root, root.getChildCount());
-        treeModel.insertNodeInto(wl, root, root.getChildCount());
-
-        DeploymentsNode dp = new DeploymentsNode("Deployments");
-        PodsNode pd = new PodsNode("Pods");
-
-        wl.add(dp);
-        wl.add(pd);
-
-        MyTree.treeModel = treeModel;
+        MyTree.treeModel = new DefaultTreeModel(root); // StructureTreeModel
     }
 
     public static Tree bindAction() {

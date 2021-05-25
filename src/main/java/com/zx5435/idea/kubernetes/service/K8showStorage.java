@@ -4,6 +4,7 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,21 +19,23 @@ import java.util.Map;
 @Slf4j
 public class K8showStorage implements PersistentStateComponent<K8showStorage> {
 
-    private String stateValue;
+    @Getter
+    public String stateValue;
 
-    private Map<String, String> kubeconfigMap;
-
-//    @Override
-//    public void initializeComponent() {
-//        if (kubeconfigMap == null) {
-//            kubeconfigMap = new HashMap<>();
-//        }
-//    }
+    @Getter
+    public Map<String, String> kubeconfigs;
 
     @Nullable
     @Override
     public K8showStorage getState() {
         return this;
+    }
+
+    @Override
+    public void initializeComponent() {
+        if (kubeconfigs == null) {
+            kubeconfigs = new HashMap<>();
+        }
     }
 
     @Override
@@ -42,13 +45,9 @@ public class K8showStorage implements PersistentStateComponent<K8showStorage> {
     }
 
     public void saveAny(String name, String content) {
-        this.stateValue = name;
-        if (kubeconfigMap == null) {
-            kubeconfigMap = new HashMap<>();
-        }
-        kubeconfigMap.put(name, content);
-        System.out.println(name);
-        System.out.println(content);
+        //stateValue = name;
+        kubeconfigs.put(name, content);
+        System.out.println(name + content.length());
     }
 
 }
