@@ -1,9 +1,15 @@
-package com.zx5435.idea.kubernetes.dom;
+package com.zx5435.idea.kubernetes.tree;
 
+import com.intellij.ide.util.treeView.AbstractTreeStructure;
+import com.intellij.openapi.Disposable;
+import com.intellij.openapi.project.Project;
+import com.intellij.ui.tree.AsyncTreeModel;
+import com.intellij.ui.tree.StructureTreeModel;
 import com.intellij.ui.treeStructure.Tree;
 import com.zx5435.idea.kubernetes.dom.res.ClusterNode;
 import com.zx5435.idea.kubernetes.dom.res.FolderNode;
 import com.zx5435.idea.kubernetes.dom.res.ResNode;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -16,6 +22,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Constructor;
 
 /**
  * @author 913332
@@ -23,7 +30,7 @@ import java.awt.event.MouseEvent;
 @Slf4j
 public class MyTree {
 
-    public static DefaultTreeModel treeModel = null;
+    private static DefaultTreeModel treeModel = null;
 
     private static void initModel() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
@@ -34,8 +41,17 @@ public class MyTree {
         MyTree.treeModel = new DefaultTreeModel(root); // StructureTreeModel
     }
 
-    public static Tree bindAction() {
-        initModel();
+    @SneakyThrows
+    public static Tree bindAction(Project project) {
+//        initModel();
+//        Tree tree = new Tree(treeModel);
+
+        ResourceModel root = new ResourceModel();
+
+        MyTreeStructure myTreeStructure = new MyTreeStructure(root);
+        Constructor<StructureTreeModel> constructor = StructureTreeModel.class.getConstructor(AbstractTreeStructure.class, Disposable.class);
+        StructureTreeModel<?> tm = constructor.newInstance(myTreeStructure, project);
+        AsyncTreeModel treeModel = new AsyncTreeModel(tm, project);
         Tree tree = new Tree(treeModel);
 
         treeModel.addTreeModelListener(new TreeModelListener() {
@@ -68,7 +84,7 @@ public class MyTree {
                 if (dom instanceof FolderNode) {
                     FolderNode d1 = (FolderNode) dom;
                     d1.treeExpanded();
-                    treeModel.nodeStructureChanged(d1);
+//                    treeModel.nodeStructureChanged(d1);
                 }
             }
 
@@ -93,14 +109,18 @@ public class MyTree {
 //        });
 
         tree.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
-                if (e.isPopupTrigger())
+                if (e.isPopupTrigger()) {
                     myPopupEvent(e);
+                }
             }
 
+            @Override
             public void mouseReleased(MouseEvent e) {
-                if (e.isPopupTrigger())
+                if (e.isPopupTrigger()) {
                     myPopupEvent(e);
+                }
             }
 
             void myPopupEvent(MouseEvent e) {

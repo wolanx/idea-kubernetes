@@ -17,13 +17,16 @@ import java.util.List;
  */
 public class MyApplicationServiceImpl implements MyApplicationService {
 
+//    public static final String C_USERS_ADMIN_KUBE_CONFIG = "C:\\Users\\admin\\.kube\\config";
+    public static final String C_USERS_ADMIN_KUBE_CONFIG = System.getProperty("user.home") + "\\.kube\\config";
+
     @Override
     public List<String> getNamespace() {
         ArrayList<String> ret = new ArrayList<String>();
 
         ApiClient client;
         try {
-            client = Config.fromConfig("C:\\Users\\admin\\.kube\\config");
+            client = Config.fromConfig(C_USERS_ADMIN_KUBE_CONFIG);
             Configuration.setDefaultApiClient(client);
 
             CoreV1Api api = new CoreV1Api();
@@ -45,7 +48,7 @@ public class MyApplicationServiceImpl implements MyApplicationService {
 
         ApiClient client;
         try {
-            client = Config.fromConfig("C:\\Users\\admin\\.kube\\config");
+            client = Config.fromConfig(C_USERS_ADMIN_KUBE_CONFIG);
             Configuration.setDefaultApiClient(client);
 
             AppsV1Api api = new AppsV1Api();
@@ -67,7 +70,7 @@ public class MyApplicationServiceImpl implements MyApplicationService {
 
         ApiClient client;
         try {
-            client = Config.fromConfig("C:\\Users\\admin\\.kube\\config");
+            client = Config.fromConfig(C_USERS_ADMIN_KUBE_CONFIG);
             Configuration.setDefaultApiClient(client);
 
             CoreV1Api api = new CoreV1Api();
@@ -86,7 +89,7 @@ public class MyApplicationServiceImpl implements MyApplicationService {
     public static void deletePod(String pName) {
         ApiClient client;
         try {
-            client = Config.fromConfig("C:\\Users\\admin\\.kube\\config");
+            client = Config.fromConfig(C_USERS_ADMIN_KUBE_CONFIG);
             Configuration.setDefaultApiClient(client);
 
             CoreV1Api api = new CoreV1Api();
