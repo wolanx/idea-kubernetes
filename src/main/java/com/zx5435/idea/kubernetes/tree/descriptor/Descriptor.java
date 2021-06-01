@@ -1,28 +1,31 @@
-package com.zx5435.idea.kubernetes.tree;
+package com.zx5435.idea.kubernetes.tree.descriptor;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.ide.util.treeView.PresentableNodeDescriptor;
-import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author 913332
+ */
 public class Descriptor<T> extends PresentableNodeDescriptor<T> {
-    protected Descriptor(Project project, @Nullable NodeDescriptor parentDescriptor) {
-        super(project, parentDescriptor);
-    }
 
-//    public Descriptor(T e) {
-//        super(null, @Nullable NodeDescriptor parentDescriptor);
-//    }
+    protected T element;
+
+    public Descriptor(T e, @Nullable NodeDescriptor parentDescriptor) {
+        super(null, parentDescriptor);
+        element = e;
+    }
 
     @Override
     protected void update(@NotNull PresentationData presentation) {
-
+        presentation.setPresentableText(element.toString());
     }
 
     @Override
     public T getElement() {
-        return null;
+        return element;
     }
+
 }

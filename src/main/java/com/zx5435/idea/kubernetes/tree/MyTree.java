@@ -46,7 +46,7 @@ public class MyTree {
 //        initModel();
 //        Tree tree = new Tree(treeModel);
 
-        ResourceModel root = new ResourceModel();
+        ResourceModelImpl root = new ResourceModelImpl();
 
         MyTreeStructure myTreeStructure = new MyTreeStructure(root);
         Constructor<StructureTreeModel> constructor = StructureTreeModel.class.getConstructor(AbstractTreeStructure.class, Disposable.class);
