@@ -1,19 +1,71 @@
 package com.zx5435.idea.kubernetes.tree.node;
 
+import com.intellij.ui.tree.LeafState;
+import lombok.Getter;
+
 /**
  * @author 913332
  */
-public class FolderNode implements ITreeNode {
+public class FolderNode extends AbstractTreeNode {
 
-    private String name;
+    @Getter
+    private Class<?> kind;
+    private final String label;
 
-    public FolderNode(String name) {
-        this.name = name;
+    public FolderNode(String label) {
+        this.label = label;
+    }
+
+    public FolderNode(String label, Class<?> kind) {
+        this.label = label;
+        this.kind = kind;
     }
 
     @Override
     public String getLabel() {
-        return name;
+        return label;
+    }
+
+    @Override
+    public LeafState getLeafState() {
+        if (kind == null) {
+            return LeafState.NEVER;
+        }
+        return super.getLeafState();
+    }
+
+    //
+
+    public static class WorkloadsNode extends FolderNode {
+
+        public WorkloadsNode() {
+            super("Workloads");
+        }
+
+    }
+
+    public static class NetworksNode extends FolderNode {
+
+        public NetworksNode() {
+            super("Networks");
+        }
+
+    }
+
+    public static class ConfigurationsNode extends FolderNode {
+
+        public ConfigurationsNode() {
+            super("Configurations");
+        }
+
+    }
+
+    public static class VolumesNode extends FolderNode {
+
+        public VolumesNode() {
+            super("Volumes");
+        }
+
     }
 
 }

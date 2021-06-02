@@ -3,7 +3,7 @@ package com.zx5435.idea.kubernetes.tree.node;
 /**
  * @author 913332
  */
-public class ContextNode implements ITreeNode {
+public class ContextNode extends AbstractTreeNode {
 
     private final String name;
 
