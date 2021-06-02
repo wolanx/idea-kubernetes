@@ -1,6 +1,5 @@
 package com.zx5435.idea.kubernetes.tree.node;
 
-import com.intellij.ui.tree.LeafState;
 import lombok.Getter;
 
 /**
@@ -13,11 +12,6 @@ public class NamespaceNode extends AbstractTreeNode {
 
     public NamespaceNode(String label) {
         this.label = label;
-    }
-
-    @Override
-    public LeafState getLeafState() {
-        return LeafState.NEVER;
     }
 
 }

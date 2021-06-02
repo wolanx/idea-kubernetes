@@ -28,10 +28,7 @@ public class FolderNode extends AbstractTreeNode {
 
     @Override
     public LeafState getLeafState() {
-        if (kind == null) {
-            return LeafState.NEVER;
-        }
-        return super.getLeafState();
+        return LeafState.NEVER;
     }
 
     //
