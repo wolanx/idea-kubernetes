@@ -5,9 +5,9 @@ import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.tree.descriptor.Descriptor;
 import com.zx5435.idea.kubernetes.tree.descriptor.ResourceDescriptor;
+import com.zx5435.idea.kubernetes.tree.model.ResourceModel;
 import com.zx5435.idea.kubernetes.tree.node.FolderNode;
 import com.zx5435.idea.kubernetes.tree.node.ITreeNode;
-import com.zx5435.idea.kubernetes.tree.node.NamespaceNode;
 import io.fabric8.kubernetes.api.model.Namespace;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -78,15 +78,9 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     //
 
-    public List<ITreeNode> getValidContributions(Object e) {
+    public List<?> getValidContributions(Object e) {
         if (e instanceof FolderNode && ((FolderNode) e).getKind() != null) {
-            ArrayList<ITreeNode> ret = new ArrayList<>();
-            ret.add(new NamespaceNode("qwe"));
-            ret.add(new NamespaceNode("a"));
-            ret.add(new NamespaceNode("b"));
-            ret.add(new NamespaceNode("c"));
-            ret.add(new NamespaceNode("d"));
-            return ret;
+            return model.listNs();
         }
 
         String name = e.getClass().getSimpleName();

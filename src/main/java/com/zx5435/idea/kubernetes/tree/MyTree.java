@@ -9,6 +9,7 @@ import com.intellij.ui.treeStructure.Tree;
 import com.zx5435.idea.kubernetes.dom.res.ClusterNode;
 import com.zx5435.idea.kubernetes.dom.res.FolderNode;
 import com.zx5435.idea.kubernetes.dom.res.ResNode;
+import com.zx5435.idea.kubernetes.tree.model.ResourceModelImpl;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 

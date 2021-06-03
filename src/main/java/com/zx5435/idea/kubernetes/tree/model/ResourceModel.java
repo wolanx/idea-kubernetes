@@ -1,6 +1,7 @@
-package com.zx5435.idea.kubernetes.tree;
+package com.zx5435.idea.kubernetes.tree.model;
 
 import com.zx5435.idea.kubernetes.tree.node.ContextNode;
+import com.zx5435.idea.kubernetes.tree.node.NamespaceNode;
 
 import java.util.List;
 
@@ -10,5 +11,7 @@ import java.util.List;
 public interface ResourceModel {
 
     List<ContextNode> getAllContexts();
+
+    List<NamespaceNode> listNs();
 
 }
