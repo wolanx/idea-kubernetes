@@ -1,8 +1,8 @@
-package com.zx5435.idea.kubernetes.tree.descriptor;
+package com.zx5435.idea.kubernetes.descriptor;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;
-import com.zx5435.idea.kubernetes.tree.node.FolderNode;
+import com.zx5435.idea.kubernetes.node.FolderNode;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

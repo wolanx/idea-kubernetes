@@ -1,7 +1,7 @@
-package com.zx5435.idea.kubernetes.tree.model;
+package com.zx5435.idea.kubernetes.model;
 
-import com.zx5435.idea.kubernetes.tree.node.ContextNode;
-import com.zx5435.idea.kubernetes.tree.node.ITreeNode;
+import com.zx5435.idea.kubernetes.node.ContextNode;
+import com.zx5435.idea.kubernetes.node.ITreeNode;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.tree.node;
+package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.ui.tree.LeafState;
 

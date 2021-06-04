@@ -6,10 +6,10 @@ import com.intellij.openapi.project.Project;
 import com.intellij.ui.tree.AsyncTreeModel;
 import com.intellij.ui.tree.StructureTreeModel;
 import com.intellij.ui.treeStructure.Tree;
-import com.zx5435.idea.kubernetes.tree.descriptor.Descriptor;
-import com.zx5435.idea.kubernetes.tree.descriptor.FolderDescriptor;
-import com.zx5435.idea.kubernetes.tree.model.ResModelImpl;
-import com.zx5435.idea.kubernetes.tree.node.ITreeNode;
+import com.zx5435.idea.kubernetes.descriptor.Descriptor;
+import com.zx5435.idea.kubernetes.descriptor.FolderDescriptor;
+import com.zx5435.idea.kubernetes.model.ResModelImpl;
+import com.zx5435.idea.kubernetes.node.ITreeNode;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 

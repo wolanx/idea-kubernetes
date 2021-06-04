@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.tree.descriptor;
+package com.zx5435.idea.kubernetes.descriptor;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;

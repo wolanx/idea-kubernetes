@@ -1,5 +1,6 @@
-package com.zx5435.idea.kubernetes.tree.node;
+package com.zx5435.idea.kubernetes.node;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.ui.tree.LeafState;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ public class FolderNode extends AbstractTreeNode {
         if (kind != null) {
             JPopupMenu menu = new JPopupMenu();
 
-            JMenuItem b1 = new JMenuItem("Refresh");
+            JMenuItem b1 = new JMenuItem("Refresh", AllIcons.Actions.Refresh);
             b1.addActionListener(ev -> {
                 log.warn("todo");
             });

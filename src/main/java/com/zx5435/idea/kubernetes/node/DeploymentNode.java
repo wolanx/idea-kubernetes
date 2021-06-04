@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.tree.node;
+package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.openapi.util.IconLoader;
 import io.fabric8.kubernetes.api.model.apps.Deployment;

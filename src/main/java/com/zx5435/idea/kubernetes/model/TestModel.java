@@ -1,9 +1,7 @@
-package com.zx5435.idea.kubernetes.tree.model;
+package com.zx5435.idea.kubernetes.model;
 
-import com.zx5435.idea.kubernetes.tree.node.ITreeNode;
-import io.fabric8.kubernetes.api.model.Namespace;
+import com.zx5435.idea.kubernetes.node.ITreeNode;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
-import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 
 import java.util.List;
 

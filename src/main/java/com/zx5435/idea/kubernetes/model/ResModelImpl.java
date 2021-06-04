@@ -1,6 +1,6 @@
-package com.zx5435.idea.kubernetes.tree.model;
+package com.zx5435.idea.kubernetes.model;
 
-import com.zx5435.idea.kubernetes.tree.node.*;
+import com.zx5435.idea.kubernetes.node.*;
 import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;

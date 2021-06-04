@@ -1,7 +1,8 @@
-package com.zx5435.idea.kubernetes.tree.node;
+package com.zx5435.idea.kubernetes.node;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
-import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.api.model.Pod;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -10,11 +11,11 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class NamespaceNode extends AbstractTreeNode {
+public class PodNode extends AbstractTreeNode {
 
-    Namespace ins;
+    Pod ins;
 
-    public NamespaceNode(Namespace ns) {
+    public PodNode(Pod ns) {
         this.ins = ns;
     }
 
@@ -32,12 +33,18 @@ public class NamespaceNode extends AbstractTreeNode {
     public JPopupMenu getMenu() {
         JPopupMenu menu = new JPopupMenu();
 
-        JMenuItem b1 = new JMenuItem("Use namespace");
+        JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
         b1.addActionListener(ev -> {
             log.warn("todo");
         });
-
         menu.add(b1);
+
+        JMenuItem b2 = new JMenuItem("Delete", AllIcons.Actions.Close);
+        b2.addActionListener(ev -> {
+            log.warn("todo");
+        });
+        menu.add(b2);
+
         return menu;
     }
 

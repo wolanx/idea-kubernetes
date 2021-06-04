@@ -1,8 +1,8 @@
-package com.zx5435.idea.kubernetes.tree.descriptor;
+package com.zx5435.idea.kubernetes.descriptor;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;
-import com.zx5435.idea.kubernetes.tree.node.ITreeNode;
+import com.zx5435.idea.kubernetes.node.ITreeNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
