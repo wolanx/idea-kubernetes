@@ -6,10 +6,16 @@ import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.tree.descriptor.Descriptor;
 import com.zx5435.idea.kubernetes.tree.descriptor.FolderDescriptor;
 import com.zx5435.idea.kubernetes.tree.descriptor.ResourceDescriptor;
-import com.zx5435.idea.kubernetes.tree.model.ResourceModel;
+import com.zx5435.idea.kubernetes.tree.model.ResModel;
 import com.zx5435.idea.kubernetes.tree.node.FolderNode;
 import com.zx5435.idea.kubernetes.tree.node.ITreeNode;
 import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.api.model.Pod;
+import io.fabric8.kubernetes.api.model.apps.DaemonSet;
+import io.fabric8.kubernetes.api.model.apps.Deployment;
+import io.fabric8.kubernetes.api.model.apps.StatefulSet;
+import io.fabric8.kubernetes.api.model.batch.v1.CronJob;
+import io.fabric8.kubernetes.api.model.batch.v1.Job;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,14 +28,14 @@ import java.util.List;
  */
 public class MyTreeStructure extends AbstractTreeStructure {
 
-    private final ResourceModel model;
+    private final ResModel model;
 
-    public MyTreeStructure(ResourceModel model) {
+    public MyTreeStructure(ResModel model) {
         this.model = model;
     }
 
     @Override
-    public @NotNull ResourceModel getRootElement() {
+    public @NotNull ResModel getRootElement() {
         return model;
     }
 
@@ -82,12 +88,15 @@ public class MyTreeStructure extends AbstractTreeStructure {
     //
 
     public List<?> getValidContributions(Object e) {
-        if (e instanceof FolderNode && ((FolderNode) e).getKind() != null) {
-            return model.listNs();
+        if (e instanceof FolderNode) {
+            Class<?> kind = ((FolderNode) e).getKind();
+            if (kind != null) {
+                return model.getResByKind(kind);
+            }
         }
 
         String name = e.getClass().getSimpleName();
-        ArrayList<ITreeNode> ret = new ArrayList<>();
+        List<ITreeNode> ret = new ArrayList<>();
         switch (name) {
             case "ContextNode":
                 ret.add(new FolderNode("Namespaces", Namespace.class));
@@ -97,12 +106,12 @@ public class MyTreeStructure extends AbstractTreeStructure {
                 ret.add(new FolderNode.VolumesNode());
                 return ret;
             case "WorkloadsNode":
-                ret.add(new FolderNode("Deployments"));
-                ret.add(new FolderNode("StatefulSets"));
-                ret.add(new FolderNode("DaemonSets"));
-                ret.add(new FolderNode("Jobs"));
-                ret.add(new FolderNode("CronJobs"));
-                ret.add(new FolderNode("Pods"));
+                ret.add(new FolderNode("Deployments", Deployment.class));
+                ret.add(new FolderNode("StatefulSets", StatefulSet.class));
+                ret.add(new FolderNode("DaemonSets", DaemonSet.class));
+                ret.add(new FolderNode("Jobs", Job.class));
+                ret.add(new FolderNode("CronJobs", CronJob.class));
+                ret.add(new FolderNode("Pods", Pod.class));
                 ret.add(new FolderNode("Custom Resources"));
                 return ret;
             case "NetworksNode":

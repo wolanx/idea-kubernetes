@@ -19,6 +19,7 @@ public class ResourceDescriptor<T extends ITreeNode> extends Descriptor<T> {
     protected void update(@NotNull PresentationData presentation) {
         super.update(presentation);
         presentation.setPresentableText(getElement().getLabel());
+        presentation.setIcon(getElement().getIcon());
     }
 
 }

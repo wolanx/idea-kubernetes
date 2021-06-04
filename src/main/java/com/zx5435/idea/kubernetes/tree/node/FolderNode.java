@@ -2,10 +2,14 @@ package com.zx5435.idea.kubernetes.tree.node;
 
 import com.intellij.ui.tree.LeafState;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.swing.*;
 
 /**
  * @author 913332
  */
+@Slf4j
 public class FolderNode extends AbstractTreeNode {
 
     @Getter
@@ -31,7 +35,23 @@ public class FolderNode extends AbstractTreeNode {
         return LeafState.NEVER;
     }
 
-    //
+    @Override
+    public JPopupMenu getMenu() {
+        if (kind != null) {
+            JPopupMenu menu = new JPopupMenu();
+
+            JMenuItem b1 = new JMenuItem("Refresh");
+            b1.addActionListener(ev -> {
+                log.warn("todo");
+            });
+
+            menu.add(b1);
+            return menu;
+        }
+        return super.getMenu();
+    }
+
+    ////////
 
     public static class WorkloadsNode extends FolderNode {
 
