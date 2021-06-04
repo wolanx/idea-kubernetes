@@ -13,7 +13,6 @@ public class ResourceDescriptor<T extends ITreeNode> extends Descriptor<T> {
 
     public ResourceDescriptor(T e, @Nullable NodeDescriptor parentDescriptor) {
         super(e, parentDescriptor);
-        System.out.println("e.getLabel() = " + e.getLabel());
     }
 
     @Override

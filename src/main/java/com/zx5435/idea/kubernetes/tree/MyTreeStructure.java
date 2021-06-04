@@ -4,6 +4,7 @@ import com.intellij.ide.util.treeView.AbstractTreeStructure;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.tree.descriptor.Descriptor;
+import com.zx5435.idea.kubernetes.tree.descriptor.FolderDescriptor;
 import com.zx5435.idea.kubernetes.tree.descriptor.ResourceDescriptor;
 import com.zx5435.idea.kubernetes.tree.model.ResourceModel;
 import com.zx5435.idea.kubernetes.tree.node.FolderNode;
@@ -48,7 +49,9 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     @Override
     public @NotNull NodeDescriptor<?> createDescriptor(@NotNull Object element, @Nullable NodeDescriptor parent) {
-        if (element instanceof ITreeNode) {
+        if (element instanceof FolderNode) {
+            return new FolderDescriptor<>((FolderNode) element, parent);
+        } else if (element instanceof ITreeNode) {
             return new ResourceDescriptor<>((ITreeNode) element, parent);
         } else {
             return new Descriptor<>(element, parent);

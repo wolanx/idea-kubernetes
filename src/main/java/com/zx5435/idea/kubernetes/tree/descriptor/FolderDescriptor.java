@@ -2,24 +2,35 @@ package com.zx5435.idea.kubernetes.tree.descriptor;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;
-import com.zx5435.idea.kubernetes.tree.node.ITreeNode;
+import com.zx5435.idea.kubernetes.tree.node.FolderNode;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * @author 913332
  */
-public class FolderDescriptor<T extends ITreeNode> extends Descriptor<T> {
+@Slf4j
+public class FolderDescriptor<T extends FolderNode> extends Descriptor<T> {
 
     public FolderDescriptor(T e, @Nullable NodeDescriptor parentDescriptor) {
         super(e, parentDescriptor);
-        System.out.println("e.getLabel() = " + e.getLabel());
     }
 
     @Override
     protected void update(@NotNull PresentationData presentation) {
         super.update(presentation);
         presentation.setPresentableText(getElement().getLabel());
+    }
+
+    public void watchUpdate() {
+        if (getElement().getKind() != null) {
+            log.warn("watchUpdate");
+        }
+    }
+
+    public void stopWatchUpdate() {
+        log.warn("stopWatchUpdate");
     }
 
 }
