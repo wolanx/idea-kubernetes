@@ -1,6 +1,7 @@
 package com.zx5435.idea.kubernetes.model;
 
 import com.zx5435.idea.kubernetes.node.*;
+import io.fabric8.kubernetes.api.model.ConfigMap;
 import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
@@ -39,6 +40,8 @@ public class ResModelImpl implements ResModel {
                 return listPod();
             case "CronJob":
                 return listCronJob();
+            case "ConfigMap":
+                return listConfigMap();
             default:
                 return Collections.emptyList();
         }
@@ -86,6 +89,17 @@ public class ResModelImpl implements ResModel {
         List<ITreeNode> ret = new ArrayList<>();
         for (CronJob one : res) {
             ret.add(new CronJobNode(one));
+        }
+        return ret;
+    }
+
+    public List<ITreeNode> listConfigMap() {
+        DefaultKubernetesClient client = new DefaultKubernetesClient();
+        List<ConfigMap> res = client.configMaps().inAnyNamespace().list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (ConfigMap one : res) {
+            ret.add(new ConfigMapNode(one));
         }
         return ret;
     }

@@ -1,7 +1,7 @@
 package com.zx5435.idea.kubernetes.model;
 
 import com.zx5435.idea.kubernetes.node.ITreeNode;
-import io.fabric8.kubernetes.api.model.apps.Deployment;
+import io.fabric8.kubernetes.api.model.ConfigMap;
 
 import java.util.List;
 
@@ -11,11 +11,10 @@ import java.util.List;
 public class TestModel {
 
     public static void main(String[] args) {
-
         ResModelImpl res = new ResModelImpl();
-        List<ITreeNode> ret = res.getResByKind(Deployment.class);
+        List<ITreeNode> ret = res.getResByKind(ConfigMap.class);
 
-        System.out.println();
+        System.out.println(ret);
     }
 
 }
