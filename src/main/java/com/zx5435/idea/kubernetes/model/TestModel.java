@@ -14,7 +14,9 @@ public class TestModel {
         ResModelImpl res = new ResModelImpl();
         List<ITreeNode> ret = res.getResByKind(ConfigMap.class);
 
-        System.out.println(ret);
+        for (ITreeNode one : ret) {
+            System.out.println(one.getLabel());
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import com.zx5435.idea.kubernetes.descriptor.ResourceDescriptor;
 import com.zx5435.idea.kubernetes.model.ResModel;
 import com.zx5435.idea.kubernetes.node.FolderNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
+import io.fabric8.kubernetes.api.model.ConfigMap;
 import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.DaemonSet;
@@ -119,7 +120,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
                 ret.add(new FolderNode("Ingresses"));
                 return ret;
             case "ConfigurationsNode":
-                ret.add(new FolderNode("ConfigMap"));
+                ret.add(new FolderNode("ConfigMap", ConfigMap.class));
                 ret.add(new FolderNode("Secrets"));
                 return ret;
             case "VolumesNode":
