@@ -7,6 +7,8 @@ import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
+import io.fabric8.kubernetes.client.Watcher;
+import io.fabric8.kubernetes.client.WatcherException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -80,6 +82,23 @@ public class ResModelImpl implements ResModel {
             ret.add(new PodNode(one));
         }
         return ret;
+    }
+
+    public void listPodWatch() {
+        DefaultKubernetesClient client = new DefaultKubernetesClient();
+
+        client.pods().inAnyNamespace().watch(new Watcher<Pod>() {
+            @Override
+            public void eventReceived(Action action, Pod resource) {
+                System.out.println("resource = " + resource.getMetadata().getName());
+            }
+
+            @Override
+            public void onClose(WatcherException cause) {
+                System.out.println("cause = " + cause);
+            }
+        });
+        System.out.println();
     }
 
     public List<ITreeNode> listCronJob() {

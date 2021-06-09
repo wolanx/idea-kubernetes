@@ -33,11 +33,11 @@ dependencies {
     // testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
-configurations {
-    compile {
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
-}
+//configurations {
+//    compile {
+//        exclude group: 'org.slf4j', module: 'slf4j-api'
+//    }
+//}
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
