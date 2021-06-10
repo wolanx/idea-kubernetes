@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class MyTreeStructure extends AbstractTreeStructure {
 
-    private final ResModel model;
+    private ResModel model;
 
     public MyTreeStructure(ResModel model) {
         this.model = model;
@@ -56,6 +56,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     @Override
     public @NotNull NodeDescriptor<?> createDescriptor(@NotNull Object element, @Nullable NodeDescriptor parent) {
+        // todo map createDescriptor
         if (element instanceof FolderNode) {
             return new FolderDescriptor<>((FolderNode) element, parent);
         } else if (element instanceof ITreeNode) {
@@ -63,6 +64,11 @@ public class MyTreeStructure extends AbstractTreeStructure {
         } else {
             return new Descriptor<>(element, parent);
         }
+    }
+
+    @Override
+    public boolean isToBuildChildrenInBackground(@NotNull Object element) {
+        return true;
     }
 
     @Override
@@ -88,7 +94,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     //
 
-    public List<?> getValidContributions(Object e) {
+    public List<ITreeNode> getValidContributions(Object e) {
         if (e instanceof FolderNode) {
             Class<?> kind = ((FolderNode) e).getKind();
             if (kind != null) {
@@ -100,19 +106,19 @@ public class MyTreeStructure extends AbstractTreeStructure {
         List<ITreeNode> ret = new ArrayList<>();
         switch (name) {
             case "ContextNode":
-                ret.add(new FolderNode("Namespaces", Namespace.class));
+                ret.add(new FolderNode("Namespaces", model, Namespace.class));
                 ret.add(new FolderNode.WorkloadsNode());
                 ret.add(new FolderNode.NetworksNode());
                 ret.add(new FolderNode.ConfigurationsNode());
                 ret.add(new FolderNode.VolumesNode());
                 return ret;
             case "WorkloadsNode":
-                ret.add(new FolderNode("Deployments", Deployment.class));
-                ret.add(new FolderNode("StatefulSets", StatefulSet.class));
-                ret.add(new FolderNode("DaemonSets", DaemonSet.class));
-                ret.add(new FolderNode("Jobs", Job.class));
-                ret.add(new FolderNode("CronJobs", CronJob.class));
-                ret.add(new FolderNode("Pods", Pod.class));
+                ret.add(new FolderNode("Deployments", model, Deployment.class));
+                ret.add(new FolderNode("StatefulSets", model, StatefulSet.class));
+                ret.add(new FolderNode("DaemonSets", model, DaemonSet.class));
+                ret.add(new FolderNode("Jobs", model, Job.class));
+                ret.add(new FolderNode("CronJobs", model, CronJob.class));
+                ret.add(new FolderNode("Pods", model, Pod.class));
                 ret.add(new FolderNode("Custom Resources"));
                 return ret;
             case "NetworksNode":
@@ -120,7 +126,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
                 ret.add(new FolderNode("Ingresses"));
                 return ret;
             case "ConfigurationsNode":
-                ret.add(new FolderNode("ConfigMap", ConfigMap.class));
+                ret.add(new FolderNode("ConfigMap", model, ConfigMap.class));
                 ret.add(new FolderNode("Secrets"));
                 return ret;
             case "VolumesNode":

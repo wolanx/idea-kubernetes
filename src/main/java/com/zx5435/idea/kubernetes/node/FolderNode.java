@@ -2,7 +2,10 @@ package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.ui.tree.LeafState;
+import com.zx5435.idea.kubernetes.model.ResModel;
+import com.zx5435.idea.kubernetes.model.ResModelImpl;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -14,21 +17,17 @@ import javax.swing.*;
 public class FolderNode extends AbstractTreeNode {
 
     @Getter
+    @Setter
     private Class<?> kind;
-    private final String label;
 
     public FolderNode(String label) {
-        this.label = label;
+        setLabel(label);
     }
 
-    public FolderNode(String label, Class<?> kind) {
-        this.label = label;
-        this.kind = kind;
-    }
-
-    @Override
-    public String getLabel() {
-        return label;
+    public FolderNode(String label, ResModel model, Class<?> kind) {
+        setLabel(label);
+        setModel(model);
+        setKind(kind);
     }
 
     @Override
@@ -42,8 +41,11 @@ public class FolderNode extends AbstractTreeNode {
             JPopupMenu menu = new JPopupMenu();
 
             JMenuItem b1 = new JMenuItem("Refresh", AllIcons.Actions.Refresh);
-            b1.addActionListener(ev -> {
-                log.warn("todo");
+            b1.addActionListener(e -> {
+                ((ResModelImpl) getModel()).arr.add(new ContextNode("bbbb"));
+                log.warn("todo Refresh");
+                System.out.println("model = " + getModel());
+//                getModel()
             });
 
             menu.add(b1);

@@ -2,12 +2,14 @@ package com.zx5435.idea.kubernetes.tree;
 
 import com.intellij.ide.util.treeView.AbstractTreeStructure;
 import com.intellij.openapi.Disposable;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.tree.AsyncTreeModel;
 import com.intellij.ui.tree.StructureTreeModel;
 import com.intellij.ui.treeStructure.Tree;
 import com.zx5435.idea.kubernetes.descriptor.Descriptor;
 import com.zx5435.idea.kubernetes.descriptor.FolderDescriptor;
+import com.zx5435.idea.kubernetes.model.ResModel;
 import com.zx5435.idea.kubernetes.model.ResModelImpl;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
 import lombok.SneakyThrows;
@@ -29,36 +31,12 @@ import java.lang.reflect.Constructor;
 public class MyTree {
 
     @SneakyThrows
-    public static Tree bindAction(Project project) {
-        ResModelImpl root = new ResModelImpl();
-
-        MyTreeStructure myTreeStructure = new MyTreeStructure(root);
+    public static Tree getIns(Project project) {
+        MyTreeStructure myTreeStructure = new MyTreeStructure(ServiceManager.getService(ResModel.class));
         Constructor<StructureTreeModel> constructor = StructureTreeModel.class.getConstructor(AbstractTreeStructure.class, Disposable.class);
         StructureTreeModel<?> tm = constructor.newInstance(myTreeStructure, project);
         AsyncTreeModel treeModel = new AsyncTreeModel(tm, project);
         Tree tree = new Tree(treeModel);
-
-//        treeModel.addTreeModelListener(new TreeModelListener() {
-//            @Override
-//            public void treeNodesChanged(TreeModelEvent treeModelEvent) {
-//                log.warn("treeNodesChanged");
-//            }
-//
-//            @Override
-//            public void treeNodesInserted(TreeModelEvent treeModelEvent) {
-//                // log.warn("t");
-//            }
-//
-//            @Override
-//            public void treeNodesRemoved(TreeModelEvent treeModelEvent) {
-//                log.warn("treeNodesRemoved");
-//            }
-//
-//            @Override
-//            public void treeStructureChanged(TreeModelEvent treeModelEvent) {
-//                log.warn("treeStructureChanged");
-//            }
-//        });
 
         tree.addTreeExpansionListener(new TreeExpansionListener() {
             @Override
@@ -114,7 +92,6 @@ public class MyTree {
 
         tree.setModel(treeModel);
         tree.setRootVisible(false);
-//        tree.setCellRenderer(new NodeRenderer());
 
         return tree;
     }

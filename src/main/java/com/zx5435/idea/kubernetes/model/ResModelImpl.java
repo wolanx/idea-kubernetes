@@ -2,6 +2,7 @@ package com.zx5435.idea.kubernetes.model;
 
 import com.zx5435.idea.kubernetes.node.*;
 import io.fabric8.kubernetes.api.model.ConfigMap;
+import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
@@ -21,6 +22,13 @@ import java.util.List;
 @Slf4j
 public class ResModelImpl implements ResModel {
 
+    public List<ITreeNode> arr;
+
+    public ResModelImpl() {
+        arr = new ArrayList<>();
+        arr.add(new ContextNode("aaa"));
+    }
+
     @Override
     public List<ContextNode> getAllContexts() {
         List<ContextNode> objects = new ArrayList<>();
@@ -31,22 +39,23 @@ public class ResModelImpl implements ResModel {
 
     @Override
     public List<ITreeNode> getResByKind(Class<?> kind) {
-        log.warn("getResByKind." + kind.getSimpleName());
-
-        switch (kind.getSimpleName()) {
-            case "Namespace":
-                return listNs();
-            case "Deployment":
-                return listDp();
-            case "Pod":
-                return listPod();
-            case "CronJob":
-                return listCronJob();
-            case "ConfigMap":
-                return listConfigMap();
-            default:
-                return Collections.emptyList();
-        }
+        return arr;
+//        log.warn("getResByKind." + kind.getSimpleName());
+//
+//        switch (kind.getSimpleName()) {
+//            case "Namespace":
+//                return listNs();
+//            case "Deployment":
+//                return listDp();
+//            case "Pod":
+//                return listPod();
+//            case "CronJob":
+//                return listCronJob();
+//            case "ConfigMap":
+//                return listConfigMap();
+//            default:
+//                return Collections.emptyList();
+//        }
     }
 
     public List<ITreeNode> listNs() {

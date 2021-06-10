@@ -1,6 +1,9 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.ui.tree.LeafState;
+import com.zx5435.idea.kubernetes.model.ResModel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 
@@ -8,6 +11,14 @@ import javax.swing.*;
  * @author 913332
  */
 public abstract class AbstractTreeNode implements ITreeNode {
+
+    @Getter
+    @Setter
+    private String label;
+
+    @Getter
+    @Setter
+    private ResModel model;
 
     @Override
     public Icon getIcon() {
@@ -20,7 +31,7 @@ public abstract class AbstractTreeNode implements ITreeNode {
     }
 
     @Override
-    public LeafState getLeafState(){
+    public LeafState getLeafState() {
         return null;
     }
 

@@ -20,7 +20,7 @@ public class Descriptor<T> extends PresentableNodeDescriptor<T> {
 
     @Override
     protected void update(@NotNull PresentationData presentation) {
-        //
+        System.out.println();
     }
 
     @Override
