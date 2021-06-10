@@ -15,10 +15,15 @@ repositories {
 }
 
 dependencies {
-    implementation('io.kubernetes:client-java:10.0.0') {
-        exclude group: 'org.slf4j'
-//        exclude module: 'slf4j-api'
-    }
+//    implementation('io.kubernetes:client-java:10.0.0') {
+//        exclude group: 'org.slf4j'
+////        exclude module: 'slf4j-api'
+//    }
+    implementation(
+            "io.fabric8:kubernetes-client:5.4.1",
+            "io.fabric8:kubernetes-model:5.4.1",
+            "io.fabric8:kubernetes-model-common:5.4.1",
+    )
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
@@ -26,6 +31,12 @@ dependencies {
 
     // testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     // testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+configurations {
+    compile {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/

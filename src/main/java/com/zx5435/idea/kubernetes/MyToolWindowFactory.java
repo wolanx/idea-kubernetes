@@ -10,7 +10,7 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.treeStructure.Tree;
 import com.zx5435.idea.kubernetes.demo.AddClusterDialog;
-import com.zx5435.idea.kubernetes.dom.MyTree;
+import com.zx5435.idea.kubernetes.tree.MyTree;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -31,12 +31,6 @@ public class MyToolWindowFactory implements ToolWindowFactory {
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         // Logger.getRootLogger().setLevel(Level.DEBUG);
-        Tree tree = createTree();
-        JScrollPane ctn = ScrollPaneFactory.createScrollPane(tree);
-
-        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(ctn, "", false);
-        toolWindow.getContentManager().addContent(content);
 
         AnAction anAction = new AnAction("New cluster") {
             @Override
@@ -47,10 +41,13 @@ public class MyToolWindowFactory implements ToolWindowFactory {
         List<AnAction> arr = new ArrayList<>();
         arr.add(anAction);
         toolWindow.setTitleActions(arr);
-    }
 
-    private Tree createTree() {
-        return MyTree.bindAction();
+        Tree tree = MyTree.getIns(project);
+        JScrollPane ctn = ScrollPaneFactory.createScrollPane(tree);
+
+        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+        Content content = contentFactory.createContent(ctn, "", false);
+        toolWindow.getContentManager().addContent(content);
     }
 
 }
