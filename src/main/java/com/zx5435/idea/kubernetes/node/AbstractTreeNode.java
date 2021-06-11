@@ -1,7 +1,7 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.ui.tree.LeafState;
-import com.zx5435.idea.kubernetes.model.ResModel;
+import com.zx5435.idea.kubernetes.model.IResModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +18,7 @@ public abstract class AbstractTreeNode implements ITreeNode {
 
     @Getter
     @Setter
-    private ResModel model;
+    private IResModel model;
 
     @Override
     public Icon getIcon() {

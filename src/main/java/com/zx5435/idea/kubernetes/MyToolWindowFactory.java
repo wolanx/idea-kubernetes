@@ -30,9 +30,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
      */
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        // Logger.getRootLogger().setLevel(Level.DEBUG);
-
-        AnAction anAction = new AnAction("New cluster") {
+        AnAction anAction = new AnAction("New Cluster") {
             @Override
             public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
                 new AddClusterDialog().show();

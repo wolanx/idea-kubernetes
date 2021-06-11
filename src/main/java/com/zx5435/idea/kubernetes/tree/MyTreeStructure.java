@@ -6,7 +6,7 @@ import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.descriptor.Descriptor;
 import com.zx5435.idea.kubernetes.descriptor.FolderDescriptor;
 import com.zx5435.idea.kubernetes.descriptor.ResourceDescriptor;
-import com.zx5435.idea.kubernetes.model.ResModel;
+import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.node.FolderNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
 import io.fabric8.kubernetes.api.model.ConfigMap;
@@ -17,6 +17,8 @@ import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.StatefulSet;
 import io.fabric8.kubernetes.api.model.batch.v1.CronJob;
 import io.fabric8.kubernetes.api.model.batch.v1.Job;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,14 +31,16 @@ import java.util.List;
  */
 public class MyTreeStructure extends AbstractTreeStructure {
 
-    private ResModel model;
+    @Getter
+    @Setter
+    private IResModel model;
 
-    public MyTreeStructure(ResModel model) {
+    public MyTreeStructure(IResModel model) {
         this.model = model;
     }
 
     @Override
-    public @NotNull ResModel getRootElement() {
+    public @NotNull IResModel getRootElement() {
         return model;
     }
 

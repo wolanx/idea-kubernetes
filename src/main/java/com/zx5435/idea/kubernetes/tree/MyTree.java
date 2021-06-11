@@ -9,8 +9,7 @@ import com.intellij.ui.tree.StructureTreeModel;
 import com.intellij.ui.treeStructure.Tree;
 import com.zx5435.idea.kubernetes.descriptor.Descriptor;
 import com.zx5435.idea.kubernetes.descriptor.FolderDescriptor;
-import com.zx5435.idea.kubernetes.model.ResModel;
-import com.zx5435.idea.kubernetes.model.ResModelImpl;
+import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Constructor;
 
 /**
  * @author 913332
@@ -32,11 +30,18 @@ public class MyTree {
 
     @SneakyThrows
     public static Tree getIns(Project project) {
-        MyTreeStructure myTreeStructure = new MyTreeStructure(ServiceManager.getService(ResModel.class));
-        Constructor<StructureTreeModel> constructor = StructureTreeModel.class.getConstructor(AbstractTreeStructure.class, Disposable.class);
-        StructureTreeModel<?> tm = constructor.newInstance(myTreeStructure, project);
-        AsyncTreeModel treeModel = new AsyncTreeModel(tm, project);
-        Tree tree = new Tree(treeModel);
+        IResModel resModel = ServiceManager.getService(IResModel.class);
+        MyTreeStructure structure = new MyTreeStructure(resModel);
+
+        StructureTreeModel<AbstractTreeStructure> treeModel = StructureTreeModel.class
+                .getConstructor(AbstractTreeStructure.class, Disposable.class)
+                .newInstance(structure, project);
+
+        new MyTreeUpdater(treeModel, structure, resModel);
+
+        Tree tree = new Tree(new AsyncTreeModel(treeModel, project));
+
+        tree.setRootVisible(false);
 
         tree.addTreeExpansionListener(new TreeExpansionListener() {
             @Override
@@ -89,9 +94,6 @@ public class MyTree {
                 }
             }
         });
-
-        tree.setModel(treeModel);
-        tree.setRootVisible(false);
 
         return tree;
     }

@@ -2,8 +2,8 @@ package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.ui.tree.LeafState;
+import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.model.ResModel;
-import com.zx5435.idea.kubernetes.model.ResModelImpl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class FolderNode extends AbstractTreeNode {
         setLabel(label);
     }
 
-    public FolderNode(String label, ResModel model, Class<?> kind) {
+    public FolderNode(String label, IResModel model, Class<?> kind) {
         setLabel(label);
         setModel(model);
         setKind(kind);
@@ -42,7 +42,7 @@ public class FolderNode extends AbstractTreeNode {
 
             JMenuItem b1 = new JMenuItem("Refresh", AllIcons.Actions.Refresh);
             b1.addActionListener(e -> {
-                ((ResModelImpl) getModel()).arr.add(new ContextNode("bbbb"));
+                ((ResModel) getModel()).arr.add(new ContextNode("bbbb"));
                 log.warn("todo Refresh");
                 System.out.println("model = " + getModel());
 //                getModel()
