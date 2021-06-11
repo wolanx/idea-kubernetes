@@ -37,7 +37,7 @@ public class MyTree {
                 .getConstructor(AbstractTreeStructure.class, Disposable.class)
                 .newInstance(structure, project);
 
-        new MyTreeUpdater(treeModel, structure, resModel);
+        new TreeObserver(treeModel, structure, resModel);
 
         Tree tree = new Tree(new AsyncTreeModel(treeModel, project));
 

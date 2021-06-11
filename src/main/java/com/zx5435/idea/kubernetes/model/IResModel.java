@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IResModel {
 
-    void addListener(IResUpdateListener myTreeUpdater);
+    void addListener(ITreeObserver myTreeUpdater);
 
     List<ContextNode> getAllContexts();
 

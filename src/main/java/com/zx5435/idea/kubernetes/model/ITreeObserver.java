@@ -3,7 +3,7 @@ package com.zx5435.idea.kubernetes.model;
 /**
  * @author 913332
  */
-public interface IResUpdateListener {
+public interface ITreeObserver {
 
     void added();
 

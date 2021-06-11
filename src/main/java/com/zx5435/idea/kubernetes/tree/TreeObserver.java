@@ -2,17 +2,22 @@ package com.zx5435.idea.kubernetes.tree;
 
 import com.intellij.ide.util.treeView.AbstractTreeStructure;
 import com.intellij.ui.tree.StructureTreeModel;
-import com.zx5435.idea.kubernetes.model.IResUpdateListener;
 import com.zx5435.idea.kubernetes.model.IResModel;
+import com.zx5435.idea.kubernetes.model.ITreeObserver;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 913332
  */
 @Slf4j
-public class MyTreeUpdater implements IResUpdateListener {
+public class TreeObserver implements ITreeObserver {
 
-    public MyTreeUpdater(StructureTreeModel<AbstractTreeStructure> treeModel, MyTreeStructure structure, IResModel model) {
+    @Setter
+    private StructureTreeModel<AbstractTreeStructure> treeModel;
+
+    public TreeObserver(StructureTreeModel<AbstractTreeStructure> treeModel, MyTreeStructure structure, IResModel model) {
+        setTreeModel(treeModel);
         model.addListener(this);
     }
 
@@ -28,7 +33,10 @@ public class MyTreeUpdater implements IResUpdateListener {
 
     @Override
     public void modified() {
+        treeModel.invalidate();
         log.warn("modified");
     }
+
+    // invalidate
 
 }
