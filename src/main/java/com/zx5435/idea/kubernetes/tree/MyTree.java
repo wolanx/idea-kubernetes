@@ -33,7 +33,7 @@ public class MyTree {
         IResModel resModel = ServiceManager.getService(IResModel.class);
         MyTreeStructure structure = new MyTreeStructure(resModel);
 
-        StructureTreeModel<AbstractTreeStructure> treeModel = StructureTreeModel.class
+        StructureTreeModel<MyTreeStructure> treeModel = StructureTreeModel.class
                 .getConstructor(AbstractTreeStructure.class, Disposable.class)
                 .newInstance(structure, project);
 

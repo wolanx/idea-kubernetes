@@ -1,5 +1,7 @@
 package com.zx5435.idea.kubernetes.model;
 
+import com.zx5435.idea.kubernetes.node.ITreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +18,9 @@ public class ResSubject implements IResSubject {
     }
 
     @Override
-    public void fireModified(Object e) {
+    public void fireModified(ITreeNode node) {
         for (ITreeObserver one : observers) {
-            one.modified();
+            one.modified(node);
         }
     }
 

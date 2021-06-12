@@ -42,11 +42,9 @@ public class FolderNode extends AbstractTreeNode {
 
             JMenuItem b1 = new JMenuItem("Refresh", AllIcons.Actions.Refresh);
             b1.addActionListener(e -> {
-                ((ResModel) getModel()).getArr().add(new ContextNode("bbbb"));
                 log.warn("todo Refresh");
-                ((ResModel) getModel()).fireModified();
-                System.out.println("model = " + getModel());
-//                getModel()
+                ((ResModel) getModel()).getArr().add(new ContextNode("bbbb"));
+                ((ResModel) getModel()).fireModified(this);
             });
 
             menu.add(b1);

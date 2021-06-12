@@ -28,8 +28,8 @@ public class ResModel implements IResModel {
         observe.addListener(listener);
     }
 
-    public void fireModified() {
-        observe.fireModified(null);
+    public void fireModified(ITreeNode node) {
+        observe.fireModified(node);
     }
 
     @Override

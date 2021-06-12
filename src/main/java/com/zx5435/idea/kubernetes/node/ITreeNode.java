@@ -10,6 +10,7 @@ import javax.swing.*;
 public interface ITreeNode {
 
     public String getLabel();
+
     public Icon getIcon();
 
     public LeafState getLeafState();
