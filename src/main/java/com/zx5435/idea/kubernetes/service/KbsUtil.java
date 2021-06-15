@@ -1,8 +1,7 @@
-package com.zx5435.idea.kubernetes.model;
+package com.zx5435.idea.kubernetes.service;
 
 import com.zx5435.idea.kubernetes.node.*;
 import io.fabric8.kubernetes.api.model.ConfigMap;
-import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
@@ -10,36 +9,17 @@ import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.kubernetes.client.WatcherException;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * @author 913332
  */
-@Slf4j
-public class ResModelImpl implements ResModel {
+public class KbsUtil {
 
-    public List<ITreeNode> arr;
+    public KbsUtil() {
 
-    public ResModelImpl() {
-        arr = new ArrayList<>();
-        arr.add(new ContextNode("aaa"));
-    }
-
-    @Override
-    public List<ContextNode> getAllContexts() {
-        List<ContextNode> objects = new ArrayList<>();
-        objects.add(new ContextNode("aaaa"));
-        objects.add(new ContextNode("bbbb"));
-        return objects;
-    }
-
-    @Override
-    public List<ITreeNode> getResByKind(Class<?> kind) {
-        return arr;
 //        log.warn("getResByKind." + kind.getSimpleName());
 //
 //        switch (kind.getSimpleName()) {
@@ -57,6 +37,7 @@ public class ResModelImpl implements ResModel {
 //                return Collections.emptyList();
 //        }
     }
+
 
     public List<ITreeNode> listNs() {
         DefaultKubernetesClient client = new DefaultKubernetesClient();

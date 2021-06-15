@@ -22,8 +22,8 @@
                     anchor="left" secondary="false"
                     factoryClass="com.zx5435.idea.kubernetes.MyToolWindowFactory"
                     icon="/pluginIcon13x13.svg"/>
-        <applicationService serviceInterface="com.zx5435.idea.kubernetes.model.ResModel"
-                            serviceImplementation="com.zx5435.idea.kubernetes.model.ResModelImpl"/>
+        <applicationService serviceInterface="com.zx5435.idea.kubernetes.model.IResModel"
+                            serviceImplementation="com.zx5435.idea.kubernetes.model.ResModel"/>
         <applicationService serviceImplementation="com.zx5435.idea.kubernetes.service.K8showStorage"/>
     </extensions>
 
