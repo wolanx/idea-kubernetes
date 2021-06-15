@@ -20,12 +20,14 @@ public class FolderNode extends AbstractTreeNode {
     @Setter
     private Class<?> kind;
 
-    public FolderNode(String label) {
+    public FolderNode(String label, ITreeNode parent) {
         setLabel(label);
+        setPath(parent.getPath());
     }
 
-    public FolderNode(String label, IResModel model, Class<?> kind) {
+    public FolderNode(String label, ITreeNode parent, IResModel model, Class<?> kind) {
         setLabel(label);
+        setPath(parent.getPath());
         setModel(model);
         setKind(kind);
     }
@@ -57,32 +59,32 @@ public class FolderNode extends AbstractTreeNode {
 
     public static class WorkloadsNode extends FolderNode {
 
-        public WorkloadsNode() {
-            super("Workloads");
+        public WorkloadsNode(ITreeNode node) {
+            super("Workloads", node);
         }
 
     }
 
     public static class NetworksNode extends FolderNode {
 
-        public NetworksNode() {
-            super("Networks");
+        public NetworksNode(ITreeNode node) {
+            super("Networks", node);
         }
 
     }
 
     public static class ConfigurationsNode extends FolderNode {
 
-        public ConfigurationsNode() {
-            super("Configurations");
+        public ConfigurationsNode(ITreeNode node) {
+            super("Configurations", node);
         }
 
     }
 
     public static class VolumesNode extends FolderNode {
 
-        public VolumesNode() {
-            super("Volumes");
+        public VolumesNode(ITreeNode node) {
+            super("Volumes", node);
         }
 
     }

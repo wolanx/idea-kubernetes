@@ -7,9 +7,8 @@ import com.zx5435.idea.kubernetes.node.ITreeNode;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import java.util.Enumeration;
+import java.util.List;
 
 /**
  * @author 913332
@@ -41,11 +40,14 @@ public class TreeObserver implements ITreeObserver {
 
     @Override
     public void modified(ITreeNode node) {
-        // treeModel.invalidate();
-        TreePath path = new TreePath(node);
-        Enumeration<? extends TreeNode> children = treeModel.getRoot().children();
-        log.warn("modified");
-        treeModel.invalidate(path, true);
+        List<ITreeNode> nodePath = node.getPath();
+        if (nodePath == null) {
+            treeModel.invalidate();
+        } else {
+            TreePath path = new TreePath(nodePath);
+            log.warn("modified");
+            treeModel.invalidate(path, true);
+        }
     }
 
 }

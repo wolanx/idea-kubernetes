@@ -1,7 +1,5 @@
 package com.zx5435.idea.kubernetes.tree;
 
-import com.intellij.ide.util.treeView.AbstractTreeStructure;
-import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.tree.AsyncTreeModel;
@@ -33,9 +31,7 @@ public class MyTree {
         IResModel resModel = ServiceManager.getService(IResModel.class);
         MyTreeStructure structure = new MyTreeStructure(resModel);
 
-        StructureTreeModel<MyTreeStructure> treeModel = StructureTreeModel.class
-                .getConstructor(AbstractTreeStructure.class, Disposable.class)
-                .newInstance(structure, project);
+        StructureTreeModel<MyTreeStructure> treeModel = new StructureTreeModel<>(structure, project);
 
         new TreeObserver(treeModel, structure, resModel);
 

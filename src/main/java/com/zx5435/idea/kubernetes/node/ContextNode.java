@@ -5,15 +5,9 @@ package com.zx5435.idea.kubernetes.node;
  */
 public class ContextNode extends AbstractTreeNode {
 
-    private final String name;
-
-    public ContextNode(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getLabel() {
-        return this.name;
+    public ContextNode(String label) {
+        setLabel(label);
+        setPath(null);
     }
 
 }
