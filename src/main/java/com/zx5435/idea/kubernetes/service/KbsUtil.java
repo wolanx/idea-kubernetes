@@ -9,37 +9,39 @@ import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.kubernetes.client.WatcherException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author 913332
  */
+@Slf4j
 public class KbsUtil {
 
-    public KbsUtil() {
+    public static List<ITreeNode> getByKind(Class<?> kind) {
+        log.warn("getResByKind." + kind.getSimpleName());
 
-//        log.warn("getResByKind." + kind.getSimpleName());
-//
-//        switch (kind.getSimpleName()) {
-//            case "Namespace":
-//                return listNs();
-//            case "Deployment":
-//                return listDp();
-//            case "Pod":
-//                return listPod();
-//            case "CronJob":
-//                return listCronJob();
-//            case "ConfigMap":
-//                return listConfigMap();
-//            default:
-//                return Collections.emptyList();
-//        }
+        switch (kind.getSimpleName()) {
+            case "Namespace":
+                return listNs();
+            case "Deployment":
+                return listDp();
+            case "Pod":
+                return listPod();
+            case "CronJob":
+                return listCronJob();
+            case "ConfigMap":
+                return listConfigMap();
+            default:
+                return Collections.emptyList();
+        }
     }
 
 
-    public List<ITreeNode> listNs() {
+    public static List<ITreeNode> listNs() {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
         List<Namespace> res = client.namespaces().list().getItems();
 
@@ -52,7 +54,7 @@ public class KbsUtil {
         return ret;
     }
 
-    public List<ITreeNode> listDp() {
+    public static List<ITreeNode> listDp() {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
         List<Deployment> res = client.apps().deployments().inAnyNamespace().list().getItems();
 
@@ -63,7 +65,7 @@ public class KbsUtil {
         return ret;
     }
 
-    public List<ITreeNode> listPod() {
+    public static List<ITreeNode> listPod() {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
         List<Pod> res = client.pods().inAnyNamespace().list().getItems();
 
@@ -74,7 +76,7 @@ public class KbsUtil {
         return ret;
     }
 
-    public void listPodWatch() {
+    public static void listPodWatch() {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
 
         client.pods().inAnyNamespace().watch(new Watcher<Pod>() {
@@ -91,7 +93,7 @@ public class KbsUtil {
         System.out.println();
     }
 
-    public List<ITreeNode> listCronJob() {
+    public static List<ITreeNode> listCronJob() {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
         List<CronJob> res = client.batch().v1beta1().cronjobs().inAnyNamespace().list().getItems();
 
@@ -102,7 +104,7 @@ public class KbsUtil {
         return ret;
     }
 
-    public List<ITreeNode> listConfigMap() {
+    public static List<ITreeNode> listConfigMap() {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
         List<ConfigMap> res = client.configMaps().inAnyNamespace().list().getItems();
 

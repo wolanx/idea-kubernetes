@@ -10,7 +10,7 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class NamespaceNode extends AbstractTreeNode {
+public class NamespaceNode extends ATreeNode {
 
     Namespace ins;
 

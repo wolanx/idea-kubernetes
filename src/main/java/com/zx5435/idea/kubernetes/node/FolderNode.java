@@ -3,7 +3,6 @@ package com.zx5435.idea.kubernetes.node;
 import com.intellij.icons.AllIcons;
 import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.model.IResModel;
-import com.zx5435.idea.kubernetes.model.ResModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -14,20 +13,18 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class FolderNode extends AbstractTreeNode {
+public class FolderNode extends ATreeNode {
 
     @Getter
     @Setter
     private Class<?> kind;
 
-    public FolderNode(String label, ITreeNode parent) {
+    public FolderNode(String label) {
         setLabel(label);
-        setPath(parent.getPath());
     }
 
-    public FolderNode(String label, ITreeNode parent, IResModel model, Class<?> kind) {
+    public FolderNode(String label, IResModel model, Class<?> kind) {
         setLabel(label);
-        setPath(parent.getPath());
         setModel(model);
         setKind(kind);
     }
@@ -44,9 +41,8 @@ public class FolderNode extends AbstractTreeNode {
 
             JMenuItem b1 = new JMenuItem("Refresh", AllIcons.Actions.Refresh);
             b1.addActionListener(e -> {
-                log.warn("todo Refresh");
-                ((ResModel) getModel()).getArr().add(new ContextNode("bbbb"));
-                ((ResModel) getModel()).fireModified(this);
+                log.warn("refresh");
+                getModel().reloadByKind(this, kind);
             });
 
             menu.add(b1);
@@ -59,32 +55,32 @@ public class FolderNode extends AbstractTreeNode {
 
     public static class WorkloadsNode extends FolderNode {
 
-        public WorkloadsNode(ITreeNode node) {
-            super("Workloads", node);
+        public WorkloadsNode() {
+            super("Workloads");
         }
 
     }
 
     public static class NetworksNode extends FolderNode {
 
-        public NetworksNode(ITreeNode node) {
-            super("Networks", node);
+        public NetworksNode() {
+            super("Networks");
         }
 
     }
 
     public static class ConfigurationsNode extends FolderNode {
 
-        public ConfigurationsNode(ITreeNode node) {
-            super("Configurations", node);
+        public ConfigurationsNode() {
+            super("Configurations");
         }
 
     }
 
     public static class VolumesNode extends FolderNode {
 
-        public VolumesNode(ITreeNode node) {
-            super("Volumes", node);
+        public VolumesNode() {
+            super("Volumes");
         }
 
     }

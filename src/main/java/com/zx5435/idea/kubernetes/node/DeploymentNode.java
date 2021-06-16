@@ -10,7 +10,7 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class DeploymentNode extends AbstractTreeNode {
+public class DeploymentNode extends ATreeNode {
 
     Deployment ins;
 

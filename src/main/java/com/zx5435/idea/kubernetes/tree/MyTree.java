@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
 public class MyTree {
 
     @SneakyThrows
-    public static Tree getIns(Project project) {
+    public static Tree createTree(Project project) {
         IResModel resModel = ServiceManager.getService(IResModel.class);
         MyTreeStructure structure = new MyTreeStructure(resModel);
 
