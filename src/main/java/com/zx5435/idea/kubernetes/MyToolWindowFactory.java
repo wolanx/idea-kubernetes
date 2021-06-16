@@ -40,7 +40,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
         arr.add(anAction);
         toolWindow.setTitleActions(arr);
 
-        Tree tree = MyTree.getIns(project);
+        Tree tree = MyTree.createTree(project);
         JScrollPane ctn = ScrollPaneFactory.createScrollPane(tree);
 
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();

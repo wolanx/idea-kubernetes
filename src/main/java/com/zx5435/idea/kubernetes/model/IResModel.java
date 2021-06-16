@@ -14,6 +14,8 @@ public interface IResModel {
 
     List<ContextNode> getAllContexts();
 
+    void reloadByKind(ITreeNode node, Class<?> kind);
+
     List<ITreeNode> getResByKind(Class<?> kind);
 
 }

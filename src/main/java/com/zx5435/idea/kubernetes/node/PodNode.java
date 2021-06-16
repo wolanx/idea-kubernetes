@@ -11,7 +11,7 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class PodNode extends AbstractTreeNode {
+public class PodNode extends ATreeNode {
 
     Pod ins;
 
@@ -40,8 +40,9 @@ public class PodNode extends AbstractTreeNode {
         menu.add(b1);
 
         JMenuItem b2 = new JMenuItem("Delete", AllIcons.Actions.Close);
-        b2.addActionListener(ev -> {
-            log.warn("todo");
+        b2.addActionListener(e -> {
+            log.warn("delete");
+            System.out.println("getModel().toString() = " + getModel().toString());
         });
         menu.add(b2);
 

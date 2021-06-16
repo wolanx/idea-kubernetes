@@ -17,8 +17,6 @@ import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.StatefulSet;
 import io.fabric8.kubernetes.api.model.batch.v1.CronJob;
 import io.fabric8.kubernetes.api.model.batch.v1.Job;
-import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,9 +29,7 @@ import java.util.List;
  */
 public class MyTreeStructure extends AbstractTreeStructure {
 
-    @Getter
-    @Setter
-    private IResModel model;
+    private final IResModel model;
 
     public MyTreeStructure(IResModel model) {
         this.model = model;
@@ -55,7 +51,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     @Override
     public @Nullable Object getParentElement(@NotNull Object element) {
-        return null;
+        return model;
     }
 
     @Override
@@ -110,33 +106,33 @@ public class MyTreeStructure extends AbstractTreeStructure {
         List<ITreeNode> ret = new ArrayList<>();
         switch (name) {
             case "ContextNode":
-                ret.add(new FolderNode("Namespaces", node, model, Namespace.class));
-                ret.add(new FolderNode.WorkloadsNode(node));
-                ret.add(new FolderNode.NetworksNode(node));
-                ret.add(new FolderNode.ConfigurationsNode(node));
-                ret.add(new FolderNode.VolumesNode(node));
+                ret.add(new FolderNode("Namespaces", model, Namespace.class));
+                ret.add(new FolderNode.WorkloadsNode());
+                ret.add(new FolderNode.NetworksNode());
+                ret.add(new FolderNode.ConfigurationsNode());
+                ret.add(new FolderNode.VolumesNode());
                 return ret;
             case "WorkloadsNode":
-                ret.add(new FolderNode("Deployments", node, model, Deployment.class));
-                ret.add(new FolderNode("StatefulSets", node, model, StatefulSet.class));
-                ret.add(new FolderNode("DaemonSets", node, model, DaemonSet.class));
-                ret.add(new FolderNode("Jobs", node, model, Job.class));
-                ret.add(new FolderNode("CronJobs", node, model, CronJob.class));
-                ret.add(new FolderNode("Pods", node, model, Pod.class));
-                ret.add(new FolderNode("Custom Resources", node));
+                ret.add(new FolderNode("Deployments", model, Deployment.class));
+                ret.add(new FolderNode("StatefulSets", model, StatefulSet.class));
+                ret.add(new FolderNode("DaemonSets", model, DaemonSet.class));
+                ret.add(new FolderNode("Jobs", model, Job.class));
+                ret.add(new FolderNode("CronJobs", model, CronJob.class));
+                ret.add(new FolderNode("Pods", model, Pod.class));
+                ret.add(new FolderNode("Custom Resources"));
                 return ret;
             case "NetworksNode":
-                ret.add(new FolderNode("Services", node));
-                ret.add(new FolderNode("Ingresses", node));
+                ret.add(new FolderNode("Services"));
+                ret.add(new FolderNode("Ingresses"));
                 return ret;
             case "ConfigurationsNode":
-                ret.add(new FolderNode("ConfigMap", node, model, ConfigMap.class));
-                ret.add(new FolderNode("Secrets", node));
+                ret.add(new FolderNode("ConfigMap", model, ConfigMap.class));
+                ret.add(new FolderNode("Secrets"));
                 return ret;
             case "VolumesNode":
-                ret.add(new FolderNode("Persistent Volume Claims", node));
-                ret.add(new FolderNode("Persistent Volumes", node));
-                ret.add(new FolderNode("StorageClasses", node));
+                ret.add(new FolderNode("Persistent Volume Claims"));
+                ret.add(new FolderNode("Persistent Volumes"));
+                ret.add(new FolderNode("StorageClasses"));
                 return ret;
             default:
                 return Collections.emptyList();

@@ -6,13 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author 913332
  */
-public abstract class AbstractTreeNode implements ITreeNode {
+public abstract class ATreeNode implements ITreeNode {
 
     @Getter
     @Setter
@@ -22,21 +20,9 @@ public abstract class AbstractTreeNode implements ITreeNode {
     @Setter
     private IResModel model;
 
-    @Getter
-    private List<ITreeNode> path = null;
-
     @Override
     public Icon getIcon() {
         return null;
-    }
-
-    public void setPath(List<ITreeNode> path) {
-        if (path == null) {
-            this.path = new ArrayList<>();
-        } else {
-            this.path = new ArrayList<>(path); // 浅拷贝
-        }
-        this.path.add(this);
     }
 
     @Override
