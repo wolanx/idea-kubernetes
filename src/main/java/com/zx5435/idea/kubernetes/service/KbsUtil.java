@@ -1,8 +1,10 @@
 package com.zx5435.idea.kubernetes.service;
 
+import com.zx5435.idea.kubernetes.model.NsTuple2;
 import com.zx5435.idea.kubernetes.node.*;
 import io.fabric8.kubernetes.api.model.ConfigMap;
 import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
@@ -21,7 +23,7 @@ import java.util.List;
 @Slf4j
 public class KbsUtil {
 
-    public static List<ITreeNode> getByKind(Class<?> kind) {
+    public static List<ITreeNode> getByKind(NsTuple2 ns, Class<?> kind) {
         log.warn("getResByKind." + kind.getSimpleName());
 
         switch (kind.getSimpleName()) {
@@ -30,7 +32,7 @@ public class KbsUtil {
             case "Deployment":
                 return listDp();
             case "Pod":
-                return listPod();
+                return listPod(ns.getNamespace());
             case "CronJob":
                 return listCronJob();
             case "ConfigMap":
@@ -48,6 +50,11 @@ public class KbsUtil {
         res.forEach(NamespaceNode::new);
 
         List<ITreeNode> ret = new ArrayList<>();
+        Namespace ns = new Namespace();
+        ns.setMetadata(new ObjectMeta() {{
+            setName("all");
+        }});
+        ret.add(new NamespaceNode(ns));
         for (Namespace one : res) {
             ret.add(new NamespaceNode(one));
         }
@@ -65,9 +72,10 @@ public class KbsUtil {
         return ret;
     }
 
-    public static List<ITreeNode> listPod() {
+    public static List<ITreeNode> listPod(String ns) {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
-        List<Pod> res = client.pods().inAnyNamespace().list().getItems();
+
+        List<Pod> res = ns == "all" ? client.pods().inAnyNamespace().list().getItems() : client.pods().inNamespace(ns).list().getItems();
 
         List<ITreeNode> ret = new ArrayList<>();
         for (Pod one : res) {

@@ -1,6 +1,7 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.ui.tree.LeafState;
+import com.zx5435.idea.kubernetes.model.NsTuple2;
 
 import javax.swing.*;
 
@@ -9,12 +10,16 @@ import javax.swing.*;
  */
 public interface ITreeNode {
 
-    public String getLabel();
+    void setNs(NsTuple2 ns);
 
-    public Icon getIcon();
+    NsTuple2 getNs();
 
-    public LeafState getLeafState();
+    String getLabel();
 
-    public JPopupMenu getMenu();
+    Icon getIcon();
+
+    LeafState getLeafState();
+
+    JPopupMenu getMenu();
 
 }

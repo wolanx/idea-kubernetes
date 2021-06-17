@@ -16,6 +16,6 @@ public interface IResModel {
 
     void reloadByKind(ITreeNode node, Class<?> kind);
 
-    List<ITreeNode> getResByKind(Class<?> kind);
+    List<ITreeNode> getResByKind(ITreeNode node,Class<?> kind);
 
 }

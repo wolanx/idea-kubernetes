@@ -95,10 +95,16 @@ public class MyTreeStructure extends AbstractTreeStructure {
     //
 
     public List<ITreeNode> getValidContributions(ITreeNode node) {
+        List<ITreeNode> ret = getiTreeNodes(node);
+        ret.forEach(v -> v.setNs(node.getNs()));
+        return ret;
+    }
+
+    private List<ITreeNode> getiTreeNodes(ITreeNode node) {
         if (node instanceof FolderNode) {
             Class<?> kind = ((FolderNode) node).getKind();
             if (kind != null) {
-                return model.getResByKind(kind);
+                return model.getResByKind(node, kind);
             }
         }
 
