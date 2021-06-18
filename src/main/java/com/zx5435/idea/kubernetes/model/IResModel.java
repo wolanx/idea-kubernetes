@@ -15,6 +15,7 @@ public interface IResModel {
     List<ContextNode> getAllContexts();
 
     void reloadByKind(ITreeNode node, Class<?> kind);
+    void fireModified(ITreeNode node);
 
     List<ITreeNode> getResByKind(ITreeNode node,Class<?> kind);
 

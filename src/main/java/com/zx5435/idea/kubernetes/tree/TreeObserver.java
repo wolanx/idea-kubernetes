@@ -52,6 +52,7 @@ public class TreeObserver implements ITreeObserver {
             if (path == null) {
                 treeModel.invalidate();
             } else {
+                //path = path.getParentPath(); todo
                 treeModel.invalidate(path, true);
             }
         });

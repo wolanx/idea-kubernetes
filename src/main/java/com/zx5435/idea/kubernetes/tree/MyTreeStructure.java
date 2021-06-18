@@ -97,6 +97,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
     public List<ITreeNode> getValidContributions(ITreeNode node) {
         List<ITreeNode> ret = getiTreeNodes(node);
         ret.forEach(v -> v.setNs(node.getNs()));
+        ret.forEach(v -> v.setModel(model));
         return ret;
     }
 

@@ -44,8 +44,7 @@ public class ResModel implements IResModel {
 
     @Override
     public List<ITreeNode> getResByKind(ITreeNode node, Class<?> kind) {
-        System.out.println("node.label = " + node.getLabel());
-        System.out.println("node.ns = " + node.getNs());
+        System.out.println(node.getNs());
         return KbsUtil.getByKind(node.getNs(), kind);
     }
 

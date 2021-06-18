@@ -24,7 +24,7 @@ import java.util.List;
 public class KbsUtil {
 
     public static List<ITreeNode> getByKind(NsTuple2 ns, Class<?> kind) {
-        log.warn("getResByKind." + kind.getSimpleName());
+        log.warn("getByKind " + kind.getSimpleName());
 
         switch (kind.getSimpleName()) {
             case "Namespace":
@@ -51,9 +51,7 @@ public class KbsUtil {
 
         List<ITreeNode> ret = new ArrayList<>();
         Namespace ns = new Namespace();
-        ns.setMetadata(new ObjectMeta() {{
-            setName("all");
-        }});
+        ns.setMetadata(new ObjectMeta());
         ret.add(new NamespaceNode(ns));
         for (Namespace one : res) {
             ret.add(new NamespaceNode(one));
@@ -75,7 +73,7 @@ public class KbsUtil {
     public static List<ITreeNode> listPod(String ns) {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
 
-        List<Pod> res = ns == "all" ? client.pods().inAnyNamespace().list().getItems() : client.pods().inNamespace(ns).list().getItems();
+        List<Pod> res = ns == null ? client.pods().inAnyNamespace().list().getItems() : client.pods().inNamespace(ns).list().getItems();
 
         List<ITreeNode> ret = new ArrayList<>();
         for (Pod one : res) {
