@@ -1,8 +1,10 @@
 package com.zx5435.idea.kubernetes.service;
 
+import com.zx5435.idea.kubernetes.model.Cluster;
 import com.zx5435.idea.kubernetes.node.*;
 import io.fabric8.kubernetes.api.model.ConfigMap;
 import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
@@ -19,10 +21,11 @@ import java.util.List;
  * @author 913332
  */
 @Slf4j
-public class KbsUtil {
+public class KubeUtil {
 
-    public static List<ITreeNode> getByKind(Class<?> kind) {
-        log.warn("getResByKind." + kind.getSimpleName());
+    public static List<ITreeNode> getByKind(Cluster ctx, Class<?> kind) {
+        String ns = ctx.getNs();
+        System.out.printf("Kube ctx=%s, ns=%s, kind=%s\n", ctx.getName(), ns, kind.getSimpleName());
 
         switch (kind.getSimpleName()) {
             case "Namespace":
@@ -30,7 +33,7 @@ public class KbsUtil {
             case "Deployment":
                 return listDp();
             case "Pod":
-                return listPod();
+                return listPod(ns);
             case "CronJob":
                 return listCronJob();
             case "ConfigMap":
@@ -48,6 +51,9 @@ public class KbsUtil {
         res.forEach(NamespaceNode::new);
 
         List<ITreeNode> ret = new ArrayList<>();
+        Namespace ns = new Namespace();
+        ns.setMetadata(new ObjectMeta());
+        ret.add(new NamespaceNode(ns));
         for (Namespace one : res) {
             ret.add(new NamespaceNode(one));
         }
@@ -65,9 +71,10 @@ public class KbsUtil {
         return ret;
     }
 
-    public static List<ITreeNode> listPod() {
+    public static List<ITreeNode> listPod(String ns) {
         DefaultKubernetesClient client = new DefaultKubernetesClient();
-        List<Pod> res = client.pods().inAnyNamespace().list().getItems();
+
+        List<Pod> res = ns == null ? client.pods().inAnyNamespace().list().getItems() : client.pods().inNamespace(ns).list().getItems();
 
         List<ITreeNode> ret = new ArrayList<>();
         for (Pod one : res) {

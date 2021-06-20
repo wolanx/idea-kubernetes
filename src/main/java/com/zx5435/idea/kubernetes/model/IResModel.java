@@ -1,6 +1,6 @@
 package com.zx5435.idea.kubernetes.model;
 
-import com.zx5435.idea.kubernetes.node.ContextNode;
+import com.zx5435.idea.kubernetes.node.ClusterNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
 
 import java.util.List;
@@ -12,10 +12,16 @@ public interface IResModel {
 
     void addListener(ITreeObserver myTreeUpdater);
 
-    List<ContextNode> getAllContexts();
+    List<ClusterNode> getAllContexts();
 
     void reloadByKind(ITreeNode node, Class<?> kind);
 
-    List<ITreeNode> getResByKind(Class<?> kind);
+    String getNsByCtx(Cluster ctx);
+
+    void fireSelectNs(Cluster ctx,String ns);
+
+    void fireModified(ITreeNode node);
+
+    List<ITreeNode> getResByKind(ITreeNode node, Class<?> kind);
 
 }

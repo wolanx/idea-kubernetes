@@ -1,6 +1,8 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.ui.tree.LeafState;
+import com.zx5435.idea.kubernetes.model.IResModel;
+import com.zx5435.idea.kubernetes.model.Cluster;
 
 import javax.swing.*;
 
@@ -9,12 +11,17 @@ import javax.swing.*;
  */
 public interface ITreeNode {
 
-    public String getLabel();
+    void setCtx(Cluster ctx);
+    void setModel(IResModel model);
 
-    public Icon getIcon();
+    Cluster getCtx();
 
-    public LeafState getLeafState();
+    String getLabel();
 
-    public JPopupMenu getMenu();
+    Icon getIcon();
+
+    LeafState getLeafState();
+
+    JPopupMenu getMenu();
 
 }

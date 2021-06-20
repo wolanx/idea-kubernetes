@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.demo;
+package com.zx5435.idea.kubernetes.other;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -17,7 +17,7 @@ public class AddClusterDialog extends DialogWrapper {
     public AddClusterDialog() {
         super(true);
         init();
-        setTitle("New kubeconfig");
+        setTitle("New Kubeconfig");
     }
 
     @Override

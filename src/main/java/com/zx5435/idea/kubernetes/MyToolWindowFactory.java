@@ -9,7 +9,7 @@ import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.treeStructure.Tree;
-import com.zx5435.idea.kubernetes.demo.AddClusterDialog;
+import com.zx5435.idea.kubernetes.other.AddClusterDialog;
 import com.zx5435.idea.kubernetes.tree.MyTree;
 import org.jetbrains.annotations.NotNull;
 

@@ -20,12 +20,14 @@ public class NamespaceNode extends ATreeNode {
 
     @Override
     public String getLabel() {
-        return ins.getMetadata().getName();
+        String name = ins.getMetadata().getName();
+        return name != null ? name : "all";
     }
 
     @Override
     public Icon getIcon() {
-        if ("default".equals(ins.getMetadata().getName())) {
+        String ns = getCtx().getNs();
+        if (getLabel().equals(ns) || (getLabel().equals("all") && ns == null)) {
             return AllIcons.Actions.Execute;
         } else {
             return AllIcons.Nodes.EmptyNode;
@@ -38,7 +40,7 @@ public class NamespaceNode extends ATreeNode {
 
         JMenuItem b1 = new JMenuItem("Use namespace");
         b1.addActionListener(e -> {
-            log.warn("todo");
+            getModel().fireSelectNs(getCtx(), ins.getMetadata().getName());
         });
 
         menu.add(b1);

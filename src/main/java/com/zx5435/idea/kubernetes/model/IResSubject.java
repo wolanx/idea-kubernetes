@@ -9,6 +9,8 @@ public interface IResSubject {
 
     void addListener(ITreeObserver listener);
 
-    void fireModified(ITreeNode e);
+    void fireSelectNs(String ns);
+
+    void fireModified(ITreeNode node);
 
 }

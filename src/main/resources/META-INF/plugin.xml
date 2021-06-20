@@ -30,7 +30,7 @@
     <actions>
         <group text="_K8S">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action text="Text Boxes" class="com.zx5435.idea.kubernetes.demo.TextBoxes"/>
+            <action text="Text Boxes" class="com.zx5435.idea.kubernetes.other.TextBoxes"/>
         </group>
     </actions>
 

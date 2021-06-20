@@ -32,6 +32,12 @@ public class TreeObserver implements ITreeObserver {
     }
 
     @Override
+    public void selectNs(String ns) {
+        log.warn("selectNs " + ns);
+        treeModel.invalidate();
+    }
+
+    @Override
     public void added() {
         log.warn("adder");
     }
