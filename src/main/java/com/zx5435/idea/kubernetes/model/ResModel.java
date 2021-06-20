@@ -1,12 +1,14 @@
 package com.zx5435.idea.kubernetes.model;
 
-import com.zx5435.idea.kubernetes.node.ContextNode;
+import com.zx5435.idea.kubernetes.node.ClusterNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
-import com.zx5435.idea.kubernetes.service.KbsUtil;
+import com.zx5435.idea.kubernetes.service.KubeUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 913332
@@ -15,6 +17,8 @@ import java.util.List;
 public class ResModel implements IResModel {
 
     private final ResSubject observe = new ResSubject();
+
+    private final Map<String, String> ctx2ns = new HashMap<>();
 
     public ResModel() {
         //
@@ -25,15 +29,27 @@ public class ResModel implements IResModel {
         observe.addListener(listener);
     }
 
+
+    @Override
+    public String getNsByCtx(Cluster ctx) {
+        return ctx2ns.get(ctx.getName());
+    }
+
+    @Override
+    public void fireSelectNs(Cluster ctx, String ns) {
+        ctx2ns.put(ctx.getName(), ns);
+        observe.fireSelectNs(ns);
+    }
+
     public void fireModified(ITreeNode node) {
         observe.fireModified(node);
     }
 
     @Override
-    public List<ContextNode> getAllContexts() {
-        List<ContextNode> ret = new ArrayList<>();
-        ret.add(new ContextNode("default"));
-        ret.add(new ContextNode("bbb"));
+    public List<ClusterNode> getAllContexts() {
+        List<ClusterNode> ret = new ArrayList<>();
+        ret.add(new ClusterNode("default", this));
+        ret.add(new ClusterNode("bbb", this));
         return ret;
     }
 
@@ -44,8 +60,8 @@ public class ResModel implements IResModel {
 
     @Override
     public List<ITreeNode> getResByKind(ITreeNode node, Class<?> kind) {
-        System.out.println(node.getNs());
-        return KbsUtil.getByKind(node.getNs(), kind);
+        System.out.println(node.getCtx());
+        return KubeUtil.getByKind(node.getCtx(), kind);
     }
 
 }

@@ -32,6 +32,12 @@ public class TreeObserver implements ITreeObserver {
     }
 
     @Override
+    public void selectNs(String ns) {
+        log.warn("selectNs " + ns);
+        treeModel.invalidate();
+    }
+
+    @Override
     public void added() {
         log.warn("adder");
     }
@@ -52,7 +58,6 @@ public class TreeObserver implements ITreeObserver {
             if (path == null) {
                 treeModel.invalidate();
             } else {
-                //path = path.getParentPath(); todo
                 treeModel.invalidate(path, true);
             }
         });

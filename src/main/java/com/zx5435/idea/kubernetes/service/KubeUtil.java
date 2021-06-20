@@ -1,6 +1,6 @@
 package com.zx5435.idea.kubernetes.service;
 
-import com.zx5435.idea.kubernetes.model.NsTuple2;
+import com.zx5435.idea.kubernetes.model.Cluster;
 import com.zx5435.idea.kubernetes.node.*;
 import io.fabric8.kubernetes.api.model.ConfigMap;
 import io.fabric8.kubernetes.api.model.Namespace;
@@ -21,10 +21,11 @@ import java.util.List;
  * @author 913332
  */
 @Slf4j
-public class KbsUtil {
+public class KubeUtil {
 
-    public static List<ITreeNode> getByKind(NsTuple2 ns, Class<?> kind) {
-        log.warn("getByKind " + kind.getSimpleName());
+    public static List<ITreeNode> getByKind(Cluster ctx, Class<?> kind) {
+        String ns = ctx.getNs();
+        System.out.printf("Kube ctx=%s, ns=%s, kind=%s\n", ctx.getName(), ns, kind.getSimpleName());
 
         switch (kind.getSimpleName()) {
             case "Namespace":
@@ -32,7 +33,7 @@ public class KbsUtil {
             case "Deployment":
                 return listDp();
             case "Pod":
-                return listPod(ns.getNamespace());
+                return listPod(ns);
             case "CronJob":
                 return listCronJob();
             case "ConfigMap":

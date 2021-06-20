@@ -56,7 +56,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     @Override
     public @NotNull NodeDescriptor<?> createDescriptor(@NotNull Object element, @Nullable NodeDescriptor parent) {
-        // todo map createDescriptor
+        // fixme map createDescriptor
         if (element instanceof FolderNode) {
             return new FolderDescriptor<>((FolderNode) element, parent);
         } else if (element instanceof ITreeNode) {
@@ -96,8 +96,12 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     public List<ITreeNode> getValidContributions(ITreeNode node) {
         List<ITreeNode> ret = getiTreeNodes(node);
-        ret.forEach(v -> v.setNs(node.getNs()));
-        ret.forEach(v -> v.setModel(model));
+        // fixme better
+        ret.forEach(v -> {
+            v.setCtx(node.getCtx());
+            v.setModel(model);
+            System.out.println(v.getLabel() + " " + Integer.toHexString(v.hashCode()));
+        });
         return ret;
     }
 
@@ -108,11 +112,12 @@ public class MyTreeStructure extends AbstractTreeStructure {
                 return model.getResByKind(node, kind);
             }
         }
+        // todo ins
 
         String name = node.getClass().getSimpleName();
         List<ITreeNode> ret = new ArrayList<>();
         switch (name) {
-            case "ContextNode":
+            case "ClusterNode": // fixme dy
                 ret.add(new FolderNode("Namespaces", model, Namespace.class));
                 ret.add(new FolderNode.WorkloadsNode());
                 ret.add(new FolderNode.NetworksNode());

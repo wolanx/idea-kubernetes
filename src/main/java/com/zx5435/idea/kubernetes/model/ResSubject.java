@@ -18,6 +18,13 @@ public class ResSubject implements IResSubject {
     }
 
     @Override
+    public void fireSelectNs(String ns) {
+        for (ITreeObserver one : observers) {
+            one.selectNs(ns);
+        }
+    }
+
+    @Override
     public void fireModified(ITreeNode node) {
         for (ITreeObserver one : observers) {
             one.modified(node);
