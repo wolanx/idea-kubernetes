@@ -1,25 +1,33 @@
-# `kubernetes` `plugin` in Jetbrains IntelliJ IDEA
+# IntelliJ IDEA plugin for Kubernetes
 
-## feature
+## Feature
 
-- kubeconfig
-    - [ ] create
-- namespace
-    - [ ] refresh
-    - [ ] select
-- deployment
-    - [ ] refresh
-    - [ ] table
-    - [ ] info
-    - [ ] delete
-- pod
-    - [ ] refresh
-    - [ ] table
-    - [ ] info
-    - [ ] delete
-    - [ ] log
-    - [ ] port
-- config
-    - [ ] ingress
-    - [ ] service
-    - [ ] secret
+- Cluster kubeconfig
+    - [ ] crud
+- Namespace
+    - [x] refresh
+    - [x] select use
+- Workloads
+    - Deployment StatefulSet DaemonSet
+        - [x] refresh
+        - [ ] table
+        - [ ] info
+        - [ ] delete
+    - Job
+    - CronJob
+    - Pod
+        - [x] refresh
+        - [ ] table
+        - [ ] info
+        - [ ] delete
+        - [ ] log
+        - [ ] port
+    - Custom Resources
+        - [ ] refresh
+- Networks
+    - Services
+    - Ingresses
+- Configurations
+    - [ ] ConfigMap
+    - [ ] Secrets
+- Volumes
