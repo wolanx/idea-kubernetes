@@ -29,11 +29,11 @@ public class KubeUtil {
 
         switch (kind.getSimpleName()) {
             case "Namespace":
-                return listNs();
+                return listNs(ctx.getClient());
             case "Deployment":
-                return listDp();
+                return listDp(ctx.getClient(), ns);
             case "Pod":
-                return listPod(ns);
+                return listPod(ctx.getClient(), ns);
             case "CronJob":
                 return listCronJob();
             case "ConfigMap":
@@ -44,8 +44,7 @@ public class KubeUtil {
     }
 
 
-    public static List<ITreeNode> listNs() {
-        DefaultKubernetesClient client = new DefaultKubernetesClient();
+    public static List<ITreeNode> listNs(DefaultKubernetesClient client) {
         List<Namespace> res = client.namespaces().list().getItems();
 
         res.forEach(NamespaceNode::new);
@@ -60,9 +59,10 @@ public class KubeUtil {
         return ret;
     }
 
-    public static List<ITreeNode> listDp() {
-        DefaultKubernetesClient client = new DefaultKubernetesClient();
-        List<Deployment> res = client.apps().deployments().inAnyNamespace().list().getItems();
+    public static List<ITreeNode> listDp(DefaultKubernetesClient client, String ns) {
+        List<Deployment> res = ns == null
+                ? client.apps().deployments().inAnyNamespace().list().getItems()
+                : client.apps().deployments().inNamespace(ns).list().getItems();
 
         List<ITreeNode> ret = new ArrayList<>();
         for (Deployment one : res) {
@@ -71,10 +71,10 @@ public class KubeUtil {
         return ret;
     }
 
-    public static List<ITreeNode> listPod(String ns) {
-        DefaultKubernetesClient client = new DefaultKubernetesClient();
-
-        List<Pod> res = ns == null ? client.pods().inAnyNamespace().list().getItems() : client.pods().inNamespace(ns).list().getItems();
+    public static List<ITreeNode> listPod(DefaultKubernetesClient client, String ns) {
+        List<Pod> res = ns == null
+                ? client.pods().inAnyNamespace().list().getItems()
+                : client.pods().inNamespace(ns).list().getItems();
 
         List<ITreeNode> ret = new ArrayList<>();
         for (Pod one : res) {

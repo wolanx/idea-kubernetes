@@ -20,8 +20,11 @@ public class ResModel implements IResModel {
 
     private final Map<String, String> ctx2ns = new HashMap<>();
 
+    private final List<ClusterNode> ctxArr = new ArrayList<>();
+
     public ResModel() {
-        //
+        ctxArr.add(new ClusterNode("default", this));
+        ctxArr.add(new ClusterNode("bbb", this));
     }
 
     @Override
@@ -47,20 +50,15 @@ public class ResModel implements IResModel {
 
     @Override
     public List<ClusterNode> getAllContexts() {
-        List<ClusterNode> ret = new ArrayList<>();
-        ret.add(new ClusterNode("default", this));
-        ret.add(new ClusterNode("bbb", this));
-        return ret;
+        return ctxArr;
     }
 
     public void reloadByKind(ITreeNode node, Class<?> kind) {
-        //this.arr.add(new ContextNode("bbbb"));
         this.fireModified(node);
     }
 
     @Override
     public List<ITreeNode> getResByKind(ITreeNode node, Class<?> kind) {
-        System.out.println(node.getCtx());
         return KubeUtil.getByKind(node.getCtx(), kind);
     }
 

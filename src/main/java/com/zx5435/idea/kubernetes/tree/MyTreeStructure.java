@@ -9,18 +9,9 @@ import com.zx5435.idea.kubernetes.descriptor.ResourceDescriptor;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.node.FolderNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
-import io.fabric8.kubernetes.api.model.ConfigMap;
-import io.fabric8.kubernetes.api.model.Namespace;
-import io.fabric8.kubernetes.api.model.Pod;
-import io.fabric8.kubernetes.api.model.apps.DaemonSet;
-import io.fabric8.kubernetes.api.model.apps.Deployment;
-import io.fabric8.kubernetes.api.model.apps.StatefulSet;
-import io.fabric8.kubernetes.api.model.batch.v1.CronJob;
-import io.fabric8.kubernetes.api.model.batch.v1.Job;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -92,62 +83,32 @@ public class MyTreeStructure extends AbstractTreeStructure {
         return super.getLeafState(element);
     }
 
-    //
-
+    // fixme better
+    // todo 子节点 合并后，不请求
     public List<ITreeNode> getValidContributions(ITreeNode node) {
-        List<ITreeNode> ret = getiTreeNodes(node);
-        // fixme better
+        List<ITreeNode> ret = getTreeNodes(node);
         ret.forEach(v -> {
             v.setCtx(node.getCtx());
             v.setModel(model);
-            System.out.println(v.getLabel() + " " + Integer.toHexString(v.hashCode()));
+//            System.out.println(v.getLabel() + " " + Integer.toHexString(v.hashCode()));
         });
         return ret;
     }
 
-    private List<ITreeNode> getiTreeNodes(ITreeNode node) {
+    private List<ITreeNode> getTreeNodes(ITreeNode node) {
         if (node instanceof FolderNode) {
             Class<?> kind = ((FolderNode) node).getKind();
             if (kind != null) {
                 return model.getResByKind(node, kind);
             }
         }
-        // todo ins
 
-        String name = node.getClass().getSimpleName();
-        List<ITreeNode> ret = new ArrayList<>();
-        switch (name) {
-            case "ClusterNode": // fixme dy
-                ret.add(new FolderNode("Namespaces", model, Namespace.class));
-                ret.add(new FolderNode.WorkloadsNode());
-                ret.add(new FolderNode.NetworksNode());
-                ret.add(new FolderNode.ConfigurationsNode());
-                ret.add(new FolderNode.VolumesNode());
-                return ret;
-            case "WorkloadsNode":
-                ret.add(new FolderNode("Deployments", model, Deployment.class));
-                ret.add(new FolderNode("StatefulSets", model, StatefulSet.class));
-                ret.add(new FolderNode("DaemonSets", model, DaemonSet.class));
-                ret.add(new FolderNode("Jobs", model, Job.class));
-                ret.add(new FolderNode("CronJobs", model, CronJob.class));
-                ret.add(new FolderNode("Pods", model, Pod.class));
-                ret.add(new FolderNode("Custom Resources"));
-                return ret;
-            case "NetworksNode":
-                ret.add(new FolderNode("Services"));
-                ret.add(new FolderNode("Ingresses"));
-                return ret;
-            case "ConfigurationsNode":
-                ret.add(new FolderNode("ConfigMap", model, ConfigMap.class));
-                ret.add(new FolderNode("Secrets"));
-                return ret;
-            case "VolumesNode":
-                ret.add(new FolderNode("Persistent Volume Claims"));
-                ret.add(new FolderNode("Persistent Volumes"));
-                ret.add(new FolderNode("StorageClasses"));
-                return ret;
-            default:
-                return Collections.emptyList();
+        List<ITreeNode> ret = node.getChildElements();
+
+        if (ret != null) {
+            return ret;
+        } else {
+            return Collections.emptyList();
         }
     }
 

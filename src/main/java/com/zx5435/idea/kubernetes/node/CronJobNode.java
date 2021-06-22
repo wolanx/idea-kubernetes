@@ -2,10 +2,13 @@ package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
+import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 913332
