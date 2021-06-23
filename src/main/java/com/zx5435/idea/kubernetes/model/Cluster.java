@@ -10,6 +10,9 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 
+/**
+ * @author 913332
+ */
 public class Cluster {
 
     @Getter

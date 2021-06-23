@@ -44,6 +44,7 @@ public class ResModel implements IResModel {
         observe.fireSelectNs(ns);
     }
 
+    @Override
     public void fireModified(ITreeNode node) {
         observe.fireModified(node);
     }
@@ -53,6 +54,7 @@ public class ResModel implements IResModel {
         return ctxArr;
     }
 
+    @Override
     public void reloadByKind(ITreeNode node, Class<?> kind) {
         this.fireModified(node);
     }
