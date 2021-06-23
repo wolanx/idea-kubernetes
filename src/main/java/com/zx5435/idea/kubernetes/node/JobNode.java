@@ -1,7 +1,9 @@
 package com.zx5435.idea.kubernetes.node;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
-import io.fabric8.kubernetes.api.model.apps.Deployment;
+import io.fabric8.kubernetes.api.model.batch.v1.Job;
+import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -10,11 +12,11 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class DeploymentNode extends ATreeNode {
+public class JobNode extends ATreeNode {
 
-    Deployment ins;
+    Job ins;
 
-    public DeploymentNode(Deployment ns) {
+    public JobNode(Job ns) {
         this.ins = ns;
     }
 
@@ -32,12 +34,18 @@ public class DeploymentNode extends ATreeNode {
     public JPopupMenu getMenu() {
         JPopupMenu menu = new JPopupMenu();
 
-        JMenuItem b1 = new JMenuItem("delete");
+        JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
         b1.addActionListener(ev -> {
             log.warn("todo");
         });
-
         menu.add(b1);
+
+        JMenuItem b2 = new JMenuItem("Delete", AllIcons.Actions.Close);
+        b2.addActionListener(ev -> {
+            log.warn("todo");
+        });
+        menu.add(b2);
+
         return menu;
     }
 

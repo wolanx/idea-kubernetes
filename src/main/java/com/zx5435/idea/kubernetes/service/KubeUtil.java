@@ -2,12 +2,15 @@ package com.zx5435.idea.kubernetes.service;
 
 import com.zx5435.idea.kubernetes.model.Cluster;
 import com.zx5435.idea.kubernetes.node.*;
-import io.fabric8.kubernetes.api.model.ConfigMap;
-import io.fabric8.kubernetes.api.model.Namespace;
-import io.fabric8.kubernetes.api.model.ObjectMeta;
-import io.fabric8.kubernetes.api.model.Pod;
+import io.fabric8.kubernetes.api.model.*;
+import io.fabric8.kubernetes.api.model.apiextensions.v1beta1.CustomResourceDefinition;
+import io.fabric8.kubernetes.api.model.apps.DaemonSet;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
+import io.fabric8.kubernetes.api.model.apps.StatefulSet;
+import io.fabric8.kubernetes.api.model.batch.v1.Job;
 import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
+import io.fabric8.kubernetes.api.model.networking.v1beta1.Ingress;
+import io.fabric8.kubernetes.api.model.storage.StorageClass;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.kubernetes.client.WatcherException;
@@ -24,20 +27,45 @@ import java.util.List;
 public class KubeUtil {
 
     public static List<ITreeNode> getByKind(Cluster ctx, Class<?> kind) {
+        DefaultKubernetesClient client = ctx.getClient();
         String ns = ctx.getNs();
         System.out.printf("Kube ctx=%s, ns=%s, kind=%s\n", ctx.getName(), ns, kind.getSimpleName());
 
         switch (kind.getSimpleName()) {
             case "Namespace":
-                return listNs(ctx.getClient());
+                return listNs(client);
+            // workload
             case "Deployment":
-                return listDp(ctx.getClient(), ns);
-            case "Pod":
-                return listPod(ctx.getClient(), ns);
+                return listDp(client, ns);
+            case "StatefulSet":
+                return listStatefulSet(client, ns);
+            case "DaemonSet":
+                return listDaemonSet(client, ns);
+            case "Job":
+                return listJob(client, ns);
             case "CronJob":
-                return listCronJob();
+                return listCronJob(client, ns);
+            case "Pod":
+                return listPod(client, ns);
+            case "CustomResourceDefinition":
+                return listCustomResourceDefinition(client);
+            // config
             case "ConfigMap":
-                return listConfigMap();
+                return listConfigMap(client, ns);
+            case "Secret":
+                return listSecrets(client, ns);
+            // network
+            case "Service":
+                return listService(client, ns);
+            case "Ingress":
+                return listIngress(client, ns);
+            // volume
+            case "PersistentVolumeClaim":
+                return listPersistentVolumeClaim(client, ns);
+            case "PersistentVolume":
+                return listPersistentVolume(client);
+            case "StorageClass":
+                return listStorageClass(client);
             default:
                 return Collections.emptyList();
         }
@@ -59,6 +87,8 @@ public class KubeUtil {
         return ret;
     }
 
+    // workload
+
     public static List<ITreeNode> listDp(DefaultKubernetesClient client, String ns) {
         List<Deployment> res = ns == null
                 ? client.apps().deployments().inAnyNamespace().list().getItems()
@@ -67,6 +97,54 @@ public class KubeUtil {
         List<ITreeNode> ret = new ArrayList<>();
         for (Deployment one : res) {
             ret.add(new DeploymentNode(one));
+        }
+        return ret;
+    }
+
+    private static List<ITreeNode> listStatefulSet(DefaultKubernetesClient client, String ns) {
+        List<StatefulSet> res = ns == null
+                ? client.apps().statefulSets().inAnyNamespace().list().getItems()
+                : client.apps().statefulSets().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (StatefulSet one : res) {
+            ret.add(new StatefulSetNode(one));
+        }
+        return ret;
+    }
+
+    private static List<ITreeNode> listDaemonSet(DefaultKubernetesClient client, String ns) {
+        List<DaemonSet> res = ns == null
+                ? client.apps().daemonSets().inAnyNamespace().list().getItems()
+                : client.apps().daemonSets().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (DaemonSet one : res) {
+            ret.add(new DaemonSetNode(one));
+        }
+        return ret;
+    }
+
+    private static List<ITreeNode> listJob(DefaultKubernetesClient client, String ns) {
+        List<Job> res = ns == null
+                ? client.batch().v1().jobs().inAnyNamespace().list().getItems()
+                : client.batch().v1().jobs().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (Job one : res) {
+            ret.add(new JobNode(one));
+        }
+        return ret;
+    }
+
+    public static List<ITreeNode> listCronJob(DefaultKubernetesClient client, String ns) {
+        List<CronJob> res = ns == null
+                ? client.batch().v1beta1().cronjobs().inAnyNamespace().list().getItems()
+                : client.batch().v1beta1().cronjobs().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (CronJob one : res) {
+            ret.add(new CronJobNode(one));
         }
         return ret;
     }
@@ -100,24 +178,98 @@ public class KubeUtil {
         System.out.println();
     }
 
-    public static List<ITreeNode> listCronJob() {
-        DefaultKubernetesClient client = new DefaultKubernetesClient();
-        List<CronJob> res = client.batch().v1beta1().cronjobs().inAnyNamespace().list().getItems();
+    private static List<ITreeNode> listCustomResourceDefinition(DefaultKubernetesClient client) {
+        List<CustomResourceDefinition> res = client.apiextensions().v1beta1().customResourceDefinitions().list().getItems();
 
         List<ITreeNode> ret = new ArrayList<>();
-        for (CronJob one : res) {
-            ret.add(new CronJobNode(one));
+        for (CustomResourceDefinition one : res) {
+            ret.add(new CustomResDefineNode(one));
         }
         return ret;
     }
 
-    public static List<ITreeNode> listConfigMap() {
-        DefaultKubernetesClient client = new DefaultKubernetesClient();
-        List<ConfigMap> res = client.configMaps().inAnyNamespace().list().getItems();
+    // network
+
+    private static List<ITreeNode> listService(DefaultKubernetesClient client, String ns) {
+        List<Service> res = ns == null
+                ? client.services().inAnyNamespace().list().getItems()
+                : client.services().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (Service one : res) {
+            ret.add(new ServiceNode(one));
+        }
+        return ret;
+    }
+
+    private static List<ITreeNode> listIngress(DefaultKubernetesClient client, String ns) {
+        List<Ingress> res = ns == null
+                ? client.network().ingress().inAnyNamespace().list().getItems()
+                : client.network().ingress().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (Ingress one : res) {
+            ret.add(new IngressNode(one));
+        }
+        return ret;
+    }
+
+    // config
+
+    public static List<ITreeNode> listConfigMap(DefaultKubernetesClient client, String ns) {
+        List<ConfigMap> res = ns == null
+                ? client.configMaps().inAnyNamespace().list().getItems()
+                : client.configMaps().inNamespace(ns).list().getItems();
 
         List<ITreeNode> ret = new ArrayList<>();
         for (ConfigMap one : res) {
             ret.add(new ConfigMapNode(one));
+        }
+        return ret;
+    }
+
+    private static List<ITreeNode> listSecrets(DefaultKubernetesClient client, String ns) {
+        List<Secret> res = ns == null
+                ? client.secrets().inAnyNamespace().list().getItems()
+                : client.secrets().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (Secret one : res) {
+            ret.add(new SecretNode(one));
+        }
+        return ret;
+    }
+
+    // volume
+
+    private static List<ITreeNode> listPersistentVolumeClaim(DefaultKubernetesClient client, String ns) {
+        List<PersistentVolumeClaim> res = ns == null
+                ? client.persistentVolumeClaims().inAnyNamespace().list().getItems()
+                : client.persistentVolumeClaims().inNamespace(ns).list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (PersistentVolumeClaim one : res) {
+            ret.add(new PvcNode(one));
+        }
+        return ret;
+    }
+
+    private static List<ITreeNode> listPersistentVolume(DefaultKubernetesClient client) {
+        List<PersistentVolume> res = client.persistentVolumes().list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (PersistentVolume one : res) {
+            ret.add(new PvNode(one));
+        }
+        return ret;
+    }
+
+    private static List<ITreeNode> listStorageClass(DefaultKubernetesClient client) {
+        List<StorageClass> res = client.storage().storageClasses().list().getItems();
+
+        List<ITreeNode> ret = new ArrayList<>();
+        for (StorageClass one : res) {
+            ret.add(new StorageClassNode(one));
         }
         return ret;
     }

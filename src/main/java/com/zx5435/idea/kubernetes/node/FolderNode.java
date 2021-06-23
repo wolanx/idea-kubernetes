@@ -3,15 +3,14 @@ package com.zx5435.idea.kubernetes.node;
 import com.intellij.icons.AllIcons;
 import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.model.IResModel;
-import io.fabric8.kubernetes.api.model.ConfigMap;
-import io.fabric8.kubernetes.api.model.Pod;
-import io.fabric8.kubernetes.api.model.Secret;
-import io.fabric8.kubernetes.api.model.Service;
+import io.fabric8.kubernetes.api.model.*;
+import io.fabric8.kubernetes.api.model.apiextensions.v1beta1.CustomResourceDefinition;
 import io.fabric8.kubernetes.api.model.apps.DaemonSet;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.StatefulSet;
 import io.fabric8.kubernetes.api.model.batch.v1.CronJob;
 import io.fabric8.kubernetes.api.model.batch.v1.Job;
+import io.fabric8.kubernetes.api.model.storage.StorageClass;
 import io.fabric8.openshift.api.model.Ingress;
 import lombok.Getter;
 import lombok.Setter;
@@ -78,7 +77,7 @@ public class FolderNode extends ATreeNode {
             childElements.add(new FolderNode("Jobs", getModel(), Job.class));
             childElements.add(new FolderNode("CronJobs", getModel(), CronJob.class));
             childElements.add(new FolderNode("Pods", getModel(), Pod.class));
-            childElements.add(new FolderNode("Custom Resources"));
+            childElements.add(new FolderNode("Custom Resources", getModel(), CustomResourceDefinition.class));
         }
 
     }
@@ -116,9 +115,9 @@ public class FolderNode extends ATreeNode {
 
         public VolumesNode() {
             super("Volumes");
-            childElements.add(new FolderNode("Persistent Volume Claims"));
-            childElements.add(new FolderNode("Persistent Volumes"));
-            childElements.add(new FolderNode("StorageClasses"));
+            childElements.add(new FolderNode("Persistent Volume Claims", getModel(), PersistentVolumeClaim.class));
+            childElements.add(new FolderNode("Persistent Volumes", getModel(), PersistentVolume.class));
+            childElements.add(new FolderNode("StorageClasses", getModel(), StorageClass.class));
         }
 
     }

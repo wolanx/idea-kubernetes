@@ -19,7 +19,7 @@ public class ClusterNode extends ATreeNode {
     public ClusterNode(String label, IResModel model) {
         setLabel(label);
         setModel(model);
-        this.setCtx(Cluster.of(label, getModel()));
+        this.setCtx(new Cluster(label, getModel()));
 
         childElements.add(new FolderNode("Namespaces", getModel(), Namespace.class));
         childElements.add(new FolderNode.WorkloadsNode());

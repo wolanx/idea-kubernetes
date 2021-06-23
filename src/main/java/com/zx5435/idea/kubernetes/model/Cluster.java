@@ -20,11 +20,15 @@ public class Cluster {
     @Setter
     private IResModel model;
 
-    public static Cluster of(String name, IResModel model) {
-        Cluster ret = new Cluster();
-        ret.setName(name);
-        ret.setModel(model);
-        return ret;
+    @Getter
+    @Setter
+    private DefaultKubernetesClient client;
+
+    public Cluster(String name, IResModel model) {
+        this.name = name;
+        this.model = model;
+
+        initClient();
     }
 
     public String getNs() {
@@ -32,11 +36,11 @@ public class Cluster {
     }
 
     @SneakyThrows
-    public DefaultKubernetesClient getClient() {
-        if (name.equals("default")) {
-            return new DefaultKubernetesClient();
+    public void initClient() {
+        if ("default".equals(name)) {
+            client = new DefaultKubernetesClient();
         } else {
-            io.fabric8.kubernetes.api.model.Config file = KubeConfigUtils.parseConfig(new File("C:\\Users\\admin\\Desktop\\kubeconfig.pref"));
+            io.fabric8.kubernetes.api.model.Config file = KubeConfigUtils.parseConfig(new File(System.getProperty("user.home") + "\\Desktop\\kubeconfig.perf"));
             io.fabric8.kubernetes.api.model.Cluster cluster = file.getClusters().get(0).getCluster();
             AuthInfo user = file.getUsers().get(0).getUser();
             Config config = Config.empty();
@@ -44,7 +48,7 @@ public class Cluster {
             config.setCaCertData(cluster.getCertificateAuthorityData());
             config.setClientCertData(user.getClientCertificateData());
             config.setClientKeyData(user.getClientKeyData());
-            return new DefaultKubernetesClient(config);
+            client = new DefaultKubernetesClient(config);
         }
     }
 
