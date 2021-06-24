@@ -1,9 +1,7 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.util.IconLoader;
 import io.fabric8.kubernetes.api.model.batch.v1.Job;
-import io.fabric8.kubernetes.api.model.batch.v1beta1.CronJob;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -27,7 +25,7 @@ public class JobNode extends ATreeNode {
 
     @Override
     public Icon getIcon() {
-        return IconLoader.getIcon("/img/pod-running.svg");
+        return AllIcons.Actions.Run_anything;
     }
 
     @Override

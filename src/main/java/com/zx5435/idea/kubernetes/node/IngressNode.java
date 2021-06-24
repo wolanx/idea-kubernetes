@@ -1,7 +1,6 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.util.IconLoader;
 import io.fabric8.kubernetes.api.model.networking.v1beta1.Ingress;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +25,7 @@ public class IngressNode extends ATreeNode {
 
     @Override
     public Icon getIcon() {
-        return IconLoader.getIcon("/img/pod-running.svg");
+        return AllIcons.Webreferences.WebSocket;
     }
 
     @Override
