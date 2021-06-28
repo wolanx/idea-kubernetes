@@ -12,23 +12,26 @@ import java.awt.*;
 /**
  * @author 913332
  */
-public class AddClusterDialog extends DialogWrapper {
+public class ClusterAddDialog extends DialogWrapper {
 
     private EditorTextField name;
     private EditorTextField content;
 
-    public AddClusterDialog() {
+    public ClusterAddDialog() {
         super(true);
         init();
-        setTitle("New Kubeconfig");
+        setTitle("New Cluster from Kubeconfig");
     }
 
     @Override
     protected JComponent createCenterPanel() {
         JPanel p = new JPanel(new BorderLayout());
-        name = new EditorTextField("cluster name");
-        content = new EditorTextField("copy .kubeconfig yaml file into here");
-        content.setOneLineMode(false);
+        name = new EditorTextField();
+        name.setPlaceholder("cluster name");
+        //name.setOneLineMode(false);
+        content = new EditorTextField();
+        content.setPlaceholder("copy .kubeconfig yaml file into here");
+        //content.setOneLineMode(false);
         content.setAutoscrolls(true);
         content.setPreferredSize(new Dimension(200, 100));
         p.add(name, BorderLayout.NORTH);

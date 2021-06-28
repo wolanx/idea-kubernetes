@@ -9,7 +9,7 @@ import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.treeStructure.Tree;
-import com.zx5435.idea.kubernetes.other.AddClusterDialog;
+import com.zx5435.idea.kubernetes.other.ClusterAddDialog;
 import com.zx5435.idea.kubernetes.tree.MyTree;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +33,7 @@ public class MyToolWindowFactory implements ToolWindowFactory {
         AnAction anAction = new AnAction("New Cluster") {
             @Override
             public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-                new AddClusterDialog().show();
+                new ClusterAddDialog().show();
             }
         };
         List<AnAction> arr = new ArrayList<>();

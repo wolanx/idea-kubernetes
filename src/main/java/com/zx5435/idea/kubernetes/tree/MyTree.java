@@ -85,6 +85,7 @@ public class MyTree {
                 if (obj instanceof Descriptor) {
                     JPopupMenu menu = ((ITreeNode) ((Descriptor<?>) obj).getElement()).getMenu();
                     if (menu != null) {
+                        //System.out.println(x + " " + y);
                         menu.show(tree, x, y);
                     }
                 }
