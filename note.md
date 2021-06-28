@@ -17,6 +17,6 @@ k get pod | grep blog- | awk '{print $1}' | xargs k delete pod
 
 
 
-
+- icons https://jetbrains.design/intellij/resources/icons_list/
 
 

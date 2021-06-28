@@ -26,7 +26,7 @@ public class PodNode extends ATreeNode {
 
     @Override
     public Icon getIcon() {
-        return IconLoader.getIcon("/img/pod-running.svg");
+        return IconLoader.getIcon("/img/pod-running.svg", PodNode.class);
     }
 
     @Override

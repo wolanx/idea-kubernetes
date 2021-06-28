@@ -1,7 +1,7 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
-import io.fabric8.kubernetes.api.model.ConfigMap;
+import io.fabric8.kubernetes.api.model.networking.v1beta1.Ingress;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -10,11 +10,11 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class ConfigMapNode extends ATreeNode {
+public class IngressNode extends ATreeNode {
 
-    ConfigMap ins;
+    Ingress ins;
 
-    public ConfigMapNode(ConfigMap ns) {
+    public IngressNode(Ingress ns) {
         this.ins = ns;
     }
 
@@ -25,7 +25,7 @@ public class ConfigMapNode extends ATreeNode {
 
     @Override
     public Icon getIcon() {
-        return AllIcons.Actions.Annotate;
+        return AllIcons.Webreferences.WebSocket;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
-import io.fabric8.kubernetes.api.model.ConfigMap;
+import io.fabric8.kubernetes.api.model.apps.StatefulSet;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -10,11 +10,11 @@ import javax.swing.*;
  * @author 913332
  */
 @Slf4j
-public class ConfigMapNode extends ATreeNode {
+public class StatefulSetNode extends ATreeNode {
 
-    ConfigMap ins;
+    StatefulSet ins;
 
-    public ConfigMapNode(ConfigMap ns) {
+    public StatefulSetNode(StatefulSet ns) {
         this.ins = ns;
     }
 
@@ -25,7 +25,7 @@ public class ConfigMapNode extends ATreeNode {
 
     @Override
     public Icon getIcon() {
-        return AllIcons.Actions.Annotate;
+        return AllIcons.Nodes.Deploy;
     }
 
     @Override

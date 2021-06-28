@@ -9,6 +9,9 @@ import com.zx5435.idea.kubernetes.service.K8showStorage;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author 913332
+ */
 public class AddClusterDialog extends DialogWrapper {
 
     private EditorTextField name;

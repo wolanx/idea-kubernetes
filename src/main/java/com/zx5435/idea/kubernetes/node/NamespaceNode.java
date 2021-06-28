@@ -12,25 +12,41 @@ import javax.swing.*;
 @Slf4j
 public class NamespaceNode extends ATreeNode {
 
-    Namespace ins;
+    private final Namespace ins;
+
+    private boolean isEmpty = false;
 
     public NamespaceNode(Namespace ns) {
         this.ins = ns;
+        String name = ins.getMetadata().getName();
+        if (name == null) {
+            isEmpty = true;
+        }
     }
 
     @Override
     public String getLabel() {
-        String name = ins.getMetadata().getName();
-        return name != null ? name : "all";
+        if (isEmpty) {
+            return "All namespaces";
+        }
+        return ins.getMetadata().getName();
     }
 
     @Override
     public Icon getIcon() {
-        String ns = getCtx().getNs();
-        if (getLabel().equals(ns) || (getLabel().equals("all") && ns == null)) {
-            return AllIcons.Actions.Execute;
+        String select = getCtx().getNs();
+        if (isEmpty) {
+            if (select == null) {
+                return AllIcons.Actions.GroupByModule;
+            } else {
+                return AllIcons.Json.Array;
+            }
         } else {
-            return AllIcons.Nodes.EmptyNode;
+            if (getLabel().equals(select)) {
+                return AllIcons.Actions.GroupByModule;
+            } else {
+                return AllIcons.Json.Array;
+            }
         }
     }
 
