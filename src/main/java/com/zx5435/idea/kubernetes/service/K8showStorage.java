@@ -44,10 +44,17 @@ public class K8showStorage implements PersistentStateComponent<K8showStorage> {
         log.warn("loadState");
     }
 
-    public void saveAny(String name, String content) {
-        //stateValue = name;
+    public void createByNameAndContent(String name, String content) {
         kubeconfigs.put(name, content);
         System.out.println(name + content.length());
+    }
+
+    public void updateByNameAndContent(String name, String content) {
+        System.out.println("update " + name + " " + content);
+    }
+
+    public void deleteByName(String name) {
+        System.out.println("delete " + name);
     }
 
 }
