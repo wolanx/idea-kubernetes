@@ -1,7 +1,7 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.ui.tree.LeafState;
-import com.zx5435.idea.kubernetes.model.Cluster;
+import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public abstract class ATreeNode implements ITreeNode {
 
     @Getter
     @Setter
-    private Cluster ctx;
+    private ClusterModel ctx;
 
     @Getter
     @Setter

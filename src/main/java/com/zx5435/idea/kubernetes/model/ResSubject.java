@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ResSubject implements IResSubject {
 
-    private List<ITreeObserver> observers = new ArrayList<>();
+    private final List<ITreeObserver> observers = new ArrayList<>();
 
     @Override
     public void addListener(ITreeObserver observer) {

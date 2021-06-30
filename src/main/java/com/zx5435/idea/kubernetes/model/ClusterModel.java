@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * @author 913332
  */
-public class Cluster {
+public class ClusterModel {
 
     @Getter
     @Setter
@@ -27,7 +27,7 @@ public class Cluster {
     @Setter
     private DefaultKubernetesClient client;
 
-    public Cluster(String name, IResModel model) {
+    public ClusterModel(String name, IResModel model) {
         this.name = name;
         this.model = model;
 

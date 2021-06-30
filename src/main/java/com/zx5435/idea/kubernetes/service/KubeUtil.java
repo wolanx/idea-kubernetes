@@ -1,6 +1,6 @@
 package com.zx5435.idea.kubernetes.service;
 
-import com.zx5435.idea.kubernetes.model.Cluster;
+import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.node.*;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.apiextensions.v1beta1.CustomResourceDefinition;
@@ -26,7 +26,7 @@ import java.util.List;
 @Slf4j
 public class KubeUtil {
 
-    public static List<ITreeNode> getByKind(Cluster ctx, Class<?> kind) {
+    public static List<ITreeNode> getByKind(ClusterModel ctx, Class<?> kind) {
         DefaultKubernetesClient client = ctx.getClient();
         String ns = ctx.getNs();
         System.out.printf("Kube ctx=%s, ns=%s, kind=%s\n", ctx.getName(), ns, kind.getSimpleName());

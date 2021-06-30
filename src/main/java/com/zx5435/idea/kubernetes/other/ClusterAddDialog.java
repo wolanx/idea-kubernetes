@@ -2,9 +2,10 @@ package com.zx5435.idea.kubernetes.other;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.ui.MessageDialogBuilder;
-import com.intellij.ui.EditorTextField;
-import com.zx5435.idea.kubernetes.service.K8showStorage;
+import com.intellij.ui.components.JBScrollPane;
+import com.intellij.ui.components.JBTextArea;
+import com.intellij.ui.components.JBTextField;
+import com.zx5435.idea.kubernetes.service.KubeStorage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +15,8 @@ import java.awt.*;
  */
 public class ClusterAddDialog extends DialogWrapper {
 
-    private EditorTextField name;
-    private EditorTextField content;
+    private JBTextField fName;
+    private JBTextArea fContent;
 
     public ClusterAddDialog() {
         super(true);
@@ -26,16 +27,12 @@ public class ClusterAddDialog extends DialogWrapper {
     @Override
     protected JComponent createCenterPanel() {
         JPanel p = new JPanel(new BorderLayout());
-        name = new EditorTextField();
-        name.setPlaceholder("cluster name");
-        //name.setOneLineMode(false);
-        content = new EditorTextField();
-        content.setPlaceholder("copy .kubeconfig yaml file into here");
-        //content.setOneLineMode(false);
-        content.setAutoscrolls(true);
-        content.setPreferredSize(new Dimension(200, 100));
-        p.add(name, BorderLayout.NORTH);
-        p.add(content, BorderLayout.CENTER);
+        fName = new JBTextField();
+//        name.setPlaceholder("cluster name");
+        fContent = new JBTextArea(5, 18);
+//        content.setPlaceholder("copy .kubeconfig yaml file into here");
+        p.add(fName, BorderLayout.NORTH);
+        p.add(new JBScrollPane(fContent), BorderLayout.CENTER);
         return p;
     }
 
@@ -44,9 +41,8 @@ public class ClusterAddDialog extends DialogWrapper {
         JPanel p = new JPanel(new FlowLayout());
         JButton btn = new JButton("Submit");
         btn.addActionListener(e -> {
-            K8showStorage storage = ServiceManager.getService(K8showStorage.class);
-            storage.createByNameAndContent(name.getText(), content.getText());
-            MessageDialogBuilder.okCancel("Notice", "success").guessWindowAndAsk();
+            KubeStorage storage = ServiceManager.getService(KubeStorage.class);
+            storage.createByNameAndContent(fName.getText(), fContent.getText());
             close(0);
         });
         p.add(btn);

@@ -34,7 +34,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
     @Override
     public Object @NotNull [] getChildElements(@NotNull Object element) {
         if (element == model) {
-            return model.getAllContexts().toArray();
+            return model.getClusters().toArray();
         } else {
             return getValidContributions((ITreeNode) element).toArray();
         }

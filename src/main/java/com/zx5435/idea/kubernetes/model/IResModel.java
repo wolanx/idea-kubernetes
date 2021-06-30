@@ -12,13 +12,15 @@ public interface IResModel {
 
     void addListener(ITreeObserver myTreeUpdater);
 
-    List<ClusterNode> getAllContexts();
+    // cluster
+    List<ClusterNode> getClusters();
+    void fireCluster();
 
     void reloadByKind(ITreeNode node, Class<?> kind);
 
-    String getNsByCtx(Cluster ctx);
+    String getNsByCtx(ClusterModel ctx);
 
-    void fireSelectNs(Cluster ctx,String ns);
+    void fireSelectNs(ClusterModel ctx, String ns);
 
     void fireModified(ITreeNode node);
 
