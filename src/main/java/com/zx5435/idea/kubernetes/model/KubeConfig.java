@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.service;
+package com.zx5435.idea.kubernetes.model;
 
 import lombok.Getter;
 import lombok.Setter;

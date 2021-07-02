@@ -3,7 +3,7 @@
 ## Feature
 
 - Cluster kubeconfig
-    - [ ] crud
+    - [x] crud
 - Namespace
     - [x] refresh
     - [x] select use

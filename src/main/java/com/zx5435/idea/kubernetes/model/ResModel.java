@@ -3,7 +3,6 @@ package com.zx5435.idea.kubernetes.model;
 import com.intellij.openapi.components.ServiceManager;
 import com.zx5435.idea.kubernetes.node.ClusterNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
-import com.zx5435.idea.kubernetes.service.KubeConfig;
 import com.zx5435.idea.kubernetes.service.KubeStorage;
 import com.zx5435.idea.kubernetes.service.KubeUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +25,7 @@ public class ResModel implements IResModel {
     private final List<ClusterNode> clusters = new ArrayList<>();
 
     public ResModel() {
-        clusters.add(new ClusterNode("default", this));
-        clusters.add(new ClusterNode("bbb", this));
+        this.fireCluster();
     }
 
     @Override
@@ -63,7 +61,7 @@ public class ResModel implements IResModel {
         clusters.clear();
         for (KubeConfig kubeConfig : kubeConfigs) {
             System.out.println(kubeConfig);
-            clusters.add(new ClusterNode(kubeConfig.getName(), this));
+            clusters.add(new ClusterNode(kubeConfig, this));
         }
         observe.fireSelectNs(null);
     }
