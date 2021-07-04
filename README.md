@@ -25,8 +25,8 @@
     - Custom Resources
         - [ ] refresh
 - Networks
-    - Services
-    - Ingresses
+    - [ ] Services
+    - [ ] Ingresses
 - Configurations
     - [ ] ConfigMap
     - [ ] Secrets

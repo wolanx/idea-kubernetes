@@ -1,7 +1,22 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
+import com.intellij.ide.highlighter.HtmlFileType;
+import com.intellij.lang.Language;
+import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.EditorFactory;
+import com.intellij.openapi.editor.EditorKind;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.fileTypes.FileTypes;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.util.IconLoader;
+import com.intellij.psi.FileViewProvider;
+import com.intellij.psi.PsiDocumentManager;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiFileFactory;
 import io.fabric8.kubernetes.api.model.Pod;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,8 +49,23 @@ public class PodNode extends ATreeNode {
         JPopupMenu menu = new JPopupMenu();
 
         JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
-        b1.addActionListener(ev -> {
-            log.warn("todo");
+        b1.addActionListener(e -> {
+            Project project = ProjectManager.getInstance().getDefaultProject();
+//            VirtualFile v = new VirtualFile() {
+            EditorFactory edIns = EditorFactory.getInstance();
+            Document doc = edIns.createDocument("hehe");
+            doc.setReadOnly(true);
+//            doc.
+            Editor editor = edIns.createEditor(doc, project, FileTypes.PLAIN_TEXT, true);
+//            edIns.refreshAllEditors();
+//            EditorFactory.getInstance().refreshAllEditors();
+            PsiFile f = PsiFileFactory.getInstance(project).createFileFromText(Language.ANY, "heheh");
+//            FileViewProvider viewProvider = f.getViewProvider();
+//            EditorFactory.getInstance().releaseEditor(viewProvider);
+//            FileDocumentManager.getInstance().reloadFromDisk(doc);
+            PsiFile psiFile = PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument());
+            Editor[] allEditors = edIns.getAllEditors();
+            System.out.println("hehe " + allEditors.length);
         });
         menu.add(b1);
 
