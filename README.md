@@ -14,7 +14,9 @@
         - [ ] info
         - [ ] delete
     - Job
+        - [ ] refresh
     - CronJob
+        - [ ] refresh
     - Pod
         - [x] refresh
         - [ ] table
@@ -31,3 +33,6 @@
     - [ ] ConfigMap
     - [ ] Secrets
 - Volumes
+    - [ ] PVC
+    - [ ] PV
+    - [ ] StorageClass
