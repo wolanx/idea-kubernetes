@@ -20,5 +20,10 @@ k get pod | grep blog- | awk '{print $1}' | xargs k delete pod
 ((ResModelImpl) getModel()).arr.add(new ContextNode("hhhhhh"))
 
 
+// 格式化代码
+CodeStyleManager.getInstance(project).reformat(psiClass);
+// 用编辑器打开指定文件
+FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project, virtualFile), true);
+
 
 
