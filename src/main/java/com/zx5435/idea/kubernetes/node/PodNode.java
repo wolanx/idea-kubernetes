@@ -8,11 +8,15 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.editor.EditorKind;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.FileTypes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.util.IconLoader;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
@@ -51,15 +55,18 @@ public class PodNode extends ATreeNode {
         JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
         b1.addActionListener(e -> {
             Project project = ProjectManager.getInstance().getDefaultProject();
+            VirtualFileManager vm = VirtualFileManager.getInstance();
+            VirtualFile zxc = vm.findFileById("zxc");
 //            VirtualFile v = new VirtualFile() {
             EditorFactory edIns = EditorFactory.getInstance();
             Document doc = edIns.createDocument("hehe");
             doc.setReadOnly(true);
-//            doc.
+            PsiFile f = PsiFileFactory.getInstance(project).createFileFromText(Language.ANY, "heheh");
+            VirtualFile virtualFile = f.getVirtualFile();
             Editor editor = edIns.createEditor(doc, project, FileTypes.PLAIN_TEXT, true);
+            FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project, virtualFile), true);
 //            edIns.refreshAllEditors();
 //            EditorFactory.getInstance().refreshAllEditors();
-            PsiFile f = PsiFileFactory.getInstance(project).createFileFromText(Language.ANY, "heheh");
 //            FileViewProvider viewProvider = f.getViewProvider();
 //            EditorFactory.getInstance().releaseEditor(viewProvider);
 //            FileDocumentManager.getInstance().reloadFromDisk(doc);
