@@ -14,6 +14,8 @@ import io.fabric8.kubernetes.api.model.storage.StorageClass;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.kubernetes.client.WatcherException;
+import io.fabric8.kubernetes.client.internal.SerializationUtils;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -272,6 +274,22 @@ public class KubeUtil {
             ret.add(new StorageClassNode(one));
         }
         return ret;
+    }
+
+    // yaml
+
+    @SneakyThrows
+    public static String getDeployment(DefaultKubernetesClient client, String ns, String name){
+        Deployment myPod = client.apps().deployments().inNamespace(ns).withName(name).get();
+
+        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(myPod);
+    }
+
+    @SneakyThrows
+    public static String getPod(DefaultKubernetesClient client, String ns, String name){
+        Pod myPod = client.pods().inNamespace(ns).withName(name).get();
+
+        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(myPod);
     }
 
 }

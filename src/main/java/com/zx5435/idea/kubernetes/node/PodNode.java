@@ -56,7 +56,7 @@ public class PodNode extends ATreeNode {
         b1.addActionListener(e -> {
             Project project = ProjectManager.getInstance().getDefaultProject();
             VirtualFileManager vm = VirtualFileManager.getInstance();
-            VirtualFile zxc = vm.findFileById("zxc");
+            VirtualFile zxc = vm.findFileById(123);
 //            VirtualFile v = new VirtualFile() {
             EditorFactory edIns = EditorFactory.getInstance();
             Document doc = edIns.createDocument("hehe");

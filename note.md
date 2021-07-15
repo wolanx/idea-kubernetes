@@ -9,6 +9,9 @@ tool-windows https://www.jetbrains.com/help/idea/tool-windows.html#general-tool-
 - gradle https://www.jetbrains.com/help/idea/gradle.html
 - icons https://jetbrains.design/intellij/resources/icons_list/
 
+# k8s fabric8 api
+https://github.com/fabric8io/kubernetes-client/blob/master/doc/CHEATSHEET.md
+
 # demo
 
 - （二十四）IntelliJ 插件开发——Idea下方工具窗口 https://www.jianshu.com/p/c66c38b7dd4d
