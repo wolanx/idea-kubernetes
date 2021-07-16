@@ -83,7 +83,7 @@ public class MyTree {
                 }
                 Object obj = ((DefaultMutableTreeNode) path.getLastPathComponent()).getUserObject();
                 if (obj instanceof Descriptor) {
-                    JPopupMenu menu = ((ITreeNode) ((Descriptor<?>) obj).getElement()).getMenu();
+                    JPopupMenu menu = ((ITreeNode) ((Descriptor<?>) obj).getElement()).getMenu(project);
                     if (menu != null) {
                         //System.out.println(x + " " + y);
                         menu.show(tree, x, y);

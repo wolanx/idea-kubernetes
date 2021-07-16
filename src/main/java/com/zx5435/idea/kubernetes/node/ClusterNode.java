@@ -2,6 +2,7 @@ package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.MessageDialogBuilder;
 import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
@@ -39,7 +40,7 @@ public class ClusterNode extends ATreeNode {
     }
 
     @Override
-    public JPopupMenu getMenu() {
+    public JPopupMenu getMenu(Project project) {
         JPopupMenu menu = new JPopupMenu();
 
         JMenuItem b1 = new JMenuItem("Edit", AllIcons.Actions.Edit);

@@ -1,6 +1,7 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
+import com.intellij.openapi.project.Project;
 import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import io.fabric8.kubernetes.api.model.*;
@@ -46,7 +47,7 @@ public class FolderNode extends ATreeNode {
     }
 
     @Override
-    public JPopupMenu getMenu() {
+    public JPopupMenu getMenu(Project project) {
         if (kind != null) {
             JPopupMenu menu = new JPopupMenu();
 
@@ -59,7 +60,7 @@ public class FolderNode extends ATreeNode {
             menu.add(b1);
             return menu;
         }
-        return super.getMenu();
+        return super.getMenu(project);
     }
 
     ////////

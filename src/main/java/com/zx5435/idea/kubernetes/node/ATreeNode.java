@@ -1,5 +1,6 @@
 package com.zx5435.idea.kubernetes.node;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
@@ -42,7 +43,7 @@ public abstract class ATreeNode implements ITreeNode {
     }
 
     @Override
-    public JPopupMenu getMenu() {
+    public JPopupMenu getMenu(Project project) {
         return null;
     }
 
