@@ -2,17 +2,16 @@ package com.zx5435.idea.kubernetes.other;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.ui.EditorTextField;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.components.JBTextField;
-import com.zx5435.idea.kubernetes.service.KubeStorage;
+import com.zx5435.idea.kubernetes.service.StorageSevice;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 public class ClusterEditDialog extends DialogWrapper {
 
@@ -45,7 +44,7 @@ public class ClusterEditDialog extends DialogWrapper {
         JPanel p = new JPanel(new FlowLayout());
         JButton btn = new JButton("Save");
         btn.addActionListener(e -> {
-            KubeStorage storage = ServiceManager.getService(KubeStorage.class);
+            StorageSevice storage = ServiceManager.getService(StorageSevice.class);
             storage.updateByNameAndContent(nameOld, fName.getText(), fContent.getText());
             close(0);
         });

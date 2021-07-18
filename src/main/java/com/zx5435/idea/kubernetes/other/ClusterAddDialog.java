@@ -5,13 +5,13 @@ import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.components.JBTextField;
-import com.zx5435.idea.kubernetes.service.KubeStorage;
+import com.zx5435.idea.kubernetes.service.StorageSevice;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 public class ClusterAddDialog extends DialogWrapper {
 
@@ -41,7 +41,7 @@ public class ClusterAddDialog extends DialogWrapper {
         JPanel p = new JPanel(new FlowLayout());
         JButton btn = new JButton("Submit");
         btn.addActionListener(e -> {
-            KubeStorage storage = ServiceManager.getService(KubeStorage.class);
+            StorageSevice storage = ServiceManager.getService(StorageSevice.class);
             storage.createByNameAndContent(fName.getText(), fContent.getText());
             close(0);
         });

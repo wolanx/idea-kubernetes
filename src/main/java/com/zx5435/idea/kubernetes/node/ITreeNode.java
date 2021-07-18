@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 public interface ITreeNode {
 

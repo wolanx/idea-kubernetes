@@ -3,9 +3,9 @@ package com.zx5435.idea.kubernetes.tree;
 import com.intellij.ide.util.treeView.AbstractTreeStructure;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.ui.tree.LeafState;
-import com.zx5435.idea.kubernetes.descriptor.Descriptor;
-import com.zx5435.idea.kubernetes.descriptor.FolderDescriptor;
-import com.zx5435.idea.kubernetes.descriptor.ResourceDescriptor;
+import com.zx5435.idea.kubernetes.view.BaseView;
+import com.zx5435.idea.kubernetes.view.FolderView;
+import com.zx5435.idea.kubernetes.view.ResourceView;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.node.FolderNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 public class MyTreeStructure extends AbstractTreeStructure {
 
@@ -49,11 +49,11 @@ public class MyTreeStructure extends AbstractTreeStructure {
     public @NotNull NodeDescriptor<?> createDescriptor(@NotNull Object element, @Nullable NodeDescriptor parent) {
         // fixme map createDescriptor
         if (element instanceof FolderNode) {
-            return new FolderDescriptor<>((FolderNode) element, parent);
+            return new FolderView<>((FolderNode) element, parent);
         } else if (element instanceof ITreeNode) {
-            return new ResourceDescriptor<>((ITreeNode) element, parent);
+            return new ResourceView<>((ITreeNode) element, parent);
         } else {
-            return new Descriptor<>(element, parent);
+            return new BaseView<>(element, parent);
         }
     }
 
@@ -90,7 +90,6 @@ public class MyTreeStructure extends AbstractTreeStructure {
         ret.forEach(v -> {
             v.setCtx(node.getCtx());
             v.setModel(model);
-//            System.out.println(v.getLabel() + " " + Integer.toHexString(v.hashCode()));
         });
         return ret;
     }

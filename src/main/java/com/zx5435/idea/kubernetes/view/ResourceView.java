@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.descriptor;
+package com.zx5435.idea.kubernetes.view;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;
@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author 913332
+ * @author zx5435
  */
-public class ResourceDescriptor<T extends ITreeNode> extends Descriptor<T> {
+public class ResourceView<T extends ITreeNode> extends BaseView<T> {
 
-    public ResourceDescriptor(T e, @Nullable NodeDescriptor parentDescriptor) {
+    public ResourceView(T e, @Nullable NodeDescriptor parentDescriptor) {
         super(e, parentDescriptor);
     }
 

@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.service;
+package com.zx5435.idea.kubernetes.utils;
 
 import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.node.*;
@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 @Slf4j
 public class KubeUtil {
@@ -177,7 +177,6 @@ public class KubeUtil {
                 System.out.println("cause = " + cause);
             }
         });
-        System.out.println();
     }
 
     private static List<ITreeNode> listCustomResourceDefinition(DefaultKubernetesClient client) {

@@ -18,11 +18,11 @@ https://github.com/fabric8io/kubernetes-client/blob/master/doc/CHEATSHEET.md
 
 - 记事本demo https://juejin.cn/post/6844904127990857742
 
+# cmd
 k get pod | grep blog- | awk '{print $1}' | xargs k delete pod
 
-((ResModelImpl) getModel()).arr.add(new ContextNode("hhhhhh"))
 
-
+# other
 // 格式化代码
 CodeStyleManager.getInstance(project).reformat(psiClass);
 // 用编辑器打开指定文件

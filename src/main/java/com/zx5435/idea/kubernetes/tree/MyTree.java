@@ -5,8 +5,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.ui.tree.AsyncTreeModel;
 import com.intellij.ui.tree.StructureTreeModel;
 import com.intellij.ui.treeStructure.Tree;
-import com.zx5435.idea.kubernetes.descriptor.Descriptor;
-import com.zx5435.idea.kubernetes.descriptor.FolderDescriptor;
+import com.zx5435.idea.kubernetes.view.BaseView;
+import com.zx5435.idea.kubernetes.view.FolderView;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
 import lombok.SneakyThrows;
@@ -21,7 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 @Slf4j
 public class MyTree {
@@ -43,16 +43,16 @@ public class MyTree {
             @Override
             public void treeExpanded(TreeExpansionEvent e) {
                 Object o = ((DefaultMutableTreeNode) e.getPath().getLastPathComponent()).getUserObject();
-                if (o instanceof FolderDescriptor) {
-                    ((FolderDescriptor<?>) o).watchUpdate();
+                if (o instanceof FolderView) {
+                    ((FolderView<?>) o).watchUpdate();
                 }
             }
 
             @Override
             public void treeCollapsed(TreeExpansionEvent e) {
                 Object o = ((DefaultMutableTreeNode) e.getPath().getLastPathComponent()).getUserObject();
-                if (o instanceof FolderDescriptor) {
-                    ((FolderDescriptor<?>) o).stopWatchUpdate();
+                if (o instanceof FolderView) {
+                    ((FolderView<?>) o).stopWatchUpdate();
                 }
             }
         });
@@ -82,10 +82,9 @@ public class MyTree {
                     return;
                 }
                 Object obj = ((DefaultMutableTreeNode) path.getLastPathComponent()).getUserObject();
-                if (obj instanceof Descriptor) {
-                    JPopupMenu menu = ((ITreeNode) ((Descriptor<?>) obj).getElement()).getMenu(project);
+                if (obj instanceof BaseView) {
+                    JPopupMenu menu = ((ITreeNode) ((BaseView<?>) obj).getElement()).getMenu(project);
                     if (menu != null) {
-                        //System.out.println(x + " " + y);
                         menu.show(tree, x, y);
                     }
                 }

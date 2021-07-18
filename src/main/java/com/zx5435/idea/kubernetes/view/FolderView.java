@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.descriptor;
+package com.zx5435.idea.kubernetes.view;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;
@@ -8,12 +8,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 @Slf4j
-public class FolderDescriptor<T extends FolderNode> extends Descriptor<T> {
+public class FolderView<T extends FolderNode> extends BaseView<T> {
 
-    public FolderDescriptor(T e, @Nullable NodeDescriptor parentDescriptor) {
+    public FolderView(T e, @Nullable NodeDescriptor parentDescriptor) {
         super(e, parentDescriptor);
     }
 

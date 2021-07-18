@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 public abstract class ATreeNode implements ITreeNode {
 

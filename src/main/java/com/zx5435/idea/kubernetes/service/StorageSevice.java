@@ -20,15 +20,15 @@ import java.util.List;
  */
 @State(name = "KubeStorage", storages = {@Storage(value = "zx5435.k8s.plugin.xml")})
 @Slf4j
-public class KubeStorage implements PersistentStateComponent<KubeStorage> {
+public class StorageSevice implements PersistentStateComponent<StorageSevice> {
 
     @Getter
     public List<KubeConfig> kubeConfigs;
 
     @Override
-    public void loadState(@NotNull KubeStorage state) {
+    public void loadState(@NotNull StorageSevice state) {
         XmlSerializerUtil.copyBean(state, this);
-        System.out.println("loadState");
+        log.warn("loadState");
     }
 
     @Override
@@ -36,17 +36,17 @@ public class KubeStorage implements PersistentStateComponent<KubeStorage> {
         if (kubeConfigs == null) {
             kubeConfigs = new ArrayList<>();
         }
-        System.out.println("initializeComponent");
+        log.warn("initializeComponent");
     }
 
     @Nullable
     @Override
-    public KubeStorage getState() {
+    public StorageSevice getState() {
         return this;
     }
 
     public void createByNameAndContent(String name, String content) {
-        System.out.println(name + content.length());
+        log.warn(name + content.length());
         kubeConfigs.add(KubeConfig.of(name, content));
         ServiceManager.getService(IResModel.class).fireCluster();
     }

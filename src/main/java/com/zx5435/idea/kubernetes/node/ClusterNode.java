@@ -8,7 +8,7 @@ import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.other.ClusterEditDialog;
 import com.zx5435.idea.kubernetes.model.KubeConfig;
-import com.zx5435.idea.kubernetes.service.KubeStorage;
+import com.zx5435.idea.kubernetes.service.StorageSevice;
 import io.fabric8.kubernetes.api.model.Namespace;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 @Slf4j
 public class ClusterNode extends ATreeNode {
@@ -53,7 +53,7 @@ public class ClusterNode extends ATreeNode {
         b2.addActionListener(e -> {
             boolean b = MessageDialogBuilder.yesNo("Are you sure", "delete is cluster").guessWindowAndAsk();
             if (b) {
-                KubeStorage storage = ServiceManager.getService(KubeStorage.class);
+                StorageSevice storage = ServiceManager.getService(StorageSevice.class);
                 storage.deleteByName(getLabel());
             }
         });

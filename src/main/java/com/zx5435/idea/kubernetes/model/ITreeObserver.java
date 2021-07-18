@@ -4,7 +4,7 @@ import com.zx5435.idea.kubernetes.node.ITreeNode;
 import io.fabric8.kubernetes.api.model.Namespace;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 public interface ITreeObserver {
 

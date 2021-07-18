@@ -1,6 +1,7 @@
 package com.zx5435.idea.kubernetes.service;
 
 import com.intellij.openapi.util.io.FileUtil;
+import com.zx5435.idea.kubernetes.utils.KubeUtil;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import org.apache.commons.io.FileUtils;

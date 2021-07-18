@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.swing.*;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 @Slf4j
 public class NamespaceNode extends ATreeNode {

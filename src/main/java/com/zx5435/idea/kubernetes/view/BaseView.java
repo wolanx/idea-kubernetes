@@ -1,4 +1,4 @@
-package com.zx5435.idea.kubernetes.descriptor;
+package com.zx5435.idea.kubernetes.view;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.NodeDescriptor;
@@ -7,20 +7,20 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @author 913332
+ * @author zx5435
  */
-public class Descriptor<T> extends PresentableNodeDescriptor<T> {
+public class BaseView<T> extends PresentableNodeDescriptor<T> {
 
     protected T element;
 
-    public Descriptor(T e, @Nullable NodeDescriptor parentDescriptor) {
+    public BaseView(T e, @Nullable NodeDescriptor parentDescriptor) {
         super(null, parentDescriptor);
         element = e;
     }
 
     @Override
     protected void update(@NotNull PresentationData presentation) {
-//        System.out.println();
+        //
     }
 
     @Override

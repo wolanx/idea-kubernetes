@@ -3,8 +3,8 @@ package com.zx5435.idea.kubernetes.model;
 import com.intellij.openapi.components.ServiceManager;
 import com.zx5435.idea.kubernetes.node.ClusterNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
-import com.zx5435.idea.kubernetes.service.KubeStorage;
-import com.zx5435.idea.kubernetes.service.KubeUtil;
+import com.zx5435.idea.kubernetes.service.StorageSevice;
+import com.zx5435.idea.kubernetes.utils.KubeUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author 913332
+ * @author zx5435
  */
 @Slf4j
 public class ResModel implements IResModel {
@@ -57,10 +57,9 @@ public class ResModel implements IResModel {
 
     @Override
     public void fireCluster() {
-        List<KubeConfig> kubeConfigs = ServiceManager.getService(KubeStorage.class).kubeConfigs;
+        List<KubeConfig> kubeConfigs = ServiceManager.getService(StorageSevice.class).kubeConfigs;
         clusters.clear();
         for (KubeConfig kubeConfig : kubeConfigs) {
-            System.out.println(kubeConfig);
             clusters.add(new ClusterNode(kubeConfig, this));
         }
         observe.fireSelectNs(null);
