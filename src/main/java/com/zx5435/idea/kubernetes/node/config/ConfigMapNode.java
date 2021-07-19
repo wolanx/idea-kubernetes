@@ -1,7 +1,9 @@
-package com.zx5435.idea.kubernetes.node;
+package com.zx5435.idea.kubernetes.node.config;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.JBPopupMenu;
+import com.zx5435.idea.kubernetes.node.ATreeNode;
 import io.fabric8.kubernetes.api.model.ConfigMap;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,8 +32,8 @@ public class ConfigMapNode extends ATreeNode {
     }
 
     @Override
-    public JPopupMenu getMenu(Project project) {
-        JPopupMenu menu = new JPopupMenu();
+    public JBPopupMenu getMenu(Project project) {
+        JBPopupMenu menu = new JBPopupMenu();
 
         JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
         b1.addActionListener(ev -> {

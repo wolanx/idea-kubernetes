@@ -2,6 +2,7 @@ package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.JBPopupMenu;
 import io.fabric8.kubernetes.api.model.Namespace;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,8 +53,8 @@ public class NamespaceNode extends ATreeNode {
     }
 
     @Override
-    public JPopupMenu getMenu(Project project) {
-        JPopupMenu menu = new JPopupMenu();
+    public JBPopupMenu getMenu(Project project) {
+        JBPopupMenu menu = new JBPopupMenu();
 
         JMenuItem b1 = new JMenuItem("Use namespace");
         b1.addActionListener(e -> {

@@ -1,8 +1,10 @@
-package com.zx5435.idea.kubernetes.node;
+package com.zx5435.idea.kubernetes.node.workload;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
-import io.fabric8.kubernetes.api.model.PersistentVolumeClaim;
+import com.intellij.openapi.ui.JBPopupMenu;
+import com.zx5435.idea.kubernetes.node.ATreeNode;
+import io.fabric8.kubernetes.api.model.apps.DaemonSet;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -11,11 +13,11 @@ import javax.swing.*;
  * @author zx5435
  */
 @Slf4j
-public class PvcNode extends ATreeNode {
+public class DaemonSetNode extends ATreeNode {
 
-    PersistentVolumeClaim ins;
+    DaemonSet ins;
 
-    public PvcNode(PersistentVolumeClaim ns) {
+    public DaemonSetNode(DaemonSet ns) {
         this.ins = ns;
     }
 
@@ -26,12 +28,12 @@ public class PvcNode extends ATreeNode {
 
     @Override
     public Icon getIcon() {
-        return AllIcons.Actions.GroupByPrefix;
+        return AllIcons.Nodes.Deploy;
     }
 
     @Override
-    public JPopupMenu getMenu(Project project) {
-        JPopupMenu menu = new JPopupMenu();
+    public JBPopupMenu getMenu(Project project) {
+        JBPopupMenu menu = new JBPopupMenu();
 
         JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
         b1.addActionListener(ev -> {

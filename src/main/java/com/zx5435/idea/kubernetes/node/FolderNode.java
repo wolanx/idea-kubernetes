@@ -1,8 +1,12 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
+import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.JBMenuItem;
+import com.intellij.openapi.ui.JBPopupMenu;
 import com.intellij.ui.tree.LeafState;
+import com.zx5435.idea.kubernetes.editor.TableEditorView;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.apiextensions.v1beta1.CustomResourceDefinition;
@@ -17,7 +21,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,44 +29,6 @@ import java.util.List;
  */
 @Slf4j
 public class FolderNode extends ATreeNode {
-
-    @Getter
-    @Setter
-    private Class<?> kind;
-
-    public FolderNode(String label) {
-        setLabel(label);
-    }
-
-    public FolderNode(String label, IResModel model, Class<?> kind) {
-        setLabel(label);
-        setModel(model);
-        setKind(kind);
-    }
-
-    @Override
-    public LeafState getLeafState() {
-        return LeafState.NEVER;
-    }
-
-    @Override
-    public JPopupMenu getMenu(Project project) {
-        if (kind != null) {
-            JPopupMenu menu = new JPopupMenu();
-
-            JMenuItem b1 = new JMenuItem("Refresh", AllIcons.Actions.Refresh);
-            b1.addActionListener(e -> {
-                log.warn("refresh");
-                getModel().reloadByKind(this, kind);
-            });
-
-            menu.add(b1);
-            return menu;
-        }
-        return super.getMenu(project);
-    }
-
-    ////////
 
     public static class WorkloadsNode extends FolderNode {
 
@@ -121,6 +86,50 @@ public class FolderNode extends ATreeNode {
             childElements.add(new FolderNode("StorageClasses", getModel(), StorageClass.class));
         }
 
+    }
+
+    ////////
+
+    @Getter
+    @Setter
+    private Class<?> kind;
+
+    public FolderNode(String label) {
+        setLabel(label);
+    }
+
+    public FolderNode(String label, IResModel model, Class<?> kind) {
+        setLabel(label);
+        setModel(model);
+        setKind(kind);
+    }
+
+    @Override
+    public LeafState getLeafState() {
+        return LeafState.NEVER;
+    }
+
+    @Override
+    public JBPopupMenu getMenu(Project project) {
+        if (kind != null) {
+            JBPopupMenu menu = new JBPopupMenu();
+
+            JBMenuItem b1 = new JBMenuItem("Refresh", AllIcons.Actions.Refresh);
+            b1.addActionListener(e -> {
+                log.warn("refresh");
+                getModel().reloadByKind(this, kind);
+            });
+            menu.add(b1);
+
+            JBMenuItem b2 = new JBMenuItem("Load", AllIcons.Actions.Show);
+            b2.addActionListener(e -> {
+                TableEditorView.test(project, getLabel(), "a,1,1,1");
+            });
+            menu.add(b2);
+
+            return menu;
+        }
+        return super.getMenu(project);
     }
 
 }
