@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 public class TableEditorView {
 
-    public static void test(Project project, String name, String content) {
+    public static void load(Project project, String name, String content) {
         FileEditorManager fm = FileEditorManager.getInstance(project);
 
         Path path = Paths.get(FileUtil.getTempDirectory(), "idea-kubernetes", name + ".csv");

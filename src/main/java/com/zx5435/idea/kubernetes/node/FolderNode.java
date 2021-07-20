@@ -1,13 +1,13 @@
 package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.JBMenuItem;
 import com.intellij.openapi.ui.JBPopupMenu;
 import com.intellij.ui.tree.LeafState;
 import com.zx5435.idea.kubernetes.editor.TableEditorView;
 import com.zx5435.idea.kubernetes.model.IResModel;
+import com.zx5435.idea.kubernetes.utils.KubeUtil;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.apiextensions.v1beta1.CustomResourceDefinition;
 import io.fabric8.kubernetes.api.model.apps.DaemonSet;
@@ -121,9 +121,10 @@ public class FolderNode extends ATreeNode {
             });
             menu.add(b1);
 
-            JBMenuItem b2 = new JBMenuItem("Load", AllIcons.Actions.Show);
+            JBMenuItem b2 = new JBMenuItem("Load", AllIcons.Nodes.DataTables);
             b2.addActionListener(e -> {
-                TableEditorView.test(project, getLabel(), "a,1,1,1");
+                String content = KubeUtil.getTable(getCtx(), kind);
+                TableEditorView.load(project, getCtx().getName() + "_" + getLabel().toLowerCase(), content);
             });
             menu.add(b2);
 

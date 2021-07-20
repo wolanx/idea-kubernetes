@@ -1,7 +1,8 @@
 package com.zx5435.idea.kubernetes.utils;
 
 import com.zx5435.idea.kubernetes.model.ClusterModel;
-import com.zx5435.idea.kubernetes.node.*;
+import com.zx5435.idea.kubernetes.node.ITreeNode;
+import com.zx5435.idea.kubernetes.node.NamespaceNode;
 import com.zx5435.idea.kubernetes.node.config.ConfigMapNode;
 import com.zx5435.idea.kubernetes.node.config.SecretNode;
 import com.zx5435.idea.kubernetes.node.network.IngressNode;
@@ -81,6 +82,10 @@ public class KubeUtil {
         }
     }
 
+    public static String getTable(ClusterModel ctx, Class<?> kind) {
+        // todo
+        return "a,b,c\n1,2,3\n3,6," + kind.toString();
+    }
 
     public static List<ITreeNode> listNs(DefaultKubernetesClient client) {
         List<Namespace> res = client.namespaces().list().getItems();
@@ -286,14 +291,14 @@ public class KubeUtil {
     // yaml
 
     @SneakyThrows
-    public static String getDeployment(DefaultKubernetesClient client, String ns, String name){
+    public static String getDeployment(DefaultKubernetesClient client, String ns, String name) {
         Deployment myPod = client.apps().deployments().inNamespace(ns).withName(name).get();
 
         return SerializationUtils.dumpWithoutRuntimeStateAsYaml(myPod);
     }
 
     @SneakyThrows
-    public static String getPod(DefaultKubernetesClient client, String ns, String name){
+    public static String getPod(DefaultKubernetesClient client, String ns, String name) {
         Pod myPod = client.pods().inNamespace(ns).withName(name).get();
 
         return SerializationUtils.dumpWithoutRuntimeStateAsYaml(myPod);
