@@ -28,5 +28,3 @@ CodeStyleManager.getInstance(project).reformat(psiClass);
 // 用编辑器打开指定文件
 FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project, virtualFile), true);
 
-
-

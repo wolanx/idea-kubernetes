@@ -1,4 +1,6 @@
-# IntelliJ IDEA plugin for Kubernetes
+# Kubernetes 
+
+> JetBrains IDEs plugin for manage Kubernetes
 
 ## Feature
 
