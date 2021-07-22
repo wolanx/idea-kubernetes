@@ -292,16 +292,23 @@ public class KubeUtil {
 
     @SneakyThrows
     public static String getDeployment(DefaultKubernetesClient client, String ns, String name) {
-        Deployment myPod = client.apps().deployments().inNamespace(ns).withName(name).get();
+        Deployment res = client.apps().deployments().inNamespace(ns).withName(name).get();
 
-        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(myPod);
+        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(res);
     }
 
     @SneakyThrows
     public static String getPod(DefaultKubernetesClient client, String ns, String name) {
-        Pod myPod = client.pods().inNamespace(ns).withName(name).get();
+        Pod res = client.pods().inNamespace(ns).withName(name).get();
 
-        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(myPod);
+        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(res);
+    }
+
+    @SneakyThrows
+    public static String getCronJob(DefaultKubernetesClient client, String ns, String name) {
+        CronJob res = client.batch().v1beta1().cronjobs().inNamespace(ns).withName(name).get();
+
+        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(res);
     }
 
 }
