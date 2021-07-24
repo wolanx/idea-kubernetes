@@ -36,13 +36,13 @@ public class SecretNode extends ATreeNode {
         JBPopupMenu menu = new JBPopupMenu();
 
         JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
-        b1.addActionListener(ev -> {
+        b1.addActionListener(e -> {
             log.warn("todo");
         });
         menu.add(b1);
 
         JMenuItem b2 = new JMenuItem("Delete", AllIcons.Actions.Close);
-        b2.addActionListener(ev -> {
+        b2.addActionListener(e -> {
             log.warn("todo");
         });
         menu.add(b2);

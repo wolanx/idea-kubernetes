@@ -41,7 +41,7 @@ public class PodNode extends ATreeNode {
 
         JBMenuItem b1 = new JBMenuItem("Load", AllIcons.Actions.Show);
         b1.addActionListener(e -> {
-            String yaml = KubeUtil.getPod(getCtx().getClient(), "zx5435", getLabel()); // todo
+            String yaml = KubeUtil.getPod(getCtx().getClient(), ins.getMetadata().getNamespace(), getLabel());
             YamlEditorView.load(project, getLabel(), yaml);
         });
         menu.add(b1);
