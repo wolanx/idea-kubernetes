@@ -289,6 +289,13 @@ public class KubeUtil {
     }
 
     // yaml
+    @SneakyThrows
+    public static String getNs(DefaultKubernetesClient client, String ns) {
+        Namespace res = client.namespaces().withName(ns).get();
+
+        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(res);
+    }
+
 
     @SneakyThrows
     public static String getDeployment(DefaultKubernetesClient client, String ns, String name) {

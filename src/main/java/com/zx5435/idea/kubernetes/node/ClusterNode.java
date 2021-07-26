@@ -3,6 +3,7 @@ package com.zx5435.idea.kubernetes.node;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.JBMenuItem;
 import com.intellij.openapi.ui.JBPopupMenu;
 import com.intellij.openapi.ui.MessageDialogBuilder;
 import com.zx5435.idea.kubernetes.model.ClusterModel;
@@ -44,13 +45,13 @@ public class ClusterNode extends ATreeNode {
     public JBPopupMenu getMenu(Project project) {
         JBPopupMenu menu = new JBPopupMenu();
 
-        JMenuItem b1 = new JMenuItem("Edit", AllIcons.Actions.Edit);
+        JBMenuItem b1 = new JBMenuItem("Edit", AllIcons.Actions.Edit);
         b1.addActionListener(e -> {
             new ClusterEditDialog(getLabel(), getCtx().getKubeConfig().getContent()).show();
         });
         menu.add(b1);
 
-        JMenuItem b2 = new JMenuItem("Delete", AllIcons.Actions.Close);
+        JBMenuItem b2 = new JBMenuItem("Delete", AllIcons.Actions.Close);
         b2.addActionListener(e -> {
             boolean b = MessageDialogBuilder.yesNo("Are you sure", "delete is cluster").guessWindowAndAsk();
             if (b) {

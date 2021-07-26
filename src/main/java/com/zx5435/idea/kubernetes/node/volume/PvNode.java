@@ -2,6 +2,7 @@ package com.zx5435.idea.kubernetes.node.volume;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.JBMenuItem;
 import com.intellij.openapi.ui.JBPopupMenu;
 import com.zx5435.idea.kubernetes.node.ATreeNode;
 import io.fabric8.kubernetes.api.model.PersistentVolume;
@@ -35,14 +36,14 @@ public class PvNode extends ATreeNode {
     public JBPopupMenu getMenu(Project project) {
         JBPopupMenu menu = new JBPopupMenu();
 
-        JMenuItem b1 = new JMenuItem("Load", AllIcons.Actions.Show);
-        b1.addActionListener(ev -> {
+        JBMenuItem b1 = new JBMenuItem("Load", AllIcons.Actions.Show);
+        b1.addActionListener(e -> {
             log.warn("todo");
         });
         menu.add(b1);
 
-        JMenuItem b2 = new JMenuItem("Delete", AllIcons.Actions.Close);
-        b2.addActionListener(ev -> {
+        JBMenuItem b2 = new JBMenuItem("Delete", AllIcons.Actions.Close);
+        b2.addActionListener(e -> {
             log.warn("todo");
         });
         menu.add(b2);

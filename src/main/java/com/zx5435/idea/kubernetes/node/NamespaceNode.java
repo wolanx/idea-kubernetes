@@ -2,7 +2,10 @@ package com.zx5435.idea.kubernetes.node;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.JBMenuItem;
 import com.intellij.openapi.ui.JBPopupMenu;
+import com.zx5435.idea.kubernetes.editor.YamlEditorView;
+import com.zx5435.idea.kubernetes.utils.KubeUtil;
 import io.fabric8.kubernetes.api.model.Namespace;
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,12 +59,20 @@ public class NamespaceNode extends ATreeNode {
     public JBPopupMenu getMenu(Project project) {
         JBPopupMenu menu = new JBPopupMenu();
 
-        JMenuItem b1 = new JMenuItem("Use namespace");
+        JBMenuItem b1 = new JBMenuItem("Use namespace");
         b1.addActionListener(e -> {
             getModel().fireSelectNs(getCtx(), ins.getMetadata().getName());
         });
-
         menu.add(b1);
+
+        JBMenuItem b2 = new JBMenuItem("Delete", AllIcons.Actions.Close);
+        b2.addActionListener(e -> {
+            String yaml = KubeUtil.getNs(getCtx().getClient(), getLabel());
+            YamlEditorView.load(project, getLabel(), yaml);
+        });
+        menu.add(b2);
+
+
         return menu;
     }
 
