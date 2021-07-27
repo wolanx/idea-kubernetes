@@ -325,4 +325,11 @@ public class KubeUtil {
         return SerializationUtils.dumpWithoutRuntimeStateAsYaml(res);
     }
 
+    @SneakyThrows
+    public static String getSecret(DefaultKubernetesClient client, String ns, String name) {
+        Secret res = client.secrets().inNamespace(ns).withName(name).get();
+
+        return SerializationUtils.dumpWithoutRuntimeStateAsYaml(res);
+    }
+
 }
