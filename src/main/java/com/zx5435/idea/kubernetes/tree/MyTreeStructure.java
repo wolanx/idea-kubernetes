@@ -3,15 +3,20 @@ package com.zx5435.idea.kubernetes.tree;
 import com.intellij.ide.util.treeView.AbstractTreeStructure;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.ui.tree.LeafState;
+import com.zx5435.idea.kubernetes.model.ClusterModel;
+import com.zx5435.idea.kubernetes.node.ClusterNode;
+import com.zx5435.idea.kubernetes.node.workload.PodNode;
 import com.zx5435.idea.kubernetes.view.BaseView;
 import com.zx5435.idea.kubernetes.view.FolderView;
 import com.zx5435.idea.kubernetes.view.ResourceView;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.node.FolderNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
+import io.fabric8.kubernetes.api.model.Pod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,7 +39,11 @@ public class MyTreeStructure extends AbstractTreeStructure {
     @Override
     public Object @NotNull [] getChildElements(@NotNull Object element) {
         if (element == model) {
-            return model.getClusters().toArray();
+            List<ITreeNode> ret = new ArrayList<>();
+            for (ClusterModel ctx : model.getClusters()) {
+                ret.add(new ClusterNode(ctx, model));
+            }
+            return ret.toArray();
         } else {
             return getValidContributions((ITreeNode) element).toArray();
         }

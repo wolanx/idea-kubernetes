@@ -26,16 +26,10 @@ public class ClusterModel {
 
     @Getter
     @Setter
-    private IResModel model;
-
-    @Getter
-    @Setter
     private DefaultKubernetesClient client;
 
-    public ClusterModel(KubeConfig kubeConfig, IResModel model) {
+    public ClusterModel(KubeConfig kubeConfig) {
         this.name = kubeConfig.getName();
-        this.model = model;
-
         this.kubeConfig = kubeConfig;
 
         try {
@@ -46,11 +40,11 @@ public class ClusterModel {
     }
 
     public String getNs() {
-        return getModel().getNsByCtx(this);
+        return "test";
     }
 
     public void initClient() throws IOException {
-//        client = new DefaultKubernetesClient();
+        //client = new DefaultKubernetesClient();
         if ("default".equals(name)) {
             client = new DefaultKubernetesClient();
         } else {

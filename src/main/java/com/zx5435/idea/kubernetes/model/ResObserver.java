@@ -33,7 +33,7 @@ public class ResObserver {
 
     public void useNs(String ns) {
         log.warn("selectNs " + ns);
-        treeModel.invalidate();
+//        treeModel.invalidate();
     }
 
     public void added() {

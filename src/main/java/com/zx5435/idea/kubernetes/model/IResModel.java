@@ -13,7 +13,7 @@ public interface IResModel {
     void addListener(ResObserver ob);
 
     // cluster
-    List<ClusterNode> getClusters();
+    List<ClusterModel> getClusters();
     void loadClusters();
 
     void reloadByKind(ITreeNode node, Class<?> kind);

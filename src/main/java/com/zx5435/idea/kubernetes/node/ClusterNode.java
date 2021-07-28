@@ -28,11 +28,11 @@ public class ClusterNode extends ATreeNode {
     @Getter
     private final List<ITreeNode> childElements = new ArrayList<>();
 
-    public ClusterNode(KubeConfig kubeConfig, IResModel model) {
-        String label = kubeConfig.getName();
+    public ClusterNode(ClusterModel ctx, IResModel model) {
+        String label = ctx.getName();
         setLabel(label);
         setModel(model);
-        setCtx(new ClusterModel(kubeConfig, model));
+        setCtx(ctx);
 
         childElements.add(new FolderNode("Namespaces", getModel(), Namespace.class));
         childElements.add(new FolderNode.WorkloadsNode());
