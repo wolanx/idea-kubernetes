@@ -8,26 +8,23 @@ import java.util.List;
 /**
  * @author zx5435
  */
-public class ResSubject implements IResSubject {
+public class ResSubject {
 
-    private final List<ITreeObserver> observers = new ArrayList<>();
+    private final List<ResObserver> obs = new ArrayList<>();
 
-    @Override
-    public void addListener(ITreeObserver observer) {
-        observers.add(observer);
+    public void attach(ResObserver observer) {
+        obs.add(observer);
     }
 
-    @Override
-    public void fireSelectNs(String ns) {
-        for (ITreeObserver one : observers) {
-            one.selectNs(ns);
+    public void notifyUseNs(String ns) {
+        for (ResObserver ob : obs) {
+            ob.useNs(ns);
         }
     }
 
-    @Override
-    public void fireModified(ITreeNode node) {
-        for (ITreeObserver one : observers) {
-            one.modified(node);
+    public void notifyNodeChange(ITreeNode node) {
+        for (ResObserver one : obs) {
+            one.nodeChange(node);
         }
     }
 

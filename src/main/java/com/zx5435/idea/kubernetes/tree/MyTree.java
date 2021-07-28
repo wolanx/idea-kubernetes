@@ -5,6 +5,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.ui.tree.AsyncTreeModel;
 import com.intellij.ui.tree.StructureTreeModel;
 import com.intellij.ui.treeStructure.Tree;
+import com.zx5435.idea.kubernetes.model.ResObserver;
 import com.zx5435.idea.kubernetes.view.BaseView;
 import com.zx5435.idea.kubernetes.view.FolderView;
 import com.zx5435.idea.kubernetes.model.IResModel;
@@ -33,7 +34,7 @@ public class MyTree {
 
         StructureTreeModel<MyTreeStructure> treeModel = new StructureTreeModel<>(structure, project);
 
-        new TreeObserver(treeModel, structure, resModel);
+        new ResObserver(treeModel, structure, resModel);
 
         Tree tree = new Tree(new AsyncTreeModel(treeModel, project));
 

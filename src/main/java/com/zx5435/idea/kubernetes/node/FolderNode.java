@@ -116,7 +116,6 @@ public class FolderNode extends ATreeNode {
 
             JBMenuItem b1 = new JBMenuItem("Refresh", AllIcons.Actions.Refresh);
             b1.addActionListener(e -> {
-                log.warn("refresh");
                 getModel().reloadByKind(this, kind);
             });
             menu.add(b1);

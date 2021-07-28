@@ -10,19 +10,19 @@ import java.util.List;
  */
 public interface IResModel {
 
-    void addListener(ITreeObserver myTreeUpdater);
+    void addListener(ResObserver ob);
 
     // cluster
     List<ClusterNode> getClusters();
-    void fireCluster();
+    void loadClusters();
 
     void reloadByKind(ITreeNode node, Class<?> kind);
 
     String getNsByCtx(ClusterModel ctx);
 
-    void fireSelectNs(ClusterModel ctx, String ns);
+    void useNs(ClusterModel ctx, String ns);
 
-    void fireModified(ITreeNode node);
+    void nodeChange(ITreeNode node);
 
     List<ITreeNode> getResByKind(ITreeNode node, Class<?> kind);
 

@@ -18,36 +18,28 @@ import java.util.Map;
 @Slf4j
 public class ResModel implements IResModel {
 
-    private final ResSubject observe = new ResSubject();
-
-    private final Map<String, String> ctx2ns = new HashMap<>();
+    private final ResSubject im = new ResSubject();
 
     private final List<ClusterNode> clusters = new ArrayList<>();
+    private final Map<String, String> selectedNs = new HashMap<>();
 
     public ResModel() {
-        this.fireCluster();
+        this.loadClusters();
     }
 
     @Override
-    public void addListener(ITreeObserver listener) {
-        observe.addListener(listener);
-    }
-
-
-    @Override
-    public String getNsByCtx(ClusterModel ctx) {
-        return ctx2ns.get(ctx.getName());
+    public void addListener(ResObserver ob) {
+        im.attach(ob);
     }
 
     @Override
-    public void fireSelectNs(ClusterModel ctx, String ns) {
-        ctx2ns.put(ctx.getName(), ns);
-        observe.fireSelectNs(ns);
-    }
-
-    @Override
-    public void fireModified(ITreeNode node) {
-        observe.fireModified(node);
+    public void loadClusters() {
+        List<KubeConfig> kubeConfigs = ServiceManager.getService(StorageSevice.class).kubeConfigs;
+        clusters.clear();
+        for (KubeConfig kubeConfig : kubeConfigs) {
+            clusters.add(new ClusterNode(kubeConfig, this));
+        }
+        im.notifyUseNs(null);
     }
 
     @Override
@@ -56,18 +48,24 @@ public class ResModel implements IResModel {
     }
 
     @Override
-    public void fireCluster() {
-        List<KubeConfig> kubeConfigs = ServiceManager.getService(StorageSevice.class).kubeConfigs;
-        clusters.clear();
-        for (KubeConfig kubeConfig : kubeConfigs) {
-            clusters.add(new ClusterNode(kubeConfig, this));
-        }
-        observe.fireSelectNs(null);
+    public String getNsByCtx(ClusterModel ctx) {
+        return selectedNs.get(ctx.getName());
+    }
+
+    @Override
+    public void useNs(ClusterModel ctx, String ns) {
+        selectedNs.put(ctx.getName(), ns);
+        im.notifyUseNs(ns);
+    }
+
+    @Override
+    public void nodeChange(ITreeNode node) {
+        im.notifyNodeChange(node);
     }
 
     @Override
     public void reloadByKind(ITreeNode node, Class<?> kind) {
-        this.fireModified(node);
+        this.nodeChange(node);
     }
 
     @Override

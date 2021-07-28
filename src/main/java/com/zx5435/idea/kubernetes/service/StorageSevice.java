@@ -48,7 +48,7 @@ public class StorageSevice implements PersistentStateComponent<StorageSevice> {
     public void createByNameAndContent(String name, String content) {
         log.warn(name + content.length());
         kubeConfigs.add(KubeConfig.of(name, content));
-        ServiceManager.getService(IResModel.class).fireCluster();
+        ServiceManager.getService(IResModel.class).loadClusters();
     }
 
     public void updateByNameAndContent(String namePrev, String nameNext, String content) {
@@ -60,7 +60,7 @@ public class StorageSevice implements PersistentStateComponent<StorageSevice> {
                 break;
             }
         }
-        ServiceManager.getService(IResModel.class).fireCluster();
+        ServiceManager.getService(IResModel.class).loadClusters();
     }
 
     public void deleteByName(String name) {
@@ -72,7 +72,7 @@ public class StorageSevice implements PersistentStateComponent<StorageSevice> {
                 break;
             }
         }
-        ServiceManager.getService(IResModel.class).fireCluster();
+        ServiceManager.getService(IResModel.class).loadClusters();
     }
 
 }

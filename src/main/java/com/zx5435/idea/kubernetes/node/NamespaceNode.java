@@ -61,7 +61,7 @@ public class NamespaceNode extends ATreeNode {
 
         JBMenuItem b1 = new JBMenuItem("Use namespace");
         b1.addActionListener(e -> {
-            getModel().fireSelectNs(getCtx(), ins.getMetadata().getName());
+            getModel().useNs(getCtx(), ins.getMetadata().getName());
         });
         menu.add(b1);
 

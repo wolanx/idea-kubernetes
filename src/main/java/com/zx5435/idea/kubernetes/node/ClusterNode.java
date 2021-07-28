@@ -32,7 +32,7 @@ public class ClusterNode extends ATreeNode {
         String label = kubeConfig.getName();
         setLabel(label);
         setModel(model);
-        setCtx(new ClusterModel(kubeConfig, getModel()));
+        setCtx(new ClusterModel(kubeConfig, model));
 
         childElements.add(new FolderNode("Namespaces", getModel(), Namespace.class));
         childElements.add(new FolderNode.WorkloadsNode());

@@ -1,10 +1,10 @@
-package com.zx5435.idea.kubernetes.tree;
+package com.zx5435.idea.kubernetes.model;
 
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.ui.tree.StructureTreeModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
-import com.zx5435.idea.kubernetes.model.ITreeObserver;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
+import com.zx5435.idea.kubernetes.tree.MyTreeStructure;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +17,7 @@ import java.util.Enumeration;
  * @author zx5435
  */
 @Slf4j
-public class TreeObserver implements ITreeObserver {
+public class ResObserver {
 
     @Setter
     private StructureTreeModel<MyTreeStructure> treeModel;
@@ -25,30 +25,26 @@ public class TreeObserver implements ITreeObserver {
     @Setter
     private MyTreeStructure structure;
 
-    public TreeObserver(StructureTreeModel<MyTreeStructure> treeModel, MyTreeStructure structure, IResModel model) {
+    public ResObserver(StructureTreeModel<MyTreeStructure> treeModel, MyTreeStructure structure, IResModel model) {
         setTreeModel(treeModel);
         setStructure(structure);
         model.addListener(this);
     }
 
-    @Override
-    public void selectNs(String ns) {
+    public void useNs(String ns) {
         log.warn("selectNs " + ns);
         treeModel.invalidate();
     }
 
-    @Override
     public void added() {
         log.warn("adder");
     }
 
-    @Override
     public void removed() {
         log.warn("removed");
     }
 
-    @Override
-    public void modified(ITreeNode node) {
+    public void nodeChange(ITreeNode node) {
         log.warn("modified");
         treeModel.getInvoker().invoke(() -> {
             //TreePath path = new TreePath(nodePath.get(0));
