@@ -20,7 +20,7 @@ public class ResModel implements IResModel {
 
     private final ResSubject im = new ResSubject();
 
-    private final List<ClusterModel> clusters = new ArrayList<>();
+    private final List<ClusterNode> clusters = new ArrayList<>();
     private final Map<String, String> selectedNs = new HashMap<>();
 
     public ResModel() {
@@ -37,13 +37,14 @@ public class ResModel implements IResModel {
         List<KubeConfig> kubeConfigs = ServiceManager.getService(StorageSevice.class).kubeConfigs;
         clusters.clear();
         for (KubeConfig kubeConfig : kubeConfigs) {
-            clusters.add(new ClusterModel(kubeConfig));
+            ClusterModel e = new ClusterModel(kubeConfig, this);
+            clusters.add(e.getNode());
         }
         im.notifyUseNs(null);
     }
 
     @Override
-    public List<ClusterModel> getClusters() {
+    public List<ClusterNode> getClusters() {
         return clusters;
     }
 

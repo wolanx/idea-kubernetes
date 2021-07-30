@@ -32,8 +32,8 @@ public class ResObserver {
     }
 
     public void useNs(String ns) {
-        log.warn("selectNs " + ns);
-//        treeModel.invalidate();
+        System.out.println("ResObserver.useNs " + ns);
+        treeModel.invalidate(); // todo  还不能加
     }
 
     public void added() {
@@ -45,7 +45,7 @@ public class ResObserver {
     }
 
     public void nodeChange(ITreeNode node) {
-        log.warn("modified");
+        System.out.println("ResObserver.nodeChange");
         treeModel.getInvoker().invoke(() -> {
             //TreePath path = new TreePath(nodePath.get(0));
             DefaultMutableTreeNode root = (DefaultMutableTreeNode) treeModel.getRoot();
