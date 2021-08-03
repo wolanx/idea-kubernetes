@@ -35,7 +35,7 @@ public class ClusterEditDialog extends DialogWrapper {
     protected JComponent createCenterPanel() {
         JPanel p = new JPanel(new BorderLayout());
         p.add(fName, BorderLayout.NORTH);
-        p.add(new JBScrollPane(fContent), BorderLayout.CENTER);
+        p.add(new JBScrollPane(fContent, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
         return p;
     }
 

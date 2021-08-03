@@ -1,12 +1,11 @@
 package com.zx5435.idea.kubernetes.model;
 
-import com.zx5435.idea.kubernetes.node.ClusterNode;
+import com.intellij.openapi.components.ServiceManager;
 import io.fabric8.kubernetes.api.model.AuthInfo;
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.internal.KubeConfigUtils;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -18,25 +17,16 @@ import java.io.IOException;
 public class ClusterModel {
 
     @Getter
-    @Setter
-    private IResModel model;
+    private final String name;
+
+    private final KubeConfig kubeConfig;
 
     @Getter
-    @Setter
-    private KubeConfig kubeConfig;
-
-    @Getter
-    @Setter
-    private String name;
-
-    @Getter
-    @Setter
     private DefaultKubernetesClient client;
 
-    public ClusterModel(KubeConfig kubeConfig, IResModel model) {
+    public ClusterModel(KubeConfig kubeConfig) {
         this.name = kubeConfig.getName();
         this.kubeConfig = kubeConfig;
-        setModel(model);
 
         try {
             initClient();
@@ -46,7 +36,11 @@ public class ClusterModel {
     }
 
     public String getNs() {
-        return model.getNsByCtx(this);
+        return ServiceManager.getService(IResModel.class).getNsByClusterName(name);
+    }
+
+    public String getYaml() {
+        return kubeConfig.getContent();
     }
 
     public void initClient() throws IOException {
@@ -63,10 +57,6 @@ public class ClusterModel {
             config.setClientKeyData(user.getClientKeyData());
             client = new DefaultKubernetesClient(config);
         }
-    }
-
-    public ClusterNode getNode() {
-        return new ClusterNode(this, model);
     }
 
     @Override

@@ -87,7 +87,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     // fixme better
     // todo 子节点 合并后，不请求
-    public List<ITreeNode> getValidContributions(ITreeNode node) {
+    private List<ITreeNode> getValidContributions(ITreeNode node) {
         List<ITreeNode> ret = getTreeNodes(node);
         ret.forEach(v -> {
             v.setCtx(node.getCtx());

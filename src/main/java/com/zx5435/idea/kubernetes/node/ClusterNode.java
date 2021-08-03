@@ -9,13 +9,11 @@ import com.intellij.openapi.ui.MessageDialogBuilder;
 import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.other.ClusterEditDialog;
-import com.zx5435.idea.kubernetes.model.KubeConfig;
 import com.zx5435.idea.kubernetes.service.StorageSevice;
 import io.fabric8.kubernetes.api.model.Namespace;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +45,7 @@ public class ClusterNode extends ATreeNode {
 
         JBMenuItem b1 = new JBMenuItem("Edit", AllIcons.Actions.Edit);
         b1.addActionListener(e -> {
-            new ClusterEditDialog(getLabel(), getCtx().getKubeConfig().getContent()).show();
+            new ClusterEditDialog(getLabel(), getCtx().getYaml()).show();
         });
         menu.add(b1);
 

@@ -18,7 +18,7 @@ public interface IResModel {
 
     void reloadByKind(ITreeNode node, Class<?> kind);
 
-    String getNsByCtx(ClusterModel ctx);
+    String getNsByClusterName(String clusterName);
 
     void useNs(ClusterModel ctx, String ns);
 

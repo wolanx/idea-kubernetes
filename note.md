@@ -8,8 +8,10 @@ tool-windows https://www.jetbrains.com/help/idea/tool-windows.html#general-tool-
 
 - gradle https://www.jetbrains.com/help/idea/gradle.html
 - icons https://jetbrains.design/intellij/resources/icons_list/
+- ui guide https://jetbrains.design/intellij/controls/text_area/
 
 # k8s fabric8 api
+
 https://github.com/fabric8io/kubernetes-client/blob/master/doc/CHEATSHEET.md
 
 # demo
@@ -19,12 +21,11 @@ https://github.com/fabric8io/kubernetes-client/blob/master/doc/CHEATSHEET.md
 - 记事本demo https://juejin.cn/post/6844904127990857742
 
 # cmd
+
 k get pod | grep blog- | awk '{print $1}' | xargs k delete pod
 
-
 # other
-// 格式化代码
-CodeStyleManager.getInstance(project).reformat(psiClass);
-// 用编辑器打开指定文件
-FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project, virtualFile), true);
+
+// 格式化代码 CodeStyleManager.getInstance(project).reformat(psiClass); // 用编辑器打开指定文件 FileEditorManager.getInstance(project)
+.openTextEditor(new OpenFileDescriptor(project, virtualFile), true);
 
