@@ -9,13 +9,11 @@ import com.intellij.openapi.ui.MessageDialogBuilder;
 import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.other.ClusterEditDialog;
-import com.zx5435.idea.kubernetes.model.KubeConfig;
 import com.zx5435.idea.kubernetes.service.StorageSevice;
 import io.fabric8.kubernetes.api.model.Namespace;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +26,11 @@ public class ClusterNode extends ATreeNode {
     @Getter
     private final List<ITreeNode> childElements = new ArrayList<>();
 
-    public ClusterNode(KubeConfig kubeConfig, IResModel model) {
-        String label = kubeConfig.getName();
+    public ClusterNode(ClusterModel ctx, IResModel model) {
+        String label = ctx.getName();
         setLabel(label);
         setModel(model);
-        setCtx(new ClusterModel(kubeConfig, model));
+        setCtx(ctx);
 
         childElements.add(new FolderNode("Namespaces", getModel(), Namespace.class));
         childElements.add(new FolderNode.WorkloadsNode());
@@ -47,7 +45,7 @@ public class ClusterNode extends ATreeNode {
 
         JBMenuItem b1 = new JBMenuItem("Edit", AllIcons.Actions.Edit);
         b1.addActionListener(e -> {
-            new ClusterEditDialog(getLabel(), getCtx().getKubeConfig().getContent()).show();
+            new ClusterEditDialog(getLabel(), getCtx().getYaml()).show();
         });
         menu.add(b1);
 

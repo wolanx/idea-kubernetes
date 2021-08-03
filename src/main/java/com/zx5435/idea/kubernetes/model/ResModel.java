@@ -37,7 +37,7 @@ public class ResModel implements IResModel {
         List<KubeConfig> kubeConfigs = ServiceManager.getService(StorageSevice.class).kubeConfigs;
         clusters.clear();
         for (KubeConfig kubeConfig : kubeConfigs) {
-            clusters.add(new ClusterNode(kubeConfig, this));
+            clusters.add(new ClusterNode(new ClusterModel(kubeConfig), this));
         }
         im.notifyUseNs(null);
     }
@@ -48,8 +48,8 @@ public class ResModel implements IResModel {
     }
 
     @Override
-    public String getNsByCtx(ClusterModel ctx) {
-        return selectedNs.get(ctx.getName());
+    public String getNsByClusterName(String clusterName) {
+        return selectedNs.get(clusterName);
     }
 
     @Override

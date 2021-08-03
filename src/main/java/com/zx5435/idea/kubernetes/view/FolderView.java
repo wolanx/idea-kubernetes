@@ -25,12 +25,12 @@ public class FolderView<T extends FolderNode> extends BaseView<T> {
 
     public void watchUpdate() {
         if (getElement().getKind() != null) {
-            log.warn("watchUpdate");
+            log.warn("watch start");
         }
     }
 
     public void stopWatchUpdate() {
-        log.warn("stopWatchUpdate");
+        log.warn("watch end");
     }
 
 }

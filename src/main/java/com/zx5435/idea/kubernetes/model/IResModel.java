@@ -12,13 +12,13 @@ public interface IResModel {
 
     void addListener(ResObserver ob);
 
-    // cluster
     List<ClusterNode> getClusters();
+
     void loadClusters();
 
     void reloadByKind(ITreeNode node, Class<?> kind);
 
-    String getNsByCtx(ClusterModel ctx);
+    String getNsByClusterName(String clusterName);
 
     void useNs(ClusterModel ctx, String ns);
 

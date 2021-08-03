@@ -1,11 +1,11 @@
 package com.zx5435.idea.kubernetes.model;
 
+import com.intellij.openapi.components.ServiceManager;
 import io.fabric8.kubernetes.api.model.AuthInfo;
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.internal.KubeConfigUtils;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -17,25 +17,15 @@ import java.io.IOException;
 public class ClusterModel {
 
     @Getter
-    @Setter
-    private KubeConfig kubeConfig;
+    private final String name;
+
+    private final KubeConfig kubeConfig;
 
     @Getter
-    @Setter
-    private String name;
-
-    @Getter
-    @Setter
-    private IResModel model;
-
-    @Getter
-    @Setter
     private DefaultKubernetesClient client;
 
-    public ClusterModel(KubeConfig kubeConfig, IResModel model) {
+    public ClusterModel(KubeConfig kubeConfig) {
         this.name = kubeConfig.getName();
-        this.model = model;
-
         this.kubeConfig = kubeConfig;
 
         try {
@@ -46,11 +36,14 @@ public class ClusterModel {
     }
 
     public String getNs() {
-        return getModel().getNsByCtx(this);
+        return ServiceManager.getService(IResModel.class).getNsByClusterName(name);
+    }
+
+    public String getYaml() {
+        return kubeConfig.getContent();
     }
 
     public void initClient() throws IOException {
-//        client = new DefaultKubernetesClient();
         if ("default".equals(name)) {
             client = new DefaultKubernetesClient();
         } else {

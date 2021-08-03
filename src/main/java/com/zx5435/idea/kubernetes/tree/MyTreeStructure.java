@@ -3,15 +3,17 @@ package com.zx5435.idea.kubernetes.tree;
 import com.intellij.ide.util.treeView.AbstractTreeStructure;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.ui.tree.LeafState;
-import com.zx5435.idea.kubernetes.view.BaseView;
-import com.zx5435.idea.kubernetes.view.FolderView;
-import com.zx5435.idea.kubernetes.view.ResourceView;
+import com.zx5435.idea.kubernetes.model.ClusterModel;
 import com.zx5435.idea.kubernetes.model.IResModel;
 import com.zx5435.idea.kubernetes.node.FolderNode;
 import com.zx5435.idea.kubernetes.node.ITreeNode;
+import com.zx5435.idea.kubernetes.view.BaseView;
+import com.zx5435.idea.kubernetes.view.FolderView;
+import com.zx5435.idea.kubernetes.view.ResourceView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,7 +87,7 @@ public class MyTreeStructure extends AbstractTreeStructure {
 
     // fixme better
     // todo 子节点 合并后，不请求
-    public List<ITreeNode> getValidContributions(ITreeNode node) {
+    private List<ITreeNode> getValidContributions(ITreeNode node) {
         List<ITreeNode> ret = getTreeNodes(node);
         ret.forEach(v -> {
             v.setCtx(node.getCtx());

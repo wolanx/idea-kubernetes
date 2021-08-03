@@ -27,18 +27,21 @@ public class ClusterAddDialog extends DialogWrapper {
     @Override
     protected JComponent createCenterPanel() {
         JPanel p = new JPanel(new BorderLayout());
+
         fName = new JBTextField();
-//        name.setPlaceholder("cluster name");
-        fContent = new JBTextArea(5, 18);
-//        content.setPlaceholder("copy .kubeconfig yaml file into here");
+        fName.getEmptyText().setText("Cluster name");
         p.add(fName, BorderLayout.NORTH);
-        p.add(new JBScrollPane(fContent), BorderLayout.CENTER);
+
+        fContent = new JBTextArea(5, 18);
+        fContent.getEmptyText().setText("Copy .kubeconfig yaml file into here");
+        p.add(new JBScrollPane(fContent, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
         return p;
     }
 
     @Override
     protected JComponent createSouthPanel() {
         JPanel p = new JPanel(new FlowLayout());
+
         JButton btn = new JButton("Submit");
         btn.addActionListener(e -> {
             StorageSevice storage = ServiceManager.getService(StorageSevice.class);
@@ -46,6 +49,7 @@ public class ClusterAddDialog extends DialogWrapper {
             close(0);
         });
         p.add(btn);
+
         return p;
     }
 
